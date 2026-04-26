@@ -15,7 +15,7 @@ export function ProblemSolution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-[10px] border-[1.25px] border-border bg-card p-7"
+          className="card-hover-primary rounded-[10px] border-[1.25px] border-border bg-card p-7"
         >
           <span
             aria-hidden
@@ -41,7 +41,7 @@ export function ProblemSolution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[10px] border-[1.25px] p-7"
+          className="card-hover-primary relative overflow-hidden rounded-[10px] border-[1.25px] p-7"
           style={{
             background:
               "linear-gradient(180deg, color-mix(in oklab, var(--pulse-wine) 6%, var(--bg-surface)) 0%, var(--bg-surface) 100%)",

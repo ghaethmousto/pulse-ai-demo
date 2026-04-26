@@ -17,8 +17,8 @@ export function RisksList({ risks, locale }: { risks: Risk[]; locale: Locale }) 
   const tSeverity = useTranslations("dashboard.severity");
 
   return (
-    <section className="rounded-[10px] border border-border/70 bg-card">
-      <header className="flex items-center justify-between px-5 py-4">
+    <section className="card-hover-primary overflow-hidden rounded-[10px] border border-border/70 bg-card">
+      <header className="list-card-header flex items-center justify-between px-5 py-4">
         <div>
           <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
             {t("eyebrow")}
@@ -33,7 +33,7 @@ export function RisksList({ risks, locale }: { risks: Risk[]; locale: Locale }) 
       </header>
       <ul className="border-t border-border/60 divide-y divide-border/50">
         {risks.map((r) => (
-          <li key={r.id} className="px-5 py-3.5">
+          <li key={r.id} className="list-card-row px-5 py-3.5">
             <div className="flex items-start gap-3">
               <span
                 className={`shrink-0 rounded-[4px] border px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.08em] ${SEVERITY_TONE[r.severity] ?? "bg-muted text-foreground border-border"}`}

@@ -24,7 +24,7 @@ export function ProjectHeader({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-[10px] border border-border/70 bg-card p-5 md:p-6"
+      className="card-hover-primary rounded-[10px] border border-border/70 bg-card p-5 md:p-6"
     >
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>

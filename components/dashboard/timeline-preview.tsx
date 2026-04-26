@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { CountUp } from "@/components/dashboard/count-up";
 import type { Locale, TimelineStage, TimelineStatus } from "@/types/pulse";
 import { pickLocale } from "@/lib/utils/pick-locale";
 import { formatDate } from "@/lib/data/al-reem";
@@ -27,8 +28,8 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
   const tStatus = useTranslations("dashboard.timeline.status");
 
   return (
-    <section className="rounded-[10px] border border-border/70 bg-card">
-      <header className="flex items-center justify-between px-5 py-4">
+    <section className="card-hover-primary overflow-hidden rounded-[10px] border border-border/70 bg-card">
+      <header className="list-card-header flex items-center justify-between px-5 py-4">
         <div>
           <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
             {t("eyebrow")}
@@ -42,7 +43,7 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
         {stages.map((s) => (
           <li
             key={s.stage}
-            className="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-3.5"
+            className="list-card-row grid grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-3.5"
           >
             <span aria-hidden className={`size-2 rounded-full ${STATUS_TONE[s.status]}`} />
             <div className="min-w-0">
@@ -65,7 +66,9 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
               </span>
               {s.varianceDays > 0 ? (
                 <div className="mt-0.5 font-mono text-[11px] font-semibold tabular-nums text-warning">
-                  <bdi>{t("variance", { days: s.varianceDays })}</bdi>
+                  <bdi>
+                    <CountUp value={t("variance", { days: s.varianceDays })} />
+                  </bdi>
                 </div>
               ) : null}
             </div>

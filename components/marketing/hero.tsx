@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Sparkles } from "lucide-react";
 
+import { CountUp } from "@/components/dashboard/count-up";
 import { Link } from "@/i18n/navigation";
 
 export function Hero() {
@@ -95,7 +96,7 @@ function ProjectSpotlightCard() {
   const t = useTranslations("landing");
 
   return (
-    <div className="relative overflow-hidden rounded-[10px] border-[1.25px] border-border bg-card">
+    <div className="card-hover-primary relative overflow-hidden rounded-[10px] border-[1.25px] border-border bg-card">
       <div className="grid gap-5 p-6 md:grid-cols-[1.2fr_1fr] md:p-7">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
@@ -110,10 +111,10 @@ function ProjectSpotlightCard() {
           </p>
         </div>
         <div className="grid grid-cols-2 gap-2.5">
-          <SpotlightStat label={t("stat.delay")} value={t("stat.delayValue")} tone="warning" />
-          <SpotlightStat label={t("stat.exposure")} value={t("stat.exposureValue")} tone="danger" />
-          <SpotlightStat label={t("stat.progress")} value={t("stat.progressValue")} tone="muted" />
-          <SpotlightStat label={t("stat.milestone")} value={t("stat.milestoneValue")} tone="info" />
+          <SpotlightStat index={0} label={t("stat.delay")} value={t("stat.delayValue")} tone="warning" />
+          <SpotlightStat index={1} label={t("stat.exposure")} value={t("stat.exposureValue")} tone="danger" />
+          <SpotlightStat index={2} label={t("stat.progress")} value={t("stat.progressValue")} tone="muted" />
+          <SpotlightStat index={3} label={t("stat.milestone")} value={t("stat.milestoneValue")} tone="info" />
         </div>
       </div>
     </div>
@@ -124,10 +125,12 @@ function SpotlightStat({
   label,
   value,
   tone,
+  index = 0,
 }: {
   label: string;
   value: string;
   tone: "warning" | "danger" | "muted" | "info";
+  index?: number;
 }) {
   const toneClass =
     tone === "warning"
@@ -138,12 +141,14 @@ function SpotlightStat({
           ? "text-info"
           : "text-foreground";
   return (
-    <div className="rounded-[8px] border border-border bg-background/60 px-3.5 py-2.5">
+    <div className="card-hover-nested rounded-[8px] border border-border bg-background/60 px-3.5 py-2.5">
       <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </div>
       <div className={`mt-1 font-mono text-[16px] font-semibold tabular-nums ${toneClass}`}>
-        <bdi>{value}</bdi>
+        <bdi>
+          <CountUp value={value} delay={index * 60} />
+        </bdi>
       </div>
     </div>
   );

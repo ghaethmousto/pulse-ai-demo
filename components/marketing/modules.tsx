@@ -44,7 +44,7 @@ export function Modules() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-[10px] border-[1.25px] border-border bg-card p-6 transition hover:border-wine-light/50 hover:bg-card"
+            className="card-hover-primary rounded-[10px] border-[1.25px] border-border bg-card p-6"
           >
             <span
               aria-hidden

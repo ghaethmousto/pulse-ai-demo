@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
 
+import { CountUp } from "@/components/dashboard/count-up";
 import type { Trend } from "@/types/pulse";
 
 const TREND_ICON: Record<Trend, typeof ArrowUpRight> = {
@@ -17,29 +17,6 @@ const TREND_TONE: Record<Trend, string> = {
   negative: "text-danger bg-danger/10",
   neutral: "text-muted-foreground bg-muted",
 };
-
-// Walks the rendered string and replaces ASCII or Arabic-Indic digits with a
-// linearly interpolated "from zero" value driven by `progress` ∈ [0, 1].
-function interpolateNumbers(value: string, progress: number): string {
-  if (progress >= 1) return value;
-  const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
-  return value.replace(/[0-9٠-٩]+(?:[.,][0-9٠-٩]+)?/g, (match) => {
-    // Detect Arabic-Indic digits
-    const isArabic = /[٠-٩]/.test(match);
-    const ascii = isArabic
-      ? match.replace(/[٠-٩]/g, (d) => arabicDigits.indexOf(d).toString())
-      : match;
-    const num = parseFloat(ascii.replace(",", "."));
-    if (Number.isNaN(num)) return match;
-    const interp = num * progress;
-    const decimals = (ascii.split(".")[1] ?? "").length;
-    const out = decimals > 0 ? interp.toFixed(decimals) : Math.round(interp).toString();
-    if (isArabic) {
-      return out.replace(/[0-9]/g, (d) => arabicDigits[parseInt(d, 10)]).replace(".", "٫");
-    }
-    return out;
-  });
-}
 
 export function KpiCard({
   index,
@@ -55,32 +32,14 @@ export function KpiCard({
   trend: Trend;
 }) {
   const Icon = TREND_ICON[trend];
-  const ref = useRef<HTMLElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let raf = 0;
-    const start = performance.now() + index * 80;
-    const duration = 900;
-    const tick = (now: number) => {
-      const t = Math.min(1, Math.max(0, (now - start) / duration));
-      const eased = 1 - Math.pow(1 - t, 3);
-      setProgress(eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, index]);
 
   return (
     <motion.article
-      ref={ref}
       initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-[10px] border border-border/70 bg-card p-5"
+      className="card-hover-primary rounded-[10px] border border-border/70 bg-card p-5"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
@@ -94,7 +53,9 @@ export function KpiCard({
         </span>
       </div>
       <div className="mt-3 font-mono text-[34px] font-semibold leading-none tracking-[-0.025em] tabular-nums text-foreground">
-        <bdi>{interpolateNumbers(value, progress)}</bdi>
+        <bdi>
+          <CountUp value={value} delay={index * 80} />
+        </bdi>
       </div>
       <div className="mt-2 text-[11px] leading-snug text-muted-foreground">{note}</div>
     </motion.article>

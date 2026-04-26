@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
 
-import { PulseMark } from "@/components/brand/pulse-mark";
 import { findAnswer, getDialogues } from "@/lib/data/dialogues";
 import { routeKeyFromPath } from "@/lib/utils/route-key";
 import type { Locale, PulseQuestion } from "@/types/pulse";
@@ -39,7 +38,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
   const suggested = React.useMemo<PulseQuestion[]>(() => {
     const onRoute = dialogues.filter((q) => q.suggestedPage === routeKey);
     const others = dialogues.filter((q) => !onRoute.includes(q));
-    return (onRoute.length ? onRoute.concat(others) : dialogues).slice(0, 4);
+    return (onRoute.length ? onRoute.concat(others) : dialogues).slice(0, 3);
   }, [dialogues, routeKey]);
 
   React.useEffect(() => {
@@ -91,17 +90,17 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.985 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute end-0 w-[348px] max-w-[calc(100vw-2rem)] [bottom:calc(100%+14px)] origin-bottom rounded-[22px] p-[10px] backdrop-blur-[22px] backdrop-saturate-[1.15]"
+            className="absolute end-0 w-[296px] max-w-[calc(100vw-2rem)] [bottom:calc(100%+12px)] origin-bottom rounded-[20px] p-[8px] backdrop-blur-[22px] backdrop-saturate-[1.15]"
             style={{
               background: "var(--pulse-panel-bg)",
               border: "1px solid var(--pulse-panel-border)",
               boxShadow: "var(--pulse-panel-shadow)",
             }}
           >
-            <div className="overflow-hidden rounded-[16px]">
+            <div className="overflow-hidden rounded-[14px]">
               {/* Wine header band */}
               <div
-                className="relative flex items-center gap-2.5 overflow-hidden px-4 py-3 text-white"
+                className="relative flex items-center gap-2 overflow-hidden px-3 py-2.5 text-white"
                 style={{
                   background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
                   boxShadow:
@@ -125,26 +124,27 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   />
                 </svg>
 
+                {/* Official Pulse mark asset — same identity as the launcher */}
                 <span
                   aria-hidden
-                  className="pulse-mark-breath relative grid size-9 shrink-0 place-items-center rounded-[10px]"
+                  className="pulse-mark-breath relative grid size-8 shrink-0 place-items-center rounded-full"
                   style={{
-                    background: "rgba(255,255,255,0.16)",
-                    border: "1px solid rgba(255,255,255,0.30)",
-                    boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.18)",
+                    filter:
+                      "drop-shadow(0 0 8px rgba(255,230,236,0.35)) drop-shadow(0 1px 2px rgba(0,0,0,0.24))",
                   }}
                 >
-                  <span
-                    aria-hidden
-                    className="pulse-mark-glow pointer-events-none absolute -inset-1 rounded-[14px]"
-                    style={{ boxShadow: "0 0 26px 2px rgba(255,230,236,0.30)" }}
+                  <Image
+                    src="/assets/pulse/Pulse - Red Circle Icon.svg"
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="block size-8 brightness-0 invert"
+                    priority
                   />
-                  <PulseMark width={20} height={16} stroke="#ffffff" />
                 </span>
 
                 <div className="relative z-[1] min-w-0 flex-1">
-                  <div className="flex items-center gap-2 text-[13px] font-semibold tracking-[-0.005em] text-white">
+                  <div className="flex items-center gap-1.5 text-[12px] font-semibold tracking-[-0.005em] text-white">
                     {tAssistant("name")}
                     <span
                       aria-hidden
@@ -152,7 +152,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                       style={{ boxShadow: "0 0 8px #7ee0a8" }}
                     />
                   </div>
-                  <div className="mt-0.5 truncate text-[10px] tracking-[0.03em] text-[rgba(255,232,238,0.82)]">
+                  <div className="truncate text-[9.5px] tracking-[0.02em] text-[rgba(255,232,238,0.82)]">
                     {projectName} · {tAssistant("liveContext")}
                   </div>
                 </div>
@@ -161,9 +161,9 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label={tAssistant("close")}
-                  className="relative z-[1] grid size-6 shrink-0 place-items-center rounded-[7px] text-[rgba(255,232,238,0.82)] transition hover:bg-white/[0.14] hover:text-white"
+                  className="relative z-[1] grid size-5 shrink-0 place-items-center rounded-[6px] text-[rgba(255,232,238,0.82)] transition hover:bg-white/[0.14] hover:text-white"
                 >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
                     <path
                       d="M3 7h8"
                       stroke="currentColor"
@@ -176,7 +176,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 
               {/* Briefing card */}
               <div
-                className="relative mx-2.5 mb-2 mt-2.5 overflow-hidden rounded-[13px] px-4 py-3.5"
+                className="relative mx-2 mb-1.5 mt-2 overflow-hidden rounded-[11px] px-3 py-2.5"
                 style={{
                   background: "var(--pulse-briefing-bg)",
                   boxShadow:
@@ -199,7 +199,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   />
                 </svg>
                 <div
-                  className="relative z-[1] flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.26em]"
+                  className="relative z-[1] flex items-center gap-1.5 text-[8.5px] font-semibold uppercase tracking-[0.24em]"
                   style={{ color: "var(--pulse-briefing-label)" }}
                 >
                   <span
@@ -209,7 +209,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   <span className="truncate">{briefing.label}</span>
                 </div>
                 <p
-                  className="relative z-[1] mt-1.5 text-[12px] leading-[1.6]"
+                  className="relative z-[1] mt-1 line-clamp-3 text-[11.5px] leading-[1.55]"
                   style={{ color: "var(--pulse-action-text)" }}
                 >
                   {briefing.text}
@@ -218,26 +218,26 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 
               {/* Suggested actions */}
               {suggested.length > 0 && (
-                <div className="mt-1">
+                <div className="mt-0.5">
                   <div
-                    className="flex items-center justify-between px-4 pb-1 pt-3 text-[9px] font-semibold uppercase tracking-[0.24em]"
+                    className="flex items-center justify-between px-3 pb-0.5 pt-2 text-[8.5px] font-semibold uppercase tracking-[0.22em]"
                     style={{ color: "var(--pulse-action-meta)" }}
                   >
                     <span>{tAssistant("suggested")}</span>
                     <span
-                      className="text-[9px] tracking-[0.06em]"
+                      className="text-[8.5px] tracking-[0.06em]"
                       style={{ color: "var(--pulse-briefing-label)" }}
                     >
                       {suggested.length}
                     </span>
                   </div>
-                  <ul className="mb-1">
+                  <ul className="mb-0.5">
                     {suggested.map((q) => (
                       <li key={q.id}>
                         <button
                           type="button"
                           onClick={() => ask(q)}
-                          className="group mx-2.5 my-0.5 flex w-[calc(100%-1.25rem)] items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-start transition"
+                          className="group mx-2 my-px flex w-[calc(100%-1rem)] items-center gap-2 rounded-[8px] px-2 py-1.5 text-start transition"
                           style={{
                             color: "var(--pulse-action-text)",
                           }}
@@ -245,7 +245,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                             (e.currentTarget as HTMLElement).style.background =
                               "var(--pulse-action-hover-bg)";
                             (e.currentTarget as HTMLElement).style.boxShadow =
-                              "inset 0 0 0 1px var(--pulse-action-hover-ring), 0 4px 12px -3px rgba(32,29,26,0.10)";
+                              "inset 0 0 0 1px var(--pulse-action-hover-ring), 0 3px 10px -3px rgba(32,29,26,0.10)";
                           }}
                           onMouseLeave={(e) => {
                             (e.currentTarget as HTMLElement).style.background = "";
@@ -254,13 +254,13 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                         >
                           <ActionTypeIcon page={q.suggestedPage} />
                           <span
-                            className="min-w-0 flex-1 truncate text-[11.5px] font-semibold tracking-[-0.003em]"
+                            className="min-w-0 flex-1 truncate text-[11px] font-semibold tracking-[-0.003em]"
                             style={{ color: "var(--pulse-action-text)" }}
                           >
                             {q.question}
                           </span>
                           <span
-                            className="shrink-0 text-[13px] transition"
+                            className="shrink-0 text-[12px] transition"
                             style={{ color: "var(--pulse-action-arrow)" }}
                           >
                             {isAr ? "‹" : "›"}
@@ -278,7 +278,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   e.preventDefault();
                   submitDraft();
                 }}
-                className="mx-2.5 my-2.5 flex items-center gap-2 rounded-[13px] p-2"
+                className="mx-2 my-2 flex items-center gap-1.5 rounded-[11px] p-1.5"
                 style={{
                   background: "var(--pulse-input-bg)",
                   boxShadow:
@@ -292,7 +292,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   onChange={(e) => setDraft(e.target.value)}
                   placeholder={tAssistant("placeholder")}
                   aria-label={tAssistant("placeholder")}
-                  className="h-[38px] min-w-0 flex-1 rounded-[9px] px-3.5 text-[12px] outline-none transition focus:shadow-[0_0_0_3px_rgba(141,53,75,0.16)]"
+                  className="h-[34px] min-w-0 flex-1 rounded-[8px] px-3 text-[12px] outline-none transition focus:shadow-[0_0_0_3px_rgba(141,53,75,0.16)]"
                   style={{
                     background: "var(--pulse-input-field-bg)",
                     border: "1px solid var(--pulse-input-field-border)",
@@ -303,7 +303,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   type="button"
                   aria-label={tAssistant("voice")}
                   title={tAssistant("voice")}
-                  className="grid size-[38px] shrink-0 place-items-center rounded-[9px] transition hover:scale-105"
+                  className="grid size-[34px] shrink-0 place-items-center rounded-[8px] transition hover:scale-105"
                   style={{
                     background: "var(--pulse-input-field-bg)",
                     border: "1px solid var(--pulse-input-field-border)",
@@ -317,7 +317,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   aria-label={tCommon("send")}
                   disabled={draft.trim().length === 0}
                   className={cn(
-                    "grid size-[38px] shrink-0 place-items-center rounded-[9px] text-white transition disabled:opacity-40 hover:translate-y-[-1px] active:translate-y-0",
+                    "grid size-[34px] shrink-0 place-items-center rounded-[8px] text-white transition disabled:opacity-40 hover:translate-y-[-1px] active:translate-y-0",
                   )}
                   style={{
                     background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
