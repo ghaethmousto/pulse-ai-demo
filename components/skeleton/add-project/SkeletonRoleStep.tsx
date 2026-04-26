@@ -1,3 +1,5 @@
+import { SkeletonStepBody } from "./SkeletonStepBody";
+
 const roles = [
   {
     title: "Owner / Developer",
@@ -30,8 +32,8 @@ const previewKpis = [
 ];
 
 export function SkeletonRoleStep() {
-  return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
+  const left = (
+    <>
       <div>
         <p className="text-[10px] uppercase tracking-widest text-neutral-500">
           I&apos;m primarily a…
@@ -111,11 +113,14 @@ export function SkeletonRoleStep() {
           </div>
         </div>
       </div>
+    </>
+  );
 
-      <aside className="flex flex-col gap-4">
-        <div className="rounded-md border border-neutral-300 bg-white">
-          <header className="flex items-center justify-between border-b border-neutral-200 px-4 py-3 text-[10px] uppercase tracking-widest text-neutral-500">
-            <span>Tuned for Owner</span>
+  const rail = (
+    <>
+      <div className="rounded-md border border-neutral-300 bg-white">
+        <header className="flex items-center justify-between border-b border-neutral-200 px-4 py-3 text-[10px] uppercase tracking-widest text-neutral-500">
+          <span>Tuned for Owner</span>
             <span>preview · day 1</span>
           </header>
           <div className="border-b border-neutral-200 px-4 py-2 text-[10px] text-neutral-500">
@@ -152,28 +157,27 @@ export function SkeletonRoleStep() {
             <p className="mt-3 border-t border-neutral-200 pt-3 text-[10px] text-neutral-500">
               others on your team can pick a different role
             </p>
-          </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 gap-3">
-          <div className="rounded-md border border-dashed border-neutral-300 bg-white p-3">
-            <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-              Up next
-            </p>
-            <p className="mt-1 text-xs text-neutral-700">
-              Project basics → invite counterparts → connect tools → confirm.
-            </p>
-          </div>
-          <div className="rounded-md border border-dashed border-neutral-300 bg-white p-3">
-            <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-              Privacy
-            </p>
-            <p className="mt-1 text-xs text-neutral-700">
-              Your data stays in your tenant. Role tunes views, not access.
-            </p>
-          </div>
-        </div>
-      </aside>
-    </div>
+      <div className="rounded-md border border-dashed border-neutral-300 bg-white p-3">
+        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          Up next
+        </p>
+        <p className="mt-1 text-xs text-neutral-700">
+          Project basics → invite counterparts → connect tools → confirm.
+        </p>
+      </div>
+      <div className="rounded-md border border-dashed border-neutral-300 bg-white p-3">
+        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          Privacy
+        </p>
+        <p className="mt-1 text-xs text-neutral-700">
+          Your data stays in your tenant. Role tunes views, not access.
+        </p>
+      </div>
+    </>
   );
+
+  return <SkeletonStepBody left={left} rail={rail} />;
 }

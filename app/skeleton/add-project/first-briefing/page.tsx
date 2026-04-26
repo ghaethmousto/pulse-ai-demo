@@ -15,7 +15,7 @@ export default function AddProjectFirstBriefingSkeletonPage() {
       step="first-briefing"
       title="You're ready. Here's your first briefing."
       nextHref={skeletonAuthLinks.seePlatform}
-      nextLabel="Finish → Open platform"
+      nextLabel="Go to dashboard →"
     >
       <SkeletonFirstBriefingStep />
     </SkeletonAddProjectLayout>

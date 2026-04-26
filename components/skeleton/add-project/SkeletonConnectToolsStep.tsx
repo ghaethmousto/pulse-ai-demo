@@ -1,3 +1,5 @@
+import { SkeletonStepBody } from "./SkeletonStepBody";
+
 type ToolStatus = "connected" | "connect";
 
 interface Tool {
@@ -69,9 +71,8 @@ function ToolCard({ tool }: { tool: Tool }) {
 }
 
 export function SkeletonConnectToolsStep() {
-  return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="space-y-8">
+  const left = (
+    <div className="space-y-8">
         <p className="text-sm text-neutral-600">
           No migration. No new logins for your team. Pulse reads from where work
           already lives.
@@ -163,65 +164,68 @@ export function SkeletonConnectToolsStep() {
             </div>
           </div>
         </section>
-      </div>
-
-      <aside className="space-y-4">
-        <div className="rounded-md border border-neutral-300 bg-white p-4">
-          <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-            Permissions, by default
-          </p>
-          <ul className="mt-3 space-y-3">
-            {permissions.map((p) => (
-              <li key={p.label} className="flex items-start gap-3">
-                <span className="min-w-[80px] text-xs font-semibold">
-                  {p.label}
-                </span>
-                <span className="flex-1 text-xs text-neutral-600">{p.desc}</span>
-                <span
-                  className={
-                    p.on
-                      ? "flex h-4 w-7 items-center justify-end rounded-full bg-neutral-900 px-0.5"
-                      : "flex h-4 w-7 items-center justify-start rounded-full bg-neutral-200 px-0.5"
-                  }
-                  aria-label={p.on ? "On" : "Off"}
-                >
-                  <span className="h-3 w-3 rounded-full bg-white" />
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-md border border-neutral-300 bg-white p-4">
-          <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-            From what&apos;s connected, Pulse already sees
-          </p>
-          <ul className="mt-3 space-y-2">
-            {seenStats.map((s) => (
-              <li
-                key={s.value}
-                className="flex items-baseline justify-between gap-3 text-xs"
-              >
-                <span className="font-mono text-sm text-neutral-900">
-                  {s.value}
-                </span>
-                <span className="text-right text-neutral-600">{s.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="rounded-md border border-dashed border-neutral-300 bg-white p-4">
-          <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-            Don&apos;t see your tool?
-          </p>
-          <p className="mt-2 text-xs text-neutral-600">
-            We support 40+ systems and add new ones every month.{" "}
-            <span className="underline">Request an integration</span> or use
-            email-in.
-          </p>
-        </div>
-      </aside>
     </div>
   );
+
+  const rail = (
+    <>
+      <div className="rounded-md border border-neutral-300 bg-white p-4">
+        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          Permissions, by default
+        </p>
+        <ul className="mt-3 space-y-3">
+          {permissions.map((p) => (
+            <li key={p.label} className="flex items-start gap-3">
+              <span className="min-w-[80px] text-xs font-semibold">
+                {p.label}
+              </span>
+              <span className="flex-1 text-xs text-neutral-600">{p.desc}</span>
+              <span
+                className={
+                  p.on
+                    ? "flex h-4 w-7 items-center justify-end rounded-full bg-neutral-900 px-0.5"
+                    : "flex h-4 w-7 items-center justify-start rounded-full bg-neutral-200 px-0.5"
+                }
+                aria-label={p.on ? "On" : "Off"}
+              >
+                <span className="h-3 w-3 rounded-full bg-white" />
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-md border border-neutral-300 bg-white p-4">
+        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          From what&apos;s connected, Pulse already sees
+        </p>
+        <ul className="mt-3 space-y-2">
+          {seenStats.map((s) => (
+            <li
+              key={s.value}
+              className="flex items-baseline justify-between gap-3 text-xs"
+            >
+              <span className="font-mono text-sm text-neutral-900">
+                {s.value}
+              </span>
+              <span className="text-right text-neutral-600">{s.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-md border border-dashed border-neutral-300 bg-white p-4">
+        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          Don&apos;t see your tool?
+        </p>
+        <p className="mt-2 text-xs text-neutral-600">
+          We support 40+ systems and add new ones every month.{" "}
+          <span className="underline">Request an integration</span> or use
+          email-in.
+        </p>
+      </div>
+    </>
+  );
+
+  return <SkeletonStepBody left={left} rail={rail} />;
 }

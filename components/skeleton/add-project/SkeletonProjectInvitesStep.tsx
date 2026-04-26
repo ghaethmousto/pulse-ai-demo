@@ -1,3 +1,5 @@
+import { SkeletonStepBody } from "./SkeletonStepBody";
+
 const counterparts = [
   {
     role: "Consultant (Lead)",
@@ -10,9 +12,8 @@ const counterparts = [
 ];
 
 export function SkeletonProjectInvitesStep() {
-  return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="space-y-5">
+  const left = (
+    <div className="space-y-5">
         <label className="block">
           <span className="text-[10px] uppercase tracking-widest text-neutral-500">
             Project name
@@ -69,20 +70,23 @@ export function SkeletonProjectInvitesStep() {
           </ul>
         </div>
       </div>
+  );
 
-      <aside className="rounded-md border border-neutral-300 bg-neutral-50 p-5">
-        <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-          Why invite now?
-        </p>
-        <p className="mt-3 text-sm text-neutral-700">
-          Pulse only delivers a single source of truth when every party sees the
-          same project. Your counterparts get their own portal — they don&apos;t
-          have to use your view.
-        </p>
-        <p className="mt-4 text-xs italic text-neutral-500">
-          ↳ each party owns their lens, shares one truth
-        </p>
-      </aside>
+  const rail = (
+    <div className="rounded-md border border-neutral-300 bg-neutral-50 p-5">
+      <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+        Why invite now?
+      </p>
+      <p className="mt-3 text-sm text-neutral-700">
+        Pulse only delivers a single source of truth when every party sees the
+        same project. Your counterparts get their own portal — they don&apos;t
+        have to use your view.
+      </p>
+      <p className="mt-4 text-xs italic text-neutral-500">
+        ↳ each party owns their lens, shares one truth
+      </p>
     </div>
   );
+
+  return <SkeletonStepBody left={left} rail={rail} />;
 }
