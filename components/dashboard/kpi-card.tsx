@@ -80,10 +80,10 @@ export function KpiCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 8 }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-lg border border-border bg-card p-4"
+      className="rounded-[10px] border border-border/70 bg-card p-5"
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
           {label}
         </div>
         <span
@@ -93,10 +93,10 @@ export function KpiCard({
           <Icon className="size-3" strokeWidth={2} />
         </span>
       </div>
-      <div className="mt-2 font-mono text-[28px] font-semibold tracking-[-0.02em] tabular-nums text-foreground">
+      <div className="mt-3 font-mono text-[34px] font-semibold leading-none tracking-[-0.025em] tabular-nums text-foreground">
         <bdi>{interpolateNumbers(value, progress)}</bdi>
       </div>
-      <div className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{note}</div>
+      <div className="mt-2 text-[11px] leading-snug text-muted-foreground">{note}</div>
     </motion.article>
   );
 }

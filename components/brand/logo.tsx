@@ -1,59 +1,44 @@
-import Image from "next/image";
-
 import { cn } from "@/lib/utils";
 
+/**
+ * PulseLogo — solid wine disc with white pulse glyph cut out.
+ * Lifted from public/assets/pulse/Pulse - Red Circle Icon.svg and inlined so
+ * we can drive colour with CSS variables and Tailwind classes (matters for
+ * dark mode, where the on-disc wine stays vibrant and the cut-out glyph
+ * inherits the surface colour for a clean, high-contrast read).
+ */
 export function PulseLogo({
   className,
   withWordmark = true,
-  variant = "auto",
+  size = 30,
 }: {
   className?: string;
   withWordmark?: boolean;
-  variant?: "auto" | "wine" | "white";
+  size?: number;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span aria-hidden className="relative inline-grid size-8 shrink-0 place-items-center">
-        {variant === "white" ? (
-          <Image
-            src="/assets/pulse/Pulse - White Circle Icon.svg"
-            alt=""
-            width={32}
-            height={32}
-            priority
-          />
-        ) : variant === "wine" ? (
-          <Image
-            src="/assets/pulse/Pulse - Red Circle Icon.svg"
-            alt=""
-            width={32}
-            height={32}
-            priority
-          />
-        ) : (
-          <>
-            <Image
-              src="/assets/pulse/Pulse - Red Circle Icon.svg"
-              alt=""
-              width={32}
-              height={32}
-              className="block dark:hidden"
-              priority
-            />
-            <Image
-              src="/assets/pulse/Pulse - White Circle Icon.svg"
-              alt=""
-              width={32}
-              height={32}
-              className="hidden dark:block"
-              priority
-            />
-          </>
-        )}
+    <span className={cn("inline-flex items-center gap-2", className)}>
+      <span
+        aria-hidden
+        className="relative inline-grid shrink-0 place-items-center text-wine dark:text-[#cf5976]"
+        style={{ width: size, height: size }}
+      >
+        <svg
+          viewBox="0 0 876.18 876.18"
+          width={size}
+          height={size}
+          aria-hidden
+          fill="currentColor"
+          style={{
+            filter: "drop-shadow(0 1px 2px rgba(141,53,75,0.25))",
+          }}
+        >
+          <path d="M438.09,0C196.14,0,0,196.14,0,438.09s196.14,438.09,438.09,438.09,438.09-196.14,438.09-438.09S680.04,0,438.09,0ZM644.53,308.6c8.54,0,15.47,6.93,15.47,15.47s-6.93,15.47-15.47,15.47-15.47-6.93-15.47-15.47,6.93-15.47,15.47-15.47ZM385.02,218.64c18.31,0,33.15,14.84,33.15,33.15s-14.84,33.15-33.15,33.15-33.15-14.84-33.15-33.15,14.84-33.15,33.15-33.15ZM385.1,632.07c-11.12,0-20.13-9.01-20.13-20.13s9.01-20.13,20.13-20.13,20.13,9.01,20.13,20.13-9.01,20.13-20.13,20.13ZM811.48,459.55l-104.88.51c-15.99.08-29.71,13.04-29.95,28.73l-.57,36.78c-.26,16.72-15.7,28.9-31.92,28.64-16.26-.25-30.08-12.71-31.39-29.41-.56-7.18.56-13.97-.37-20.93-2.22-16.57-16.1-28.27-32.39-27.65-14.73.56-29.66,12.44-29.75,28.82l-.64,120.69c-.11,20.01-19.33,34.06-38.45,31.49-16.08-2.16-29.71-14.63-29.76-31.6l-.54-177.24c-.05-15.74-14.08-28.42-29.43-29.2-15.75-.8-31.99,11.32-32.12,27.52l-.74,91.98c-.11,14.19-10.64,25.41-22.41,29.43-14.15,4.83-28.1.43-36.73-10.21-5.4-6.66-8.88-13.4-8.35-23.49.91-17.47-13.5-32.84-31.58-32.86-15.69-.02-31.07,12.91-31.18,30.17l-.37,57.06c-.12,18.6-17.22,31.55-35.44,30.87-17.68-.66-32.99-13.81-33.06-31.91l-.35-96.56c-.06-16.84-13.61-30.98-30.73-31.05l-123.72-.51c-9.53-.04-16.02-8.92-15.89-17.28.12-8.1,6.46-17.02,15.94-17.06l123.94-.46c15.75-.06,30.18-13.21,30.27-29.16l.58-97.92c.11-18.4,15.82-31.99,33.64-32.47,15.83-.43,34.43,11.69,34.53,29.62l.82,143.78c.09,16.35,13.35,28.49,28.91,29.82,13.79,1.18,32.23-9.15,32.39-25.01l.95-91.66c.03-3.13-.36-5.67.77-8.08-.92-18.51,20.5-32.25,37.01-30.25,18.76,2.27,32.01,17.92,30.21,37.33-1.67,18.07,10.52,33.47,28.37,35.08,16.92,1.52,33.85-11.46,33.92-29.29l.23-57.88c.08-18.81,15.65-33.17,33.87-33.52,17.11-.33,34.4,12.96,34.48,31.55l.54,116.5c.07,14.2,10.44,25.78,24.11,28.98,18.53,4.33,38.16-9.4,38.31-28.35l.2-25.2c.14-18.29,16.63-31.48,34.22-30.05,17.58,1.43,29.88,15.98,29.55,34.21-.29,16.21,12.26,31.78,29.03,31.87l104.86.53c9.62.05,16.94,8.13,16.97,17.05.03,8.14-6.5,17.2-15.94,17.25Z" />
+        </svg>
       </span>
       {withWordmark && (
-        <span className="font-semibold tracking-tight text-foreground">
-          Pulse<span className="text-wine">AI</span>
+        <span className="text-[15px] font-bold tracking-[-0.022em] text-foreground">
+          Pulse<span className="text-wine"> AI</span>
         </span>
       )}
     </span>

@@ -245,3 +245,15 @@ html[lang="ar"] body {
   animation: pulseEcgSweep 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 .pulse-live-dot { animation: pulseLiveDot 2.4s ease-in-out infinite; }
+
+/* Pulse line — slow horizontal drift loop for the topbar separator */
+@keyframes pulseLineDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.pulse-line-track {
+  animation: pulseLineDrift 24s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-line-track { animation: none; }
+}

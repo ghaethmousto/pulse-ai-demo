@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Activity } from "lucide-react";
 
 import type { Locale, TimelineStage, TimelineStatus } from "@/types/pulse";
 import { pickLocale } from "@/lib/utils/pick-locale";
@@ -28,27 +27,29 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
   const tStatus = useTranslations("dashboard.timeline.status");
 
   return (
-    <section className="rounded-3xl border border-border bg-card shadow-pulse-card">
-      <header className="flex items-center justify-between border-b border-border px-6 py-4">
+    <section className="rounded-[10px] border border-border/70 bg-card">
+      <header className="flex items-center justify-between px-5 py-4">
         <div>
-          <div className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
+          <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
             {t("eyebrow")}
           </div>
-          <h2 className="mt-1 text-base font-semibold text-foreground">{t("title")}</h2>
+          <h2 className="mt-0.5 text-[15px] font-bold tracking-[-0.01em] text-foreground">
+            {t("title")}
+          </h2>
         </div>
-        <span className="grid size-8 place-items-center rounded-full bg-accent text-wine">
-          <Activity className="size-4" />
-        </span>
       </header>
-      <ol className="divide-y divide-border">
+      <ol className="border-t border-border/60 divide-y divide-border/50">
         {stages.map((s) => (
-          <li key={s.stage} className="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-6 py-4">
-            <span aria-hidden className={`size-2.5 rounded-full ${STATUS_TONE[s.status]}`} />
+          <li
+            key={s.stage}
+            className="grid grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-3.5"
+          >
+            <span aria-hidden className={`size-2 rounded-full ${STATUS_TONE[s.status]}`} />
             <div className="min-w-0">
-              <div className="truncate text-sm font-medium text-foreground">
+              <div className="truncate text-[12.5px] font-semibold text-foreground">
                 {pickLocale(s.title, locale)}
               </div>
-              <div className="mt-0.5 text-xs text-muted-foreground">
+              <div className="mt-0.5 text-[11px] text-muted-foreground">
                 {t("plannedLabel")} <bdi>{formatDate(s.planned, locale)}</bdi>
                 {s.actual ? (
                   <>
@@ -58,10 +59,12 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
                 ) : null}
               </div>
             </div>
-            <div className="text-end text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground">
-              {tStatus(STATUS_LABEL[s.status])}
+            <div className="text-end">
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                {tStatus(STATUS_LABEL[s.status])}
+              </span>
               {s.varianceDays > 0 ? (
-                <div className="mt-0.5 text-xs font-semibold text-warning">
+                <div className="mt-0.5 font-mono text-[11px] font-semibold tabular-nums text-warning">
                   <bdi>{t("variance", { days: s.varianceDays })}</bdi>
                 </div>
               ) : null}

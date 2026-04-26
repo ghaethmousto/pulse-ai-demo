@@ -23,7 +23,8 @@
     "progress": "Progress",
     "send": "Send",
     "notifications": "Notifications",
-    "searchPlaceholder": "Search projects, risks, approvals…"
+    "searchPlaceholder": "Search projects, risks, approvals…",
+    "askPulse": "Ask Pulse…"
   },
   "landing": {
     "heroTitle": "An intelligent operating layer for every construction project.",
@@ -87,6 +88,7 @@
     "status": "At Risk",
     "riskLevel": "High",
     "phase": "Design Development · Authority Coordination",
+    "live": "Live",
     "aiSummary": "Al Reem Tower is currently at risk, with an 18-day delay driven mainly by MEP/podium coordination and unresolved authority submission dependencies. The fastest recovery path is to freeze the vertical core, resolve podium plant-room conflicts, and lock the fire strategy before the authority package date of 08-May-2026."
   },
   "dashboard": {
@@ -141,8 +143,10 @@
     }
   },
   "sidebar": {
-    "activeProject": "Active Project",
+    "activeProject": "Project",
+    "projectMeta": "AED 185M · 28 mo",
     "userName": "Ghaeth Mousto",
+    "userInitials": "GM",
     "userRole": "Management"
   },
   "pulseAssistant": {

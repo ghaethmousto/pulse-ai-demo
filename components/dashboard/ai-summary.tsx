@@ -2,40 +2,42 @@
 
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { Sparkles } from "lucide-react";
+
+import { PulseMark } from "@/components/brand/pulse-mark";
 
 export function AiSummary({ summary }: { summary: string }) {
   const t = useTranslations("dashboard.summary");
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="relative overflow-hidden rounded-3xl border border-border p-6 md:p-8"
-      style={{
-        background:
-          "linear-gradient(135deg, color-mix(in oklab, var(--pulse-wine) 8%, var(--bg-surface)) 0%, var(--bg-surface) 60%)",
-      }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-[10px] border border-border/70 bg-card p-5 md:p-6"
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3.5">
         <span
           aria-hidden
-          className="grid size-11 shrink-0 place-items-center rounded-2xl text-white shadow-pulse-wine"
+          className="grid size-9 shrink-0 place-items-center rounded-md text-white"
           style={{
-            background:
-              "radial-gradient(120% 120% at 30% 20%, var(--pulse-wine-glow), var(--pulse-wine) 55%, var(--pulse-maroon-deep))",
+            background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18), 0 4px 12px rgba(141,53,75,0.28)",
           }}
         >
-          <Sparkles className="size-5" />
+          <PulseMark width={18} height={14} stroke="#ffffff" baselineOpacity={0.32} />
         </span>
-        <div>
-          <div className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground">
+        <div className="min-w-0 flex-1">
+          <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-wine">
             {t("eyebrow")}
           </div>
-          <h2 className="mt-1 text-xl font-semibold text-foreground">{t("title")}</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-foreground/80">{summary}</p>
+          <h2 className="mt-1 text-[15px] font-bold tracking-[-0.01em] text-foreground">
+            {t("title")}
+          </h2>
+          <p className="mt-2 max-w-3xl text-[12.5px] leading-[1.6] text-foreground/85">
+            {summary}
+          </p>
         </div>
       </div>
     </motion.section>

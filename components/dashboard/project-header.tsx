@@ -24,17 +24,17 @@ export function ProjectHeader({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-lg border border-border bg-card p-5 md:p-6"
+      className="rounded-[10px] border border-border/70 bg-card p-5 md:p-6"
     >
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
             {t("eyebrow")}
           </div>
-          <h1 className="mt-1.5 text-[28px] font-bold leading-tight tracking-[-0.028em] text-foreground md:text-[32px]">
+          <h1 className="mt-1.5 text-[26px] font-bold leading-tight tracking-[-0.028em] text-foreground md:text-[30px]">
             {pickLocale(project.name, locale)}
           </h1>
-          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] text-muted-foreground">
+          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11.5px] text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <MapPin className="size-3" strokeWidth={1.6} /> {pickLocale(project.location, locale)}
             </span>

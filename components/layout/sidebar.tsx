@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import {
-  ChevronDown,
   ClipboardCheck,
   FileBarChart,
   Folders,
@@ -45,27 +44,27 @@ export function Sidebar() {
   const tSidebar = useTranslations("sidebar");
 
   return (
-    <aside className="hidden w-[220px] shrink-0 flex-col border-e border-sidebar-border bg-sidebar lg:flex">
-      <div className="flex items-center gap-2 px-3.5 py-4">
+    <aside className="hidden w-[220px] shrink-0 flex-col border-e border-border/70 bg-[color:var(--bg-surface-2)] lg:flex">
+      {/* Brand */}
+      <div className="flex items-center gap-2 px-4 py-4">
         <PulseLogo />
       </div>
 
-      <button
-        type="button"
-        className="mx-2.5 flex items-center justify-between rounded-lg border border-border bg-card px-2.5 py-2 text-start shadow-pulse-card transition hover:bg-accent/40"
-      >
-        <div className="min-w-0">
-          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-            {tSidebar("activeProject")}
-          </div>
-          <div className="mt-0.5 truncate text-[11px] font-semibold text-foreground">
-            {tProj("name")}
-          </div>
+      {/* Project block — quiet, dense, high-content per the screenshots */}
+      <div className="mx-3 mt-1 mb-3 border-t border-border/50 pt-3">
+        <div className="text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+          {tSidebar("activeProject")}
         </div>
-        <ChevronDown className="size-3 shrink-0 text-muted-foreground" />
-      </button>
+        <div className="mt-1 truncate text-[12.5px] font-bold tracking-[-0.01em] text-foreground">
+          {tProj("name")}
+        </div>
+        <div className="mt-0.5 truncate text-[10.5px] text-muted-foreground">
+          {tSidebar("projectMeta")}
+        </div>
+      </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 py-3">
+      {/* Nav */}
+      <nav className="flex-1 overflow-y-auto px-2.5 pb-3">
         <ul className="space-y-px">
           {NAV.map(({ href, key, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
@@ -74,13 +73,19 @@ export function Sidebar() {
                 <Link
                   href={href}
                   className={cn(
-                    "flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[12px] font-medium transition",
+                    "group flex items-center gap-2.5 rounded-md px-2 py-[7px] text-[12.5px] transition",
                     active
-                      ? "bg-wine/[0.07] text-wine font-semibold"
-                      : "text-foreground/60 hover:bg-foreground/[0.04] hover:text-foreground/90",
+                      ? "font-semibold text-wine"
+                      : "font-medium text-foreground/65 hover:text-foreground/90",
                   )}
                 >
-                  <Icon className="size-[14px] shrink-0" strokeWidth={1.6} />
+                  <Icon
+                    className={cn(
+                      "size-[14px] shrink-0",
+                      active ? "opacity-100" : "opacity-60 group-hover:opacity-90",
+                    )}
+                    strokeWidth={1.6}
+                  />
                   <span>{tNav(key)}</span>
                 </Link>
               </li>
@@ -89,22 +94,21 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className="border-t border-sidebar-border px-3 py-3">
-        <div className="flex items-center gap-2">
-          <div
-            aria-hidden
-            className="grid size-[26px] shrink-0 place-items-center rounded-full text-[9px] font-bold text-white"
-            style={{ background: "linear-gradient(135deg, #8d354b, #6a2638)" }}
-          >
-            GM
+      {/* User row */}
+      <div className="mx-3 mb-3 mt-1 flex items-center gap-2 border-t border-border/50 pt-3">
+        <span
+          aria-hidden
+          className="grid size-7 shrink-0 place-items-center rounded-full text-[10px] font-bold text-white"
+          style={{ background: "linear-gradient(135deg, #8d354b, #6a2638)" }}
+        >
+          {tSidebar("userInitials")}
+        </span>
+        <div className="min-w-0 flex-1 leading-tight">
+          <div className="truncate text-[11.5px] font-semibold text-foreground">
+            {tSidebar("userName")}
           </div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-[11px] font-semibold text-foreground">
-              {tSidebar("userName")}
-            </div>
-            <div className="truncate text-[9px] text-muted-foreground">
-              {tSidebar("userRole")}
-            </div>
+          <div className="truncate text-[9.5px] text-muted-foreground">
+            {tSidebar("userRole")}
           </div>
         </div>
       </div>
