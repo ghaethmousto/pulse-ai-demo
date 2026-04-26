@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
@@ -332,45 +333,51 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         )}
       </AnimatePresence>
 
-      {/* Launcher — perfect circle to mirror the Pulse - Red Circle Icon
-          asset; mark fills the disc; only the outer halo breathes. */}
+      {/* Launcher — official Pulse - Red Circle Icon as the entire visual.
+          The asset already provides the wine disc and the white pulse glyph;
+          we add only a soft breathing halo behind it for "floating + alive". */}
       <motion.button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
         aria-label={open ? tAssistant("close") : tAssistant("open")}
         aria-expanded={open}
-        className="relative grid size-[60px] place-items-center rounded-full text-white transition-shadow"
+        className="relative grid size-[60px] place-items-center rounded-full"
         style={{
-          background:
-            "radial-gradient(120% 120% at 30% 25%, var(--pulse-wine-glow) 0%, var(--pulse-wine) 55%, var(--pulse-maroon-deep) 100%)",
-          boxShadow:
-            "0 10px 32px -8px rgba(141,53,75,0.55), 0 0 0 1px rgba(141,53,75,0.30), inset 0 1.5px 0 rgba(255,255,255,0.32), inset 0 -1.5px 2px rgba(0,0,0,0.20)",
+          // No background here — the SVG asset is the disc.
+          filter:
+            "drop-shadow(0 10px 24px rgba(141,53,75,0.45)) drop-shadow(0 0 1px rgba(141,53,75,0.30))",
         }}
       >
-        {/* Soft breathing halo behind the disc */}
+        {/* Soft breathing halo behind the disc — keeps the "alive" feel
+            without altering the icon itself. */}
         <span
           aria-hidden
           className="pulse-mark-glow pointer-events-none absolute -inset-2 rounded-full"
           style={{
             background:
-              "radial-gradient(circle at center, rgba(207,89,118,0.30) 0%, transparent 70%)",
+              "radial-gradient(circle at center, rgba(207,89,118,0.36) 0%, transparent 70%)",
           }}
         />
-        {/* Subtle inner ring pulse */}
+        {/* Brighter halo in dark mode for separation from the charcoal stage. */}
         <span
           aria-hidden
-          className="pulse-mark-breath pointer-events-none absolute inset-[3px] rounded-full"
+          className="pulse-mark-glow pointer-events-none absolute -inset-2 hidden rounded-full dark:block"
           style={{
-            boxShadow:
-              "inset 0 0 0 1px rgba(255,255,255,0.16)",
+            background:
+              "radial-gradient(circle at center, rgba(207,89,118,0.55) 0%, transparent 70%)",
           }}
         />
-        {/* The mark itself */}
-        <span aria-hidden className="relative z-[1]">
-          <PulseMark width={30} height={24} stroke="#ffffff" baselineOpacity={0.28} />
-        </span>
+        {/* The official Pulse mark asset. */}
+        <Image
+          src="/assets/pulse/Pulse - Red Circle Icon.svg"
+          alt=""
+          width={60}
+          height={60}
+          priority
+          className="relative z-[1] block size-[60px]"
+        />
       </motion.button>
     </div>
   );
