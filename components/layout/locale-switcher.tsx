@@ -1,7 +1,6 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Languages } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { locales } from "@/i18n/routing";
@@ -18,14 +17,16 @@ export function LocaleSwitcher({ className }: { className?: string }) {
     <Link
       href={pathname}
       locale={next}
+      title={t(labelKey)}
       aria-label={`${t("language")}: ${t(labelKey)}`}
       className={cn(
-        "inline-flex h-9 items-center gap-2 rounded-full border border-border bg-card px-3 text-sm font-medium text-foreground/80 shadow-pulse-card transition hover:text-foreground hover:bg-accent",
+        "grid size-[30px] place-items-center rounded-full border border-border/80 bg-background/60 text-foreground/85 transition hover:bg-background hover:text-foreground dark:bg-white/[0.06] dark:hover:bg-white/[0.10]",
         className,
       )}
     >
-      <Languages className="size-4" aria-hidden />
-      <span className="font-mono text-xs uppercase tracking-[0.2em]">{next}</span>
+      <span className="font-mono text-[10px] font-medium uppercase tracking-[0.04em] leading-none">
+        {next.toUpperCase()}
+      </span>
     </Link>
   );
 }

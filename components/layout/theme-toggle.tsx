@@ -16,14 +16,15 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={`${t("theme")}: ${isDark ? t("light") : t("dark")}`}
+      title={isDark ? t("light") : t("dark")}
       suppressHydrationWarning
       className={cn(
-        "inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-foreground/80 shadow-pulse-card transition hover:text-foreground hover:bg-accent",
+        "grid size-[30px] place-items-center rounded-full border border-border/80 bg-background/60 text-foreground/85 transition hover:bg-background hover:text-foreground dark:bg-white/[0.06] dark:hover:bg-white/[0.10]",
         className,
       )}
     >
-      <Sun className="size-4 hidden dark:block" />
-      <Moon className="size-4 block dark:hidden" />
+      <Sun strokeWidth={1.6} className="size-[14px] hidden dark:block" />
+      <Moon strokeWidth={1.6} className="size-[14px] block dark:hidden" />
     </button>
   );
 }

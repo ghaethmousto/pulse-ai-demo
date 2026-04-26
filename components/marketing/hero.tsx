@@ -18,69 +18,70 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(75% 60% at 30% 0%, color-mix(in oklab, var(--pulse-wine) 18%, transparent) 0%, transparent 60%), radial-gradient(60% 50% at 90% 10%, color-mix(in oklab, var(--pulse-wine-glow) 14%, transparent) 0%, transparent 70%)",
+            "radial-gradient(70% 50% at 30% 0%, color-mix(in oklab, var(--pulse-wine) 14%, transparent) 0%, transparent 60%), radial-gradient(50% 40% at 90% 10%, color-mix(in oklab, var(--pulse-wine-glow) 10%, transparent) 0%, transparent 70%)",
         }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, var(--pulse-wine-border), transparent)" }}
-      />
 
-      <div className="mx-auto max-w-7xl px-5 pt-20 pb-24 lg:px-8 lg:pt-28 lg:pb-32">
+      <div className="mx-auto max-w-6xl px-5 pt-16 pb-16 lg:px-8 lg:pt-24 lg:pb-24">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-muted-foreground shadow-pulse-card backdrop-blur"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2 rounded-full border-[1.25px] border-border bg-card/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground backdrop-blur"
         >
-          <Sparkles className="size-3.5 text-wine" /> {tProj("name")} · {tProj("phase")}
+          <Sparkles className="size-3 text-wine" strokeWidth={1.8} /> {tProj("name")} ·{" "}
+          {tProj("phase")}
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-5 max-w-[60rem] text-balance text-[40px] font-semibold leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[52px] lg:text-[64px]"
         >
           {t("heroTitle")}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-5 max-w-[42rem] text-pretty text-[15px] leading-[1.55] text-muted-foreground sm:text-[16px]"
         >
           {t("heroSubtitle")}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 flex flex-wrap items-center gap-3"
+          transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-7 flex flex-wrap items-center gap-3"
         >
           <Link
             href="/dashboard"
-            className="group inline-flex h-11 items-center gap-2 rounded-full bg-wine px-5 text-sm font-medium text-white shadow-pulse-wine transition hover:bg-wine-light"
+            className="group inline-flex h-[38px] items-center gap-2 rounded-[9px] px-[18px] text-[14px] font-medium text-white transition"
+            style={{
+              background: "linear-gradient(180deg, #9a3e55 0%, #7a2b3f 100%)",
+              boxShadow:
+                "0 4px 14px rgba(141,53,75,0.32), 0 0 0 1px rgba(141,53,75,0.20), inset 0 1px 0 rgba(255,255,255,0.20)",
+            }}
           >
             {t("primaryCta")}
-            <ArrowRight className="size-4 transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" />
+            <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5" strokeWidth={2} />
           </Link>
           <Link
             href="/dashboard"
-            className="inline-flex h-11 items-center gap-2 rounded-full border border-border bg-card px-5 text-sm font-medium text-foreground/80 shadow-pulse-card transition hover:text-foreground hover:bg-accent"
+            className="inline-flex h-[38px] items-center gap-2 rounded-[9px] border-[1.25px] border-border bg-card px-[18px] text-[14px] font-medium text-foreground/80 transition hover:text-foreground hover:bg-accent/40"
           >
             {tCommon("viewDemo")}
           </Link>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16"
+          transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12"
         >
           <ProjectSpotlightCard />
         </motion.div>
@@ -94,27 +95,21 @@ function ProjectSpotlightCard() {
   const t = useTranslations("landing");
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-pulse-card">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(135deg, color-mix(in oklab, var(--pulse-wine) 8%, transparent), transparent 50%)",
-        }}
-      />
-      <div className="grid gap-6 p-6 md:grid-cols-[1.2fr_1fr] md:p-8">
+    <div className="relative overflow-hidden rounded-[10px] border-[1.25px] border-border bg-card">
+      <div className="grid gap-5 p-6 md:grid-cols-[1.2fr_1fr] md:p-7">
         <div>
-          <div className="text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground">
+          <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
             {t("spotlight")}
           </div>
-          <h3 className="mt-2 text-2xl font-semibold text-foreground">{tProj("name")}</h3>
-          <p className="mt-1 text-sm text-muted-foreground">{tProj("location")}</p>
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-foreground/80">
+          <h3 className="mt-1.5 text-[22px] font-bold tracking-[-0.02em] text-foreground">
+            {tProj("name")}
+          </h3>
+          <p className="mt-1 text-[12.5px] text-muted-foreground">{tProj("location")}</p>
+          <p className="mt-4 max-w-xl text-[13.5px] leading-[1.6] text-foreground/80">
             {tProj("aiSummary")}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2.5">
           <SpotlightStat label={t("stat.delay")} value={t("stat.delayValue")} tone="warning" />
           <SpotlightStat label={t("stat.exposure")} value={t("stat.exposureValue")} tone="danger" />
           <SpotlightStat label={t("stat.progress")} value={t("stat.progressValue")} tone="muted" />
@@ -143,9 +138,11 @@ function SpotlightStat({
           ? "text-info"
           : "text-foreground";
   return (
-    <div className="rounded-2xl border border-border bg-background/60 p-4">
-      <div className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">{label}</div>
-      <div className={`mt-2 text-lg font-semibold ${toneClass}`}>
+    <div className="rounded-[8px] border border-border bg-background/60 px-3.5 py-2.5">
+      <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+        {label}
+      </div>
+      <div className={`mt-1 font-mono text-[16px] font-semibold tabular-nums ${toneClass}`}>
         <bdi>{value}</bdi>
       </div>
     </div>

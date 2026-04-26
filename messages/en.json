@@ -140,15 +140,22 @@
       }
     }
   },
+  "sidebar": {
+    "activeProject": "Active Project",
+    "userName": "Ghaeth Mousto",
+    "userRole": "Management"
+  },
   "pulseAssistant": {
-    "name": "Pulse",
+    "name": "Pulse AI",
     "label": "Floating AI assistant",
-    "liveContext": "Live project context",
-    "placeholder": "Ask Pulse about the project…",
+    "liveContext": "Live intelligence",
+    "placeholder": "Ask about this project…",
     "open": "Open Pulse",
     "close": "Close Pulse",
-    "suggested": "Suggested for this view",
-    "greeting": "I'm Pulse. Ask me about Al Reem Tower — risks, delays, approvals, or what to action today.",
+    "suggested": "Suggested actions",
+    "currentSituation": "Current situation",
+    "voice": "Voice input",
+    "greeting": "Schedule delay 18 days. Authority package due 08-May-2026. Podium MEP coordination unresolved; client decision on amenity floor pending. Recommend freezing vertical core this week.",
     "fallback": "I can answer this in the full connected version. For this demo, I am currently showing project health, delays, approvals, reports, risks, and recommended actions for Al Reem Tower."
   }
 }

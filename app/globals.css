@@ -215,3 +215,33 @@ html[lang="ar"] body {
 [dir="rtl"] {
   letter-spacing: 0;
 }
+
+/* ════════════════════════════════════════════
+   PULSE AI MARK ANIMATIONS — match ai-panel.html
+════════════════════════════════════════════ */
+@keyframes pulseMarkBreath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.015); }
+}
+@keyframes pulseMarkGlow {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+@keyframes pulseEcgSweep {
+  0%   { stroke-dashoffset: 180; opacity: 0; }
+  10%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes pulseLiveDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.85); }
+}
+.pulse-mark-breath { animation: pulseMarkBreath 3.6s ease-in-out infinite; }
+.pulse-mark-glow   { animation: pulseMarkGlow 3.6s ease-in-out infinite; }
+.pulse-mark-sweep  {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: pulseEcgSweep 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.pulse-live-dot { animation: pulseLiveDot 2.4s ease-in-out infinite; }

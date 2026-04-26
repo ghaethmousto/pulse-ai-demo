@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import {
+  ChevronDown,
   ClipboardCheck,
   FileBarChart,
   Folders,
@@ -41,15 +42,31 @@ export function Sidebar() {
   const pathname = usePathname();
   const tNav = useTranslations("nav");
   const tProj = useTranslations("demoProject");
+  const tSidebar = useTranslations("sidebar");
 
   return (
-    <aside className="hidden border-e border-sidebar-border bg-sidebar lg:flex lg:w-64 lg:flex-col">
-      <div className="flex h-16 items-center px-5 border-b border-sidebar-border">
+    <aside className="hidden w-[220px] shrink-0 flex-col border-e border-sidebar-border bg-sidebar lg:flex">
+      <div className="flex items-center gap-2 px-3.5 py-4">
         <PulseLogo />
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 py-5">
-        <ul className="space-y-1">
+      <button
+        type="button"
+        className="mx-2.5 flex items-center justify-between rounded-lg border border-border bg-card px-2.5 py-2 text-start shadow-pulse-card transition hover:bg-accent/40"
+      >
+        <div className="min-w-0">
+          <div className="text-[8px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+            {tSidebar("activeProject")}
+          </div>
+          <div className="mt-0.5 truncate text-[11px] font-semibold text-foreground">
+            {tProj("name")}
+          </div>
+        </div>
+        <ChevronDown className="size-3 shrink-0 text-muted-foreground" />
+      </button>
+
+      <nav className="flex-1 overflow-y-auto px-2 py-3">
+        <ul className="space-y-px">
           {NAV.map(({ href, key, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
             return (
@@ -57,20 +74,13 @@ export function Sidebar() {
                 <Link
                   href={href}
                   className={cn(
-                    "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition",
+                    "flex items-center gap-2.5 rounded-md px-2 py-1.5 text-[12px] font-medium transition",
                     active
-                      ? "bg-accent text-wine"
-                      : "text-foreground/70 hover:bg-accent/60 hover:text-foreground",
+                      ? "bg-wine/[0.07] text-wine font-semibold"
+                      : "text-foreground/60 hover:bg-foreground/[0.04] hover:text-foreground/90",
                   )}
                 >
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "absolute inset-y-2 start-0 w-0.5 rounded-full transition",
-                      active ? "bg-wine" : "bg-transparent",
-                    )}
-                  />
-                  <Icon className="size-4 shrink-0" />
+                  <Icon className="size-[14px] shrink-0" strokeWidth={1.6} />
                   <span>{tNav(key)}</span>
                 </Link>
               </li>
@@ -79,16 +89,22 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className="border-t border-sidebar-border p-4">
-        <div className="rounded-xl border border-border bg-card p-3 shadow-pulse-card">
-          <div className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
-            {tProj("name")}
+      <div className="border-t border-sidebar-border px-3 py-3">
+        <div className="flex items-center gap-2">
+          <div
+            aria-hidden
+            className="grid size-[26px] shrink-0 place-items-center rounded-full text-[9px] font-bold text-white"
+            style={{ background: "linear-gradient(135deg, #8d354b, #6a2638)" }}
+          >
+            GM
           </div>
-          <div className="mt-1 text-sm font-semibold text-foreground">
-            {tProj("location")}
-          </div>
-          <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-warning/10 px-2 py-0.5 text-[0.7rem] font-medium text-warning">
-            <span className="size-1.5 rounded-full bg-warning" /> {tProj("status")}
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-[11px] font-semibold text-foreground">
+              {tSidebar("userName")}
+            </div>
+            <div className="truncate text-[9px] text-muted-foreground">
+              {tSidebar("userRole")}
+            </div>
           </div>
         </div>
       </div>
