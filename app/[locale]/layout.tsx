@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Raleway, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Raleway, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -13,6 +13,13 @@ const raleway = Raleway({
   display: "swap",
   variable: "--font-raleway",
   weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  display: "swap",
+  variable: "--font-plex-arabic",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -52,7 +59,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${raleway.variable} ${geistMono.variable}`}
+      className={`${raleway.variable} ${plexArabic.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-background text-foreground antialiased">

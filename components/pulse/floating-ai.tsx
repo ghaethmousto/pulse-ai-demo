@@ -3,8 +3,9 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { Minimize2, Send, Sparkles, X } from "lucide-react";
+import { Minimize2, Send, X } from "lucide-react";
 
 import { findAnswer, getDialogues } from "@/lib/data/dialogues";
 import { routeKeyFromPath } from "@/lib/utils/route-key";
@@ -113,7 +114,12 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   aria-hidden
                   className="grid size-10 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/25 backdrop-blur"
                 >
-                  <Sparkles className="size-5" />
+                  <Image
+                    src="/assets/pulse/Pulse - White Circle Icon.svg"
+                    alt=""
+                    width={22}
+                    height={22}
+                  />
                 </span>
                 <div>
                   <div className="text-sm font-semibold">{tAssistant("name")}</div>
@@ -212,7 +218,17 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         }}
       >
         <span aria-hidden className="absolute inset-0 -z-10 rounded-2xl bg-wine/40 blur-2xl transition group-hover:bg-wine-glow/50" />
-        {open ? <X className="size-6" /> : <Sparkles className="size-6" />}
+        {open ? (
+          <X className="size-6" />
+        ) : (
+          <Image
+            src="/assets/pulse/Pulse - White Circle Icon.svg"
+            alt=""
+            width={32}
+            height={32}
+            priority
+          />
+        )}
       </motion.button>
     </div>
   );

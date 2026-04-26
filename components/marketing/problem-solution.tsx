@@ -8,14 +8,14 @@ export function ProblemSolution() {
   const t = useTranslations("landing");
 
   return (
-    <section className="border-y border-border/70 bg-card/30">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 md:grid-cols-2 lg:px-8">
+    <section className="bg-background">
+      <div className="mx-auto grid max-w-7xl gap-6 px-5 py-20 md:grid-cols-2 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-3xl border border-border bg-background p-7 shadow-pulse-card"
+          className="relative overflow-hidden rounded-3xl border border-border bg-card p-7 shadow-pulse-card"
         >
           <div className="inline-flex size-10 items-center justify-center rounded-xl bg-warning/10 text-warning">
             <AlertTriangle className="size-5" />

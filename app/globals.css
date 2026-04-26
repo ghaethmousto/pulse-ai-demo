@@ -146,6 +146,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+
   ::selection {
     background: var(--pulse-wine-subtle);
     color: var(--pulse-maroon-deep);
@@ -188,4 +189,29 @@
   .ring-wine {
     box-shadow: 0 0 0 1px var(--pulse-wine-border);
   }
+}
+
+/* ════════════════════════════════════════════
+   ARABIC TYPOGRAPHY — keep cursive joining intact.
+   Raleway has no Arabic glyphs; swap the family for an
+   Arabic-supporting font, and neutralise utilities that
+   break ligatures (uppercase, letter-spacing).
+   Kept outside @layer so the rules are not pruned.
+════════════════════════════════════════════ */
+html[lang="ar"],
+html[lang="ar"] body {
+  font-family: var(--font-plex-arabic), "IBM Plex Sans Arabic",
+    "Noto Sans Arabic", "Segoe UI", system-ui, sans-serif;
+}
+[lang="ar"] .uppercase,
+[dir="rtl"] .uppercase {
+  text-transform: none;
+}
+[lang="ar"] [class*="tracking-"],
+[dir="rtl"] [class*="tracking-"] {
+  letter-spacing: 0;
+}
+[lang="ar"],
+[dir="rtl"] {
+  letter-spacing: 0;
 }
