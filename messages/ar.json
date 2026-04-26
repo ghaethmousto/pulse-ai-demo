@@ -105,7 +105,7 @@
       "health": "ضمن حالة خطر",
       "delay": "{days} يوماً",
       "progress": "{actual}% / {planned}%",
-      "exposure": "{amount} م د.إ"
+      "exposure": "{amount} .د.إ"
     },
     "statusValues": {
       "atRisk": "ضمن حالة خطر",
@@ -144,10 +144,16 @@
   },
   "sidebar": {
     "activeProject": "المشروع",
-    "projectMeta": "185 مليون د.إ · 28 شهراً",
+    "projectMeta": "185 مليون .د.إ · 28 شهراً",
     "userName": "غيث مصطو",
     "userInitials": "غم",
-    "userRole": "الإدارة"
+    "userRole": "الإدارة",
+    "role": "بوابة المالك",
+    "sections": {
+      "workspace": "مساحة العمل",
+      "monitor": "المتابعة",
+      "system": "النظام"
+    }
   },
   "pulseAssistant": {
     "name": "Pulse AI",

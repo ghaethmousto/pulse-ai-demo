@@ -257,3 +257,84 @@ html[lang="ar"] body {
 @media (prefers-reduced-motion: reduce) {
   .pulse-line-track { animation: none; }
 }
+
+/* ════════════════════════════════════════════
+   PULSE FLOATING PANEL — surface variables
+   Light & dark variants per ai-panel.html, exposed as CSS vars
+   so inline styles can flip cleanly between modes.
+════════════════════════════════════════════ */
+:root {
+  --pulse-panel-bg: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(251,246,242,0.96) 100%);
+  --pulse-panel-border: rgba(255,255,255,0.70);
+  --pulse-panel-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    inset 0 -1px 0 rgba(92,69,69,0.06),
+    0 1px 2px rgba(32,29,26,0.04),
+    0 24px 48px -16px rgba(32,29,26,0.18),
+    0 40px 80px -24px rgba(141,53,75,0.18);
+  --pulse-briefing-bg: linear-gradient(180deg, rgba(255,255,255,0.70) 0%, rgba(251,246,242,0.88) 100%);
+  --pulse-briefing-ring: rgba(141,53,75,0.12);
+  --pulse-briefing-label: #8d354b;
+  --pulse-briefing-stroke: rgba(141,53,75,0.55);
+  --pulse-input-bg: linear-gradient(180deg, rgba(239,231,226,0.40) 0%, rgba(232,222,216,0.66) 100%);
+  --pulse-input-field-bg: rgba(255,255,255,0.88);
+  --pulse-input-field-border: rgba(92,69,69,0.14);
+  --pulse-input-placeholder: #b5aca5;
+  --pulse-action-hover-bg: rgba(255,255,255,0.95);
+  --pulse-action-hover-ring: rgba(141,53,75,0.14);
+  --pulse-action-text: #201d1a;
+  --pulse-action-meta: #8a7d76;
+  --pulse-action-arrow: #c0b8b2;
+}
+.dark {
+  --pulse-panel-bg:
+    radial-gradient(ellipse 120% 60% at 0% 0%, rgba(141,53,75,0.18), transparent 55%),
+    radial-gradient(ellipse 80% 40% at 100% 100%, rgba(207,89,118,0.06), transparent 50%),
+    linear-gradient(180deg, #2a2221 0%, #1d1716 100%);
+  --pulse-panel-border: rgba(238,235,232,0.10);
+  --pulse-panel-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.32),
+    0 2px 4px rgba(0,0,0,0.40),
+    0 40px 80px -16px rgba(0,0,0,0.80),
+    0 24px 48px -12px rgba(141,53,75,0.28),
+    0 0 1px rgba(238,235,232,0.04);
+  --pulse-briefing-bg: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  --pulse-briefing-ring: rgba(207,89,118,0.24);
+  --pulse-briefing-label: #f49fb4;
+  --pulse-briefing-stroke: rgba(255,180,195,0.55);
+  --pulse-input-bg: linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.44) 100%);
+  --pulse-input-field-bg: rgba(14,12,12,0.55);
+  --pulse-input-field-border: rgba(238,235,232,0.14);
+  --pulse-input-placeholder: #6f615b;
+  --pulse-action-hover-bg: rgba(255,255,255,0.05);
+  --pulse-action-hover-ring: rgba(207,89,118,0.22);
+  --pulse-action-text: #f4f1ee;
+  --pulse-action-meta: #958780;
+  --pulse-action-arrow: #6f615b;
+}
+
+/* ════════════════════════════════════════════
+   TOPBAR FROST — premium burgundy-tinted glass
+   Lighter wash in light mode, deeper layered tint in dark mode.
+════════════════════════════════════════════ */
+.topbar-frost {
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--pulse-wine) 4%, var(--bg-base)) 0%,
+      color-mix(in oklab, var(--pulse-wine) 1.5%, var(--bg-base)) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -1px 0 rgba(141,53,75,0.06);
+}
+.dark .topbar-frost {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(141,53,75,0.18), transparent 60%),
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--pulse-wine) 6%, var(--bg-surface)) 0%,
+      color-mix(in oklab, var(--pulse-wine) 2%, var(--bg-base)) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.32),
+    0 1px 0 rgba(141,53,75,0.10);
+}

@@ -22,11 +22,7 @@ export function Topbar() {
   return (
     <div className="sticky top-0 z-30">
       <header
-        className="relative border-b border-border/60 backdrop-blur-xl"
-        style={{
-          background:
-            "linear-gradient(180deg, color-mix(in oklab, var(--pulse-wine) 3%, var(--bg-base)) 0%, color-mix(in oklab, var(--pulse-wine) 1.5%, var(--bg-base)) 100%)",
-        }}
+        className="topbar-frost relative border-b border-border/60 backdrop-blur-2xl backdrop-saturate-[1.4]"
       >
         <div className="flex h-[68px] items-center gap-4 px-6 lg:px-8">
           <div className="min-w-0 flex-1">
@@ -41,11 +37,11 @@ export function Topbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* "Ask Pulse..." search pill — matches the reference */}
+            {/* Ask Pulse search pill */}
             <button
               type="button"
               aria-label={t("searchPlaceholder")}
-              className="hidden h-[30px] items-center gap-2 rounded-full border border-border/80 bg-card/80 px-3 text-[11px] text-muted-foreground transition hover:bg-card hover:text-foreground/90 sm:inline-flex"
+              className="hidden h-[30px] items-center gap-2 rounded-full border border-border/80 bg-card/85 px-3 text-[11px] text-muted-foreground transition hover:bg-card hover:text-foreground/90 sm:inline-flex"
             >
               <Search className="size-3" strokeWidth={1.8} />
               <span className="font-medium">{t("askPulse")}</span>
@@ -55,7 +51,7 @@ export function Topbar() {
             </button>
 
             {/* Live chip */}
-            <span className="inline-flex h-[30px] items-center gap-1.5 rounded-full border border-border/80 bg-card/80 px-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-foreground/80">
+            <span className="inline-flex h-[30px] items-center gap-1.5 rounded-full border border-border/80 bg-card/85 px-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-foreground/80">
               <span
                 aria-hidden
                 className="pulse-live-dot inline-block size-1.5 rounded-full bg-[#3d7a58]"

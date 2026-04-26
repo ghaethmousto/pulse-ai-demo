@@ -49,11 +49,11 @@ export function formatAed(value: number, locale: Locale): string {
     const millions = (value / 1_000_000).toLocaleString(locale === "ar" ? "ar-AE" : "en-US", {
       maximumFractionDigits: 2,
     });
-    // Arabic: number first, then "Mn" abbreviation in Arabic, then dirham symbol د.إ
-    return locale === "ar" ? `${millions} مليون د.إ` : `AED ${millions}M`;
+    // Arabic per request: ".د.إ" with the explicit leading dot.
+    return locale === "ar" ? `${millions} مليون .د.إ` : `AED ${millions}M`;
   }
   return locale === "ar"
-    ? `${value.toLocaleString("ar-AE")} د.إ`
+    ? `${value.toLocaleString("ar-AE")} .د.إ`
     : `AED ${value.toLocaleString("en-US")}`;
 }
 

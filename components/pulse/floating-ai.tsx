@@ -77,7 +77,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 
   return (
     <div
-      className="fixed z-50 [inset-block-end:1.25rem] [inset-inline-end:1.25rem]"
+      className="fixed z-50 [inset-block-end:1.5rem] [inset-inline-end:1.5rem]"
       dir={isAr ? "rtl" : "ltr"}
     >
       <AnimatePresence initial={false}>
@@ -90,28 +90,23 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.985 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute end-0 w-[340px] max-w-[calc(100vw-2rem)] [bottom:calc(100%+12px)] origin-bottom rounded-[22px] p-[10px]"
+            className="absolute end-0 w-[348px] max-w-[calc(100vw-2rem)] [bottom:calc(100%+14px)] origin-bottom rounded-[22px] p-[10px] backdrop-blur-[22px] backdrop-saturate-[1.15]"
             style={{
-              background:
-                "linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(251,246,242,0.96) 100%)",
-              backdropFilter: "blur(22px) saturate(1.15)",
-              WebkitBackdropFilter: "blur(22px) saturate(1.15)",
-              border: "1px solid rgba(255,255,255,0.70)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(92,69,69,0.06), 0 1px 2px rgba(32,29,26,0.04), 0 24px 48px -16px rgba(32,29,26,0.18), 0 40px 80px -24px rgba(141,53,75,0.18)",
+              background: "var(--pulse-panel-bg)",
+              border: "1px solid var(--pulse-panel-border)",
+              boxShadow: "var(--pulse-panel-shadow)",
             }}
           >
-            <div className="overflow-hidden rounded-[16px] dark:bg-[linear-gradient(180deg,#2a2221_0%,#1d1716_100%)]">
+            <div className="overflow-hidden rounded-[16px]">
               {/* Wine header band */}
               <div
                 className="relative flex items-center gap-2.5 overflow-hidden px-4 py-3 text-white"
                 style={{
                   background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.22)",
+                    "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.24)",
                 }}
               >
-                {/* ECG ribbon texture */}
                 <svg
                   aria-hidden
                   viewBox="0 0 320 70"
@@ -156,7 +151,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                       style={{ boxShadow: "0 0 8px #7ee0a8" }}
                     />
                   </div>
-                  <div className="mt-0.5 truncate text-[10px] tracking-[0.03em] text-[rgba(255,232,238,0.78)]">
+                  <div className="mt-0.5 truncate text-[10px] tracking-[0.03em] text-[rgba(255,232,238,0.82)]">
                     {projectName} · {tAssistant("liveContext")}
                   </div>
                 </div>
@@ -165,7 +160,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label={tAssistant("close")}
-                  className="relative z-[1] grid size-6 shrink-0 place-items-center rounded-[7px] text-[rgba(255,232,238,0.78)] transition hover:bg-white/[0.14] hover:text-white"
+                  className="relative z-[1] grid size-6 shrink-0 place-items-center rounded-[7px] text-[rgba(255,232,238,0.82)] transition hover:bg-white/[0.14] hover:text-white"
                 >
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                     <path
@@ -182,10 +177,9 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
               <div
                 className="relative mx-2.5 mb-2 mt-2.5 overflow-hidden rounded-[13px] px-4 py-3.5"
                 style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.70) 0%, rgba(251,246,242,0.88) 100%)",
+                  background: "var(--pulse-briefing-bg)",
                   boxShadow:
-                    "inset 0 0 0 1px rgba(141,53,75,0.12), 0 1px 2px rgba(32,29,26,0.04)",
+                    "inset 0 0 0 1px var(--pulse-briefing-ring), 0 1px 2px rgba(32,29,26,0.04)",
                 }}
               >
                 <svg
@@ -197,20 +191,26 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   <path
                     d="M0 35 L80 35 L96 20 L108 50 L124 10 L140 60 L156 20 L170 42 L184 30 L320 30"
                     fill="none"
-                    stroke="rgba(141,53,75,0.55)"
+                    stroke="var(--pulse-briefing-stroke)"
                     strokeWidth={1.2}
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                 </svg>
-                <div className="relative z-[1] flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.26em] text-wine">
+                <div
+                  className="relative z-[1] flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.26em]"
+                  style={{ color: "var(--pulse-briefing-label)" }}
+                >
                   <span
                     aria-hidden
                     className="pulse-live-dot inline-block size-1 rounded-full bg-current opacity-70"
                   />
                   <span className="truncate">{briefing.label}</span>
                 </div>
-                <p className="relative z-[1] mt-1.5 text-[12px] leading-[1.6] text-foreground/90">
+                <p
+                  className="relative z-[1] mt-1.5 text-[12px] leading-[1.6]"
+                  style={{ color: "var(--pulse-action-text)" }}
+                >
                   {briefing.text}
                 </p>
               </div>
@@ -218,9 +218,15 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
               {/* Suggested actions */}
               {suggested.length > 0 && (
                 <div className="mt-1">
-                  <div className="flex items-center justify-between px-4.5 pb-1 pt-3 text-[9px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
+                  <div
+                    className="flex items-center justify-between px-4 pb-1 pt-3 text-[9px] font-semibold uppercase tracking-[0.24em]"
+                    style={{ color: "var(--pulse-action-meta)" }}
+                  >
                     <span>{tAssistant("suggested")}</span>
-                    <span className="text-[9px] tracking-[0.06em] text-wine">
+                    <span
+                      className="text-[9px] tracking-[0.06em]"
+                      style={{ color: "var(--pulse-briefing-label)" }}
+                    >
                       {suggested.length}
                     </span>
                   </div>
@@ -230,13 +236,32 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                         <button
                           type="button"
                           onClick={() => ask(q)}
-                          className="group mx-2.5 my-0.5 flex w-[calc(100%-1.25rem)] items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-start transition hover:bg-white hover:shadow-[inset_0_0_0_1px_rgba(141,53,75,0.14),0_4px_12px_-3px_rgba(32,29,26,0.10)]"
+                          className="group mx-2.5 my-0.5 flex w-[calc(100%-1.25rem)] items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-start transition"
+                          style={{
+                            color: "var(--pulse-action-text)",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.background =
+                              "var(--pulse-action-hover-bg)";
+                            (e.currentTarget as HTMLElement).style.boxShadow =
+                              "inset 0 0 0 1px var(--pulse-action-hover-ring), 0 4px 12px -3px rgba(32,29,26,0.10)";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.background = "";
+                            (e.currentTarget as HTMLElement).style.boxShadow = "";
+                          }}
                         >
                           <ActionTypeIcon page={q.suggestedPage} />
-                          <span className="min-w-0 flex-1 truncate text-[11.5px] font-semibold tracking-[-0.003em] text-foreground">
+                          <span
+                            className="min-w-0 flex-1 truncate text-[11.5px] font-semibold tracking-[-0.003em]"
+                            style={{ color: "var(--pulse-action-text)" }}
+                          >
                             {q.question}
                           </span>
-                          <span className="shrink-0 text-[13px] text-muted-foreground transition group-hover:text-wine">
+                          <span
+                            className="shrink-0 text-[13px] transition"
+                            style={{ color: "var(--pulse-action-arrow)" }}
+                          >
                             {isAr ? "‹" : "›"}
                           </span>
                         </button>
@@ -254,10 +279,9 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                 }}
                 className="mx-2.5 my-2.5 flex items-center gap-2 rounded-[13px] p-2"
                 style={{
-                  background:
-                    "linear-gradient(180deg, rgba(239,231,226,0.40) 0%, rgba(232,222,216,0.66) 100%)",
+                  background: "var(--pulse-input-bg)",
                   boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.70), inset 0 -1px 0 rgba(92,69,69,0.05)",
+                    "inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.10)",
                 }}
               >
                 <input
@@ -267,13 +291,23 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   onChange={(e) => setDraft(e.target.value)}
                   placeholder={tAssistant("placeholder")}
                   aria-label={tAssistant("placeholder")}
-                  className="h-[38px] min-w-0 flex-1 rounded-[9px] border border-[rgba(92,69,69,0.12)] bg-white/85 px-3.5 text-[12px] outline-none transition placeholder:text-[#b5aca5] focus:border-wine focus:bg-white focus:shadow-[0_0_0_3px_rgba(141,53,75,0.12)] dark:border-white/10 dark:bg-black/40 dark:text-foreground dark:placeholder:text-muted-foreground"
+                  className="h-[38px] min-w-0 flex-1 rounded-[9px] px-3.5 text-[12px] outline-none transition focus:shadow-[0_0_0_3px_rgba(141,53,75,0.16)]"
+                  style={{
+                    background: "var(--pulse-input-field-bg)",
+                    border: "1px solid var(--pulse-input-field-border)",
+                    color: "var(--pulse-action-text)",
+                  }}
                 />
                 <button
                   type="button"
                   aria-label={tAssistant("voice")}
                   title={tAssistant("voice")}
-                  className="grid size-[38px] shrink-0 place-items-center rounded-[9px] border border-[rgba(92,69,69,0.12)] bg-white/85 text-foreground/70 transition hover:text-wine hover:border-wine/30 dark:border-white/10 dark:bg-white/[0.06]"
+                  className="grid size-[38px] shrink-0 place-items-center rounded-[9px] transition hover:scale-105"
+                  style={{
+                    background: "var(--pulse-input-field-bg)",
+                    border: "1px solid var(--pulse-input-field-border)",
+                    color: "var(--pulse-action-meta)",
+                  }}
                 >
                   <MicIcon />
                 </button>
@@ -282,7 +316,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                   aria-label={tCommon("send")}
                   disabled={draft.trim().length === 0}
                   className={cn(
-                    "grid size-[38px] shrink-0 place-items-center rounded-[9px] text-white transition disabled:opacity-40",
+                    "grid size-[38px] shrink-0 place-items-center rounded-[9px] text-white transition disabled:opacity-40 hover:translate-y-[-1px] active:translate-y-0",
                   )}
                   style={{
                     background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
@@ -298,38 +332,44 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         )}
       </AnimatePresence>
 
-      {/* Launcher (always anchored — no jump when panel opens) */}
+      {/* Launcher — perfect circle to mirror the Pulse - Red Circle Icon
+          asset; mark fills the disc; only the outer halo breathes. */}
       <motion.button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.96 }}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.97 }}
         aria-label={open ? tAssistant("close") : tAssistant("open")}
         aria-expanded={open}
-        className="relative grid size-14 place-items-center rounded-[18px] text-white"
+        className="relative grid size-[60px] place-items-center rounded-full text-white transition-shadow"
         style={{
           background:
-            "radial-gradient(120% 120% at 30% 20%, var(--pulse-wine-glow), var(--pulse-wine) 55%, var(--pulse-maroon-deep))",
+            "radial-gradient(120% 120% at 30% 25%, var(--pulse-wine-glow) 0%, var(--pulse-wine) 55%, var(--pulse-maroon-deep) 100%)",
           boxShadow:
-            "0 8px 24px rgba(141,53,75,0.32), 0 0 0 1px rgba(141,53,75,0.20), inset 0 1px 0 rgba(255,255,255,0.22)",
+            "0 10px 32px -8px rgba(141,53,75,0.55), 0 0 0 1px rgba(141,53,75,0.30), inset 0 1.5px 0 rgba(255,255,255,0.32), inset 0 -1.5px 2px rgba(0,0,0,0.20)",
         }}
       >
+        {/* Soft breathing halo behind the disc */}
         <span
           aria-hidden
-          className="pulse-mark-breath relative grid size-9 place-items-center rounded-[10px]"
+          className="pulse-mark-glow pointer-events-none absolute -inset-2 rounded-full"
           style={{
-            background: "rgba(255,255,255,0.14)",
-            border: "1px solid rgba(255,255,255,0.22)",
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.18)",
+            background:
+              "radial-gradient(circle at center, rgba(207,89,118,0.30) 0%, transparent 70%)",
           }}
-        >
-          <span
-            aria-hidden
-            className="pulse-mark-glow pointer-events-none absolute -inset-1 rounded-[14px]"
-            style={{ boxShadow: "0 0 26px 2px rgba(255,230,236,0.34)" }}
-          />
-          <PulseMark width={22} height={18} stroke="#ffffff" />
+        />
+        {/* Subtle inner ring pulse */}
+        <span
+          aria-hidden
+          className="pulse-mark-breath pointer-events-none absolute inset-[3px] rounded-full"
+          style={{
+            boxShadow:
+              "inset 0 0 0 1px rgba(255,255,255,0.16)",
+          }}
+        />
+        {/* The mark itself */}
+        <span aria-hidden className="relative z-[1]">
+          <PulseMark width={30} height={24} stroke="#ffffff" baselineOpacity={0.28} />
         </span>
       </motion.button>
     </div>
@@ -337,8 +377,6 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 }
 
 function ActionTypeIcon({ page }: { page?: string }) {
-  // Map suggestedPage → action-type token so the icon visually matches the
-  // ai-panel.html reference (risk / approve / doc / delay).
   const tone =
     page === "approvals"
       ? "approve"
@@ -350,14 +388,14 @@ function ActionTypeIcon({ page }: { page?: string }) {
 
   const tones: Record<string, { bg: string; ring: string; stroke: string; path: React.ReactNode }> = {
     approve: {
-      bg: "linear-gradient(180deg, rgba(184,113,42,0.14), rgba(184,113,42,0.07))",
-      ring: "rgba(184,113,42,0.22)",
+      bg: "linear-gradient(180deg, rgba(184,113,42,0.18), rgba(184,113,42,0.08))",
+      ring: "rgba(184,113,42,0.28)",
       stroke: "#b8712a",
       path: <path d="M2.5 6l2.5 2.5L10 3" />,
     },
     risk: {
-      bg: "linear-gradient(180deg, rgba(163,66,85,0.14), rgba(163,66,85,0.08))",
-      ring: "rgba(163,66,85,0.22)",
+      bg: "linear-gradient(180deg, rgba(163,66,85,0.18), rgba(163,66,85,0.08))",
+      ring: "rgba(163,66,85,0.28)",
       stroke: "#a34255",
       path: (
         <>
@@ -367,8 +405,8 @@ function ActionTypeIcon({ page }: { page?: string }) {
       ),
     },
     doc: {
-      bg: "linear-gradient(180deg, rgba(62,99,158,0.12), rgba(62,99,158,0.06))",
-      ring: "rgba(62,99,158,0.20)",
+      bg: "linear-gradient(180deg, rgba(62,99,158,0.16), rgba(62,99,158,0.06))",
+      ring: "rgba(62,99,158,0.24)",
       stroke: "#3e639e",
       path: (
         <>
@@ -378,8 +416,8 @@ function ActionTypeIcon({ page }: { page?: string }) {
       ),
     },
     delay: {
-      bg: "linear-gradient(180deg, rgba(141,53,75,0.14), rgba(141,53,75,0.07))",
-      ring: "rgba(141,53,75,0.24)",
+      bg: "linear-gradient(180deg, rgba(141,53,75,0.18), rgba(141,53,75,0.08))",
+      ring: "rgba(141,53,75,0.30)",
       stroke: "#8d354b",
       path: (
         <>

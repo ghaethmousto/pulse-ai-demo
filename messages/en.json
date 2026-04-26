@@ -147,7 +147,13 @@
     "projectMeta": "AED 185M · 28 mo",
     "userName": "Ghaeth Mousto",
     "userInitials": "GM",
-    "userRole": "Management"
+    "userRole": "Management",
+    "role": "Owner Portal",
+    "sections": {
+      "workspace": "Workspace",
+      "monitor": "Monitor",
+      "system": "System"
+    }
   },
   "pulseAssistant": {
     "name": "Pulse AI",
