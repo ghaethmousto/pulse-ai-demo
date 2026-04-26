@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pulse AI — Claude Code Handoff Package Enhanced
 
-## Getting Started
+This package contains the Pulse AI design handoff, Claude Code instructions, visual references, design tokens, screenshots, JSX references, and implementation prompts.
 
-First, run the development server:
+## Use this package by copying it into a Next.js repo root
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Recommended stack:
+
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- next-themes
+- next-intl
+- motion / motion-react
+- Embla Carousel
+- Lenis
+- Lucide Icons
+
+## Critical instruction
+
+Claude Code must read `CLAUDE.md` first.
+
+Then use:
+
+```text
+docs/claude-code-fast-start-prompts.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start with Prompt 00, then Prompt 01.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Fast setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Read:
 
-## Learn More
+```text
+docs/quick-start-before-work.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Design sources
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The main design sources are:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+design/claude-design-handoff/
+design/wireframes/screenshots/
+design/reference-ui/
+design/reference-ui/pulse-design-tokens.css
+```
 
-## Deploy on Vercel
+## Do not upload local font files blindly
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Use Raleway via `next/font/google` unless a licensed font pipeline is confirmed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Ultimate additions in this package
+
+This version includes:
+
+- Required demo project: **Al Reem Tower**
+- Structured project data: `demo-data/al-reem-tower.json`
+- Scripted Pulse AI demo Q&A: `demo-data/pulse-ai-demo-dialogues.json`
+- Mandatory Floating AI spec: `docs/pulse-floating-ai-spec.md`
+- Demo project brief: `docs/demo-project-al-reem-tower.md`
+- Master implementation prompt: `docs/claude-code-master-implementation-prompt.md`
+- Start-now checklist: `docs/claude-code-start-now-checklist.md`
+- Example PulseFloatingAI component under `starter-files/components/`
+- Message additions for English and Arabic
+
+Core instruction: Claude Code must build the app bilingual, RTL-aware, theme-aware, and with Floating Pulse on every page.

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Black.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
+* { margin: 0; box-sizing: border-box; }
+body {
+  font-family: 'Raleway', sans-serif;
+  background: #f3eeea;
+  padding: 22px 26px;
+  -webkit-font-smoothing: antialiased;
+}
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(92,69,69,0.07);
+}
+.row:last-child { border-bottom: none; }
+.meta {
+  width: 110px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sz { font-size: 10px; font-weight: 700; color: #8d354b; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; }
+.wt { font-size: 10px; color: #b0a8a2; font-weight: 400; }
+.sample { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+</style></head>
+<body>
+
+<!-- Eyebrow: tight tracking, not shouting -->
+<div class="row">
+  <div class="meta"><span class="sz">11 · 700</span><span class="wt">Eyebrow</span></div>
+  <div class="sample" style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#a09690">Executive Overview · Al Noor Tower</div>
+</div>
+
+<!-- Caption -->
+<div class="row">
+  <div class="meta"><span class="sz">12 · 400</span><span class="wt">Caption</span></div>
+  <div class="sample" style="font-size:12px;font-weight:400;color:#a09690">Updated today, 08:42 AM · Jane Oshiro</div>
+</div>
+
+<!-- Body small -->
+<div class="row">
+  <div class="meta"><span class="sz">13 · 400</span><span class="wt">Body small</span></div>
+  <div class="sample" style="font-size:13px;font-weight:400;color:#6b6159;line-height:1.55">Structural steel delayed from supplier. Affects floors 24–31 on the critical path.</div>
+</div>
+
+<!-- Body -->
+<div class="row">
+  <div class="meta"><span class="sz">14 · 400</span><span class="wt">Body</span></div>
+  <div class="sample" style="font-size:14px;font-weight:400;color:#453c3a;line-height:1.6">Pulse AI connects Owners, Consultants, and Contractors through one source of truth.</div>
+</div>
+
+<!-- UI label -->
+<div class="row">
+  <div class="meta"><span class="sz">13 · 600</span><span class="wt">UI label</span></div>
+  <div class="sample" style="font-size:13px;font-weight:600;color:#201d1a;letter-spacing:-0.005em">Project Health Overview</div>
+</div>
+
+<!-- Section heading -->
+<div class="row">
+  <div class="meta"><span class="sz">17 · 700</span><span class="wt">Section heading</span></div>
+  <div class="sample" style="font-size:17px;font-weight:700;letter-spacing:-0.020em;color:#201d1a">Pending Approvals</div>
+</div>
+
+<!-- Page title -->
+<div class="row">
+  <div class="meta"><span class="sz">24 · 700</span><span class="wt">Page title</span></div>
+  <div class="sample" style="font-size:24px;font-weight:700;letter-spacing:-0.028em;color:#201d1a;line-height:1.1">Al Noor Tower — Abu Dhabi</div>
+</div>
+
+<!-- Display -->
+<div class="row">
+  <div class="meta"><span class="sz">38 · 800</span><span class="wt">Display</span></div>
+  <div class="sample" style="font-size:38px;font-weight:800;letter-spacing:-0.038em;color:#201d1a;line-height:1">Construction Intelligence.</div>
+</div>
+
+<!-- Hero metric — big, executive, commanding -->
+<div class="row" style="border-bottom:none; padding-top:14px; border-top: 1px solid rgba(92,69,69,0.10); margin-top:4px; align-items:flex-end; gap:20px">
+  <div style="flex:1">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b0a8a2;margin-bottom:6px">Overall Progress</div>
+    <div style="font-size:44px;font-weight:800;letter-spacing:-0.044em;color:#8d354b;line-height:1;font-variant-numeric:tabular-nums">67%</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b0a8a2;margin-bottom:6px">Schedule Variance</div>
+    <div style="font-size:44px;font-weight:800;letter-spacing:-0.044em;color:#b8712a;line-height:1;font-variant-numeric:tabular-nums">−18</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#b0a8a2;margin-bottom:6px">Budget AED</div>
+    <div style="font-size:44px;font-weight:800;letter-spacing:-0.044em;color:#201d1a;line-height:1;font-variant-numeric:tabular-nums">847M</div>
+  </div>
+</div>
+
+</body></html>

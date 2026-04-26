@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>Pulse AI — Data &amp; Metrics</title>
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Raleway',sans-serif;
+  background: linear-gradient(180deg, #f5f0ed 0%, #ede4de 100%);
+  padding:18px;
+  display:flex; flex-direction:column; gap:10px;
+  -webkit-font-smoothing:antialiased;
+  color:#201d1a;
+}
+
+/* ── AI briefing ── */
+.ai-brief {
+  background: linear-gradient(180deg, #8d354b 0%, #7a2b3f 100%);
+  border-radius:10px;
+  padding:16px 20px;
+  display:flex; gap:14px; align-items:center;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.20),
+    0 8px 24px -6px rgba(141,53,75,0.32);
+}
+.ai-mark {
+  width:30px; height:30px; border-radius:7px;
+  background: rgba(255,255,255,0.14);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
+}
+.ai-tag  { font-size:10px; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.60); margin-bottom:5px; }
+.ai-text { font-size:12.5px; color:rgba(255,255,255,0.95); line-height:1.55; font-weight:400; }
+.ai-text b { font-weight:700; color:#fff; }
+
+/* ── KPI row ── */
+.kpi-row {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf9 100%);
+  border-radius:10px;
+  border:1px solid rgba(92,69,69,0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(32,29,26,0.04),
+    0 8px 20px -6px rgba(32,29,26,0.08);
+  display:flex;
+  overflow:hidden;
+}
+.kpi {
+  flex:1; padding:18px 16px 16px;
+  border-right:1px solid rgba(92,69,69,0.08);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  text-align:center;
+  position: relative;
+}
+.kpi:last-child { border-right:none; }
+.kpi-label {
+  font-size:9px; font-weight:600;
+  letter-spacing:0.22em; text-transform:uppercase;
+  color:#8a7d76; margin-bottom:12px;
+}
+.kpi-val {
+  font-size:26px; font-weight:800;
+  letter-spacing:-0.038em; line-height:1;
+  font-variant-numeric:tabular-nums;
+  display:inline-flex; align-items:baseline;
+}
+.kpi-val .sign { font-size: 0.72em; font-weight: 700; margin-right: 1px; }
+.kpi-val .unit { font-size: 0.56em; font-weight: 600; margin-left: 2px; letter-spacing: 0; color:currentColor; opacity:0.72; }
+.kpi-val.wine  { color:#8d354b; }
+.kpi-val.warn  { color:#b8712a; }
+.kpi-val.dark  { color:#201d1a; }
+.kpi-val.green { color:#3d7a58; }
+.kpi-sub { font-size:11px; color:#8a7d76; margin-top:8px; font-weight:400; text-align:center; }
+
+/* ── Secondary cards ── */
+.meta-row { display:flex; gap:10px; }
+.meta-card {
+  flex:1;
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf9 100%);
+  border-radius:10px; border:1px solid rgba(92,69,69,0.10);
+  padding:14px 14px 12px;
+  text-align:center;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(32,29,26,0.04),
+    0 4px 10px -3px rgba(32,29,26,0.06);
+  transition: transform 260ms cubic-bezier(0.22,1,0.36,1), box-shadow 260ms;
+}
+.meta-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 2px 4px rgba(32,29,26,0.06),
+    0 12px 24px -6px rgba(32,29,26,0.14);
+}
+.mc-label { font-size:9px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:#8a7d76; margin-bottom:10px; }
+.mc-val   {
+  font-size:22px; font-weight:800;
+  letter-spacing:-0.036em; color:#201d1a; line-height:1;
+  font-variant-numeric:tabular-nums;
+  display:inline-flex; align-items:baseline; justify-content:center;
+}
+.mc-sub   { font-size:11px; color:#8a7d76; margin-top:6px; }
+.mc-bar   { height:3px; background:rgba(92,69,69,0.08); border-radius:2px; margin-top:10px; overflow:hidden; }
+.mc-fill  { height:100%; border-radius:2px; width:0; transition: width 1400ms cubic-bezier(0.22,1,0.36,1); }
+
+/* ── Active projects progress ── */
+.progress-block {
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf9 100%);
+  border-radius:10px;
+  border:1px solid rgba(92,69,69,0.10);
+  padding:14px 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(32,29,26,0.04),
+    0 6px 14px -4px rgba(32,29,26,0.08);
+}
+.pb-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
+.pb-label  { font-size:11px; font-weight:600; color:#201d1a; letter-spacing:-0.005em; }
+.pb-val    {
+  font-size:11px; font-weight:700; color:#8d354b;
+  font-variant-numeric:tabular-nums; letter-spacing:0.02em;
+}
+.pb-track  {
+  height:4px;
+  background: linear-gradient(180deg, rgba(92,69,69,0.10), rgba(92,69,69,0.06));
+  border-radius:2px;
+  overflow:hidden;
+  box-shadow: inset 0 1px 1px rgba(32,29,26,0.04);
+}
+.pb-fill   {
+  height:100%;
+  background: linear-gradient(90deg, #8d354b 0%, #cf5976 100%);
+  border-radius:2px;
+  width: 0;
+  box-shadow: 0 0 8px rgba(141,53,75,0.32);
+  transition: width 1600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Value subtle fade on reveal */
+[data-count] { opacity: 0; transition: opacity 600ms ease; }
+[data-count].visible { opacity: 1; }
+</style></head>
+<body>
+
+<div class="ai-brief">
+  <div class="ai-mark">
+    <svg width="14" height="11" viewBox="0 0 36 28" fill="none"><g stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M6 25 L18 3 L30 25"/><path d="M2 16 L11 16 L13.2 14 L15.4 18.5 L18 10 L20.6 21 L23 9 L25.2 18.5 L27.2 15.2 L34 15.2"/></g></svg>
+  </div>
+  <div>
+    <div class="ai-tag">Pulse AI · Current Situation</div>
+    <div class="ai-text">Project is <b>18 days behind</b> on the critical path. Steel delivery is the primary driver. Alternate supplier approval could recover 12 days.</div>
+  </div>
+</div>
+
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Overall Progress</div>
+    <div class="kpi-val wine"><span data-count="67" data-duration="1600">0</span><span class="unit">%</span></div>
+    <div class="kpi-sub">On track</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Schedule Variance</div>
+    <div class="kpi-val warn"><span class="sign">−</span><span data-count="18" data-duration="1600" data-direction="down">0</span></div>
+    <div class="kpi-sub">Days behind</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Budget AED</div>
+    <div class="kpi-val dark"><span data-count="847" data-duration="1800">0</span><span class="unit">M</span></div>
+    <div class="kpi-sub">of 920M committed</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Confidence</div>
+    <div class="kpi-val green"><span data-count="95" data-duration="1600">0</span><span class="unit">%</span></div>
+    <div class="kpi-sub">Forecast accuracy</div>
+  </div>
+</div>
+
+<div class="meta-row">
+  <div class="meta-card">
+    <div class="mc-label">Active Projects</div>
+    <div class="mc-val"><span data-count="81" data-duration="1600">0</span></div>
+    <div class="mc-sub">of 138 total</div>
+    <div class="mc-bar"><div class="mc-fill" data-fill="59" style="background:linear-gradient(90deg,#3e639e,#5a8cd2)"></div></div>
+  </div>
+  <div class="meta-card">
+    <div class="mc-label">Pending Approvals</div>
+    <div class="mc-val" style="color:#b8712a"><span data-count="4" data-duration="1000">0</span></div>
+    <div class="mc-sub">Require action</div>
+  </div>
+  <div class="meta-card">
+    <div class="mc-label">Overdue Items</div>
+    <div class="mc-val" style="color:#a34255"><span data-count="3" data-duration="1000">0</span></div>
+    <div class="mc-sub">Escalation needed</div>
+  </div>
+  <div class="meta-card">
+    <div class="mc-label">Documents</div>
+    <div class="mc-val"><span data-count="22" data-duration="1400">0</span></div>
+    <div class="mc-sub">5 awaiting review</div>
+  </div>
+</div>
+
+<div class="progress-block">
+  <div class="pb-header">
+    <span class="pb-label">Active Projects</span>
+    <span class="pb-val"><span data-count="114" data-duration="1800">0</span> / 138</span>
+  </div>
+  <div class="pb-track"><div class="pb-fill" data-fill="83"></div></div>
+</div>
+
+<script>
+(function(){
+  const easeOutExpo = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+  function animateCount(el) {
+    if (el.dataset.done) return;
+    el.dataset.done = "1";
+    el.classList.add("visible");
+    const target = parseFloat(el.dataset.count);
+    const duration = parseInt(el.dataset.duration, 10) || 1400;
+    const direction = el.dataset.direction === "down" ? "down" : "up";
+    const start = performance.now();
+
+    function tick(now) {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = easeOutExpo(p);
+      let v;
+      if (direction === "down") {
+        // Count visually downward: start high, settle at target
+        // We animate from 0 → target; "down" means the preceding sign is −.
+        // To make it feel like dropping: ease from 0 to target with deceleration is fine,
+        // but we render the magnitude.
+        v = Math.round(target * eased);
+      } else {
+        v = Math.round(target * eased);
+      }
+      el.textContent = v.toLocaleString('en-US');
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString('en-US');
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function animateFill(el) {
+    if (el.dataset.done) return;
+    el.dataset.done = "1";
+    const pct = parseFloat(el.dataset.fill);
+    // Force a reflow then transition
+    requestAnimationFrame(() => {
+      el.style.width = pct + "%";
+    });
+  }
+
+  function reveal() {
+    document.querySelectorAll('[data-count]').forEach((el, i) => {
+      setTimeout(() => animateCount(el), 80 + i * 60);
+    });
+    document.querySelectorAll('[data-fill]').forEach((el, i) => {
+      setTimeout(() => animateFill(el), 240 + i * 80);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          reveal();
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    io.observe(document.body);
+  } else {
+    reveal();
+  }
+
+  // Also kick off after a short delay in case body is already fully in view
+  setTimeout(reveal, 600);
+})();
+</script>
+</body></html>

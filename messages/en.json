@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "pulse": "Project Pulse",
+    "tasks": "Tasks",
+    "approvals": "Approvals",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "common": {
+    "theme": "Theme",
+    "language": "Language",
+    "light": "Light",
+    "dark": "Dark",
+    "english": "English",
+    "arabic": "Arabic",
+    "viewDemo": "View Demo",
+    "explorePlatform": "Explore Platform",
+    "status": "Status",
+    "risk": "Risk",
+    "progress": "Progress"
+  },
+  "landing": {
+    "heroTitle": "Pulse AI for Construction Intelligence",
+    "heroSubtitle": "A unified AI-powered operating layer for consultants, contractors, owners, approvals, reports, project risks, and real-time progress tracking.",
+    "primaryCta": "Explore Demo",
+    "secondaryCta": "View Project Pulse",
+    "problemTitle": "Construction information is fragmented.",
+    "problemBody": "Projects lose time, money, and accountability when emails, WhatsApp messages, PDFs, drawings, spreadsheets, approvals, and site reports live in disconnected places.",
+    "solutionTitle": "Pulse AI turns project chaos into a live operating system.",
+    "solutionBody": "Pulse AI centralizes project knowledge, automates documentation, detects risks, summarizes progress, and gives every stakeholder a real-time view of project health."
+  },
+  "demoProject": {
+    "name": "Al Reem Tower",
+    "location": "Al Reem Island, Abu Dhabi, UAE",
+    "status": "At Risk",
+    "riskLevel": "High",
+    "phase": "Design Development / Authority Coordination",
+    "aiSummary": "Al Reem Tower is currently at risk, with an 18-day delay driven mainly by MEP/podium coordination and unresolved authority submission dependencies. The fastest recovery path is to freeze the vertical core, resolve podium plant-room conflicts, and lock the fire strategy before the authority package date of 08-May-2026."
+  },
+  "pulseAssistant": {
+    "name": "Pulse",
+    "label": "Floating AI assistant",
+    "liveContext": "Live project context",
+    "placeholder": "Ask Pulse about the project…",
+    "open": "Open Pulse",
+    "close": "Close Pulse",
+    "fallback": "I can answer this in the full connected version. For this demo, I am currently showing project health, delays, approvals, reports, risks, and recommended actions for Al Reem Tower."
+  }
+}

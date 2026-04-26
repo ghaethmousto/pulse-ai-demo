@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#f3eeea; padding:20px; -webkit-font-smoothing:antialiased; }
+.name { font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#a09690; margin-bottom:12px; }
+.divider { height:1px; background:rgba(92,69,69,0.08); margin:4px 0 14px; }
+table { width:100%; border-collapse:collapse; margin-bottom:14px; }
+th { font-size:8px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#c0b8b2; padding:0 0 6px; text-align:left; }
+td { font-size:11px; padding:6px 0; border-bottom:1px solid rgba(92,69,69,0.07); vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+.token { font-weight:700; color:#8d354b; font-size:10px; }
+.curve { font-family:monospace; font-size:10px; color:#6b6159; }
+.dur   { font-weight:600; color:#453c3a; }
+.use   { color:#a09690; font-size:10px; }
+
+/* Live demos */
+.demo-row { display:flex; gap:10px; flex-wrap:wrap; }
+.demo-card {
+  background:#fff;
+  border:1px solid rgba(92,69,69,0.12);
+  border-radius:8px;
+  padding:10px 14px;
+  font-size:11px; font-weight:600; color:#453c3a;
+  cursor:pointer;
+  width:160px;
+}
+.demo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(32,29,26,0.09);
+  transition: transform 300ms cubic-bezier(0.22,1,0.36,1), box-shadow 300ms cubic-bezier(0.22,1,0.36,1);
+}
+.demo-label { font-size:9px; color:#a09690; font-weight:400; margin-top:3px; }
+
+.demo-btn {
+  padding:9px 18px; border-radius:6px; background:#8d354b; color:#fff;
+  font-family:'Raleway',sans-serif; font-size:12px; font-weight:700; border:none; cursor:pointer;
+  transition: background 150ms cubic-bezier(0.4,0,0.2,1);
+}
+.demo-btn:hover { background:#a04460; }
+.demo-btn:active { transform:scale(0.97); transition:transform 80ms; }
+
+.note { font-size:9px; color:#b0a8a2; font-style:italic; line-height:1.6; margin-top:10px; }
+</style></head>
+<body>
+
+<div class="name">Motion Tokens</div>
+<table>
+  <tr><th>Token</th><th>Value</th><th>Duration</th><th>Usage</th></tr>
+  <tr>
+    <td class="token">ease-out-expo</td>
+    <td class="curve">cubic-bezier(0.22, 1, 0.36, 1)</td>
+    <td class="dur">300ms</td>
+    <td class="use">All primary transitions — panels, cards, nav</td>
+  </tr>
+  <tr>
+    <td class="token">ease-standard</td>
+    <td class="curve">cubic-bezier(0.4, 0, 0.2, 1)</td>
+    <td class="dur">200ms</td>
+    <td class="use">Color shifts, opacity, background</td>
+  </tr>
+  <tr>
+    <td class="token">ease-fast</td>
+    <td class="curve">cubic-bezier(0.4, 0, 0.2, 1)</td>
+    <td class="dur">100–150ms</td>
+    <td class="use">Button press, hover states</td>
+  </tr>
+  <tr>
+    <td class="token">ease-entrance</td>
+    <td class="curve">cubic-bezier(0.22, 1, 0.36, 1)</td>
+    <td class="dur">400–600ms</td>
+    <td class="use">Panel open, page load, modal</td>
+  </tr>
+</table>
+
+<div class="divider"></div>
+<div class="name">Principles</div>
+<table>
+  <tr><th>Rule</th><th>Detail</th></tr>
+  <tr><td class="dur">No spring or bounce</td><td class="use">Out-expo only — settled, confident</td></tr>
+  <tr><td class="dur">Entrance: fade + lift</td><td class="use">opacity 0→1, translateY 12px→0</td></tr>
+  <tr><td class="dur">Stagger: 60ms offset</td><td class="use">Between sibling cards/rows</td></tr>
+  <tr><td class="dur">Card hover: lift only</td><td class="use">translateY(−2px), no scale</td></tr>
+  <tr><td class="dur">Button press: 0.97</td><td class="use">scale(0.97), 80ms, instant feel</td></tr>
+</table>
+
+<div class="divider"></div>
+<div class="name">Live Demos</div>
+<div class="demo-row">
+  <div class="demo-card">
+    Hover → lift
+    <div class="demo-label">300ms out-expo · translateY(−2px)</div>
+  </div>
+  <button class="demo-btn">Press → scale(0.97)</button>
+</div>
+
+<div class="note">
+  Motion clarifies interaction — never decorates. If removing an animation<br>
+  doesn't reduce clarity, it shouldn't be there.
+</div>
+
+</body></html>
