@@ -8,7 +8,15 @@ import type { Locale, ProjectMeta } from "@/types/pulse";
 import { pickLocale } from "@/lib/utils/pick-locale";
 import { formatAed, formatDate } from "@/lib/data/al-reem";
 
-export function ProjectHeader({ project, locale }: { project: ProjectMeta; locale: Locale }) {
+export function ProjectHeader({
+  project,
+  locale,
+  statusLabel,
+}: {
+  project: ProjectMeta;
+  locale: Locale;
+  statusLabel: string;
+}) {
   const t = useTranslations("dashboard.header");
 
   return (
@@ -43,13 +51,13 @@ export function ProjectHeader({ project, locale }: { project: ProjectMeta; local
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CalendarClock className="size-3.5" />
-              {t("nextMilestone", { date: formatDate(project.nextMilestoneDate, locale) })}
+              {t("nextMilestone")} · <bdi>{formatDate(project.nextMilestoneDate, locale)}</bdi>
             </span>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Pill tone="warning" label={t("status")} value={project.overallStatus} />
+          <Pill tone="warning" label={t("status")} value={statusLabel} />
           <Pill tone="muted" label={t("phase")} value={pickLocale(project.currentPhase, locale)} />
           <Pill tone="info" label={t("contract")} value={formatAed(project.contractValueAED, locale)} />
         </div>
@@ -69,7 +77,7 @@ function Pill({ tone, label, value }: { tone: "warning" | "muted" | "info"; labe
     <div className="rounded-2xl border border-border bg-background/60 px-4 py-3">
       <div className="text-[0.6rem] uppercase tracking-[0.28em] text-muted-foreground">{label}</div>
       <div className={`mt-1 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${toneClass}`}>
-        {value}
+        <bdi>{value}</bdi>
       </div>
     </div>
   );

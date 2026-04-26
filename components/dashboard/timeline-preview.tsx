@@ -49,14 +49,21 @@ export function TimelinePreview({ stages, locale }: { stages: TimelineStage[]; l
                 {pickLocale(s.title, locale)}
               </div>
               <div className="mt-0.5 text-xs text-muted-foreground">
-                {t("plannedLabel", { date: formatDate(s.planned, locale) })}
-                {s.actual ? ` · ${t("actualLabel", { date: formatDate(s.actual, locale) })}` : ""}
+                {t("plannedLabel")} <bdi>{formatDate(s.planned, locale)}</bdi>
+                {s.actual ? (
+                  <>
+                    {" · "}
+                    {t("actualLabel")} <bdi>{formatDate(s.actual, locale)}</bdi>
+                  </>
+                ) : null}
               </div>
             </div>
             <div className="text-end text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground">
               {tStatus(STATUS_LABEL[s.status])}
               {s.varianceDays > 0 ? (
-                <div className="mt-0.5 text-xs font-semibold text-warning">+{s.varianceDays}d</div>
+                <div className="mt-0.5 text-xs font-semibold text-warning">
+                  <bdi>{t("variance", { days: s.varianceDays })}</bdi>
+                </div>
               ) : null}
             </div>
           </li>

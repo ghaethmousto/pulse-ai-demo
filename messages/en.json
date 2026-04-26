@@ -97,7 +97,25 @@
       "status": "Health",
       "phase": "Phase",
       "contract": "Contract value",
-      "nextMilestone": "Next milestone · {date}"
+      "nextMilestone": "Next milestone"
+    },
+    "kpiValues": {
+      "health": "At Risk",
+      "delay": "{days} days",
+      "progress": "{actual}% / {planned}%",
+      "exposure": "AED {amount}M"
+    },
+    "statusValues": {
+      "atRisk": "At Risk",
+      "onTrack": "On Track",
+      "blocked": "Blocked",
+      "delayed": "Delayed"
+    },
+    "severity": {
+      "Critical": "Critical",
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
     },
     "summary": {
       "eyebrow": "Pulse AI briefing",
@@ -110,8 +128,9 @@
     "timeline": {
       "eyebrow": "Project Pulse",
       "title": "Planned vs actual milestones",
-      "plannedLabel": "Planned {date}",
-      "actualLabel": "Actual {date}",
+      "plannedLabel": "Planned",
+      "actualLabel": "Actual",
+      "variance": "+{days}d",
       "status": {
         "done": "Done",
         "inProgress": "In progress",

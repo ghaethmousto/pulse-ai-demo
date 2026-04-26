@@ -29,6 +29,21 @@ export default async function DashboardPage({
   const timeline = getTimeline();
   const summary = getAiSummary(locale);
 
+  const exposureMillions = (project.costExposureAED / 1_000_000).toLocaleString(
+    locale === "ar" ? "ar-AE" : "en-US",
+    { maximumFractionDigits: 2 },
+  );
+  const kpiValues: Record<string, string> = {
+    health: t("kpiValues.health"),
+    delay: t("kpiValues.delay", { days: project.delayDays }),
+    progress: t("kpiValues.progress", {
+      actual: project.progressPercent,
+      planned: project.plannedProgressPercent,
+    }),
+    exposure: t("kpiValues.exposure", { amount: exposureMillions }),
+  };
+  const overallStatusLabel = t("statusValues.atRisk");
+
   return (
     <div className="mx-auto max-w-7xl space-y-8 px-5 py-8 lg:px-8 lg:py-10">
       <div>
@@ -38,7 +53,11 @@ export default async function DashboardPage({
         <h1 className="sr-only">{t("title")}</h1>
       </div>
 
-      <ProjectHeader project={project} locale={locale} />
+      <ProjectHeader
+        project={project}
+        locale={locale}
+        statusLabel={overallStatusLabel}
+      />
 
       <section>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -47,7 +66,7 @@ export default async function DashboardPage({
               key={k.key}
               index={i}
               label={pickLocale(k.label, locale)}
-              value={k.value}
+              value={kpiValues[k.key] ?? k.value}
               note={pickLocale(k.note, locale)}
               trend={k.trend}
             />

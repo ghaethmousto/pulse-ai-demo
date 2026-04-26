@@ -15,6 +15,7 @@ const SEVERITY_TONE: Record<string, string> = {
 
 export function RisksList({ risks, locale }: { risks: Risk[]; locale: Locale }) {
   const t = useTranslations("dashboard.risks");
+  const tSeverity = useTranslations("dashboard.severity");
 
   return (
     <section className="rounded-3xl border border-border bg-card shadow-pulse-card">
@@ -34,7 +35,7 @@ export function RisksList({ risks, locale }: { risks: Risk[]; locale: Locale }) 
           <li key={r.id} className="px-6 py-4">
             <div className="flex items-start gap-3">
               <span className={`shrink-0 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider ${SEVERITY_TONE[r.severity] ?? "bg-muted text-foreground"}`}>
-                {r.severity}
+                {tSeverity(r.severity)}
               </span>
               <div className="min-w-0">
                 <div className="text-sm font-medium text-foreground">{pickLocale(r.title, locale)}</div>

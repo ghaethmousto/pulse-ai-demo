@@ -145,7 +145,9 @@ function SpotlightStat({
   return (
     <div className="rounded-2xl border border-border bg-background/60 p-4">
       <div className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">{label}</div>
-      <div className={`mt-2 text-lg font-semibold ${toneClass}`}>{value}</div>
+      <div className={`mt-2 text-lg font-semibold ${toneClass}`}>
+        <bdi>{value}</bdi>
+      </div>
     </div>
   );
 }

@@ -50,7 +50,9 @@ export function KpiCard({
           <Icon className="size-3.5" />
         </span>
       </div>
-      <div className="mt-4 text-3xl font-semibold tracking-tight text-foreground">{value}</div>
+      <div className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
+        <bdi>{value}</bdi>
+      </div>
       <div className="mt-2 text-xs leading-relaxed text-muted-foreground">{note}</div>
       <div
         aria-hidden

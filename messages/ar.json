@@ -97,7 +97,25 @@
       "status": "الحالة",
       "phase": "المرحلة",
       "contract": "قيمة العقد",
-      "nextMilestone": "المعلم القادم · {date}"
+      "nextMilestone": "المعلم القادم"
+    },
+    "kpiValues": {
+      "health": "ضمن حالة خطر",
+      "delay": "{days} يوماً",
+      "progress": "{actual}% / {planned}%",
+      "exposure": "{amount} م د.إ"
+    },
+    "statusValues": {
+      "atRisk": "ضمن حالة خطر",
+      "onTrack": "ضمن المسار",
+      "blocked": "معطل",
+      "delayed": "متأخر"
+    },
+    "severity": {
+      "Critical": "حرجة",
+      "High": "مرتفعة",
+      "Medium": "متوسطة",
+      "Low": "منخفضة"
     },
     "summary": {
       "eyebrow": "إيجاز Pulse AI",
@@ -110,8 +128,9 @@
     "timeline": {
       "eyebrow": "نبض المشروع",
       "title": "المخطط مقابل الفعلي",
-      "plannedLabel": "مخطط {date}",
-      "actualLabel": "فعلي {date}",
+      "plannedLabel": "مخطط",
+      "actualLabel": "فعلي",
+      "variance": "+{days} يوم",
       "status": {
         "done": "مكتمل",
         "inProgress": "قيد التنفيذ",
