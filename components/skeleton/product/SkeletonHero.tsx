@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { skeletonAuthLinks } from "@/components/skeleton/nav-links";
 
 export function SkeletonHero() {
   return (
@@ -23,13 +24,13 @@ export function SkeletonHero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              href="#"
+              href={skeletonAuthLinks.requestDemo}
               className="rounded-md border border-neutral-900 bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white"
             >
               Request Demo →
             </Link>
             <Link
-              href="#"
+              href={skeletonAuthLinks.seePlatform}
               className="rounded-md border border-neutral-300 bg-white px-5 py-2.5 text-sm font-medium text-neutral-900"
             >
               See Platform

@@ -1,21 +1,25 @@
 import Link from "next/link";
-import { skeletonAuthLinks, skeletonNavLinks } from "@/components/skeleton/nav-links";
+import {
+  skeletonAuthLinks,
+  skeletonNavLinks,
+} from "@/components/skeleton/nav-links";
 
-const navLinks = skeletonNavLinks;
-
-export function SkeletonHeader() {
+export function SkeletonPlatformHeader() {
   return (
-    <header className="w-full border-b border-neutral-200">
+    <header className="w-full border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-sm border border-neutral-300 bg-neutral-100" aria-hidden />
+          <div
+            className="h-6 w-6 rounded-sm border border-neutral-300 bg-neutral-100"
+            aria-hidden
+          />
           <span className="text-sm font-semibold tracking-wide">
             Pulse <span className="text-neutral-500">PROJECT INTELLIGENCE</span>
           </span>
         </div>
 
         <nav className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
+          {skeletonNavLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
