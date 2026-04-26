@@ -246,16 +246,9 @@ html[lang="ar"] body {
 }
 .pulse-live-dot { animation: pulseLiveDot 2.4s ease-in-out infinite; }
 
-/* Pulse line — slow horizontal drift loop for the topbar separator */
-@keyframes pulseLineDrift {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.pulse-line-track {
-  animation: pulseLineDrift 24s linear infinite;
-}
 @media (prefers-reduced-motion: reduce) {
-  .pulse-line-track { animation: none; }
+  .pulse-mark-breath, .pulse-mark-glow, .pulse-mark-sweep,
+  .pulse-live-dot { animation: none; }
 }
 
 /* ════════════════════════════════════════════
@@ -321,22 +314,22 @@ html[lang="ar"] body {
 .topbar-frost {
   background:
     linear-gradient(180deg,
-      color-mix(in oklab, var(--pulse-wine) 4%, var(--bg-base)) 0%,
-      color-mix(in oklab, var(--pulse-wine) 1.5%, var(--bg-base)) 100%);
+      color-mix(in oklab, var(--pulse-wine) 2%, color-mix(in oklab, var(--bg-base) 78%, transparent)) 0%,
+      color-mix(in oklab, var(--pulse-wine) 0.5%, color-mix(in oklab, var(--bg-base) 70%, transparent)) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.45),
-    inset 0 -1px 0 rgba(141,53,75,0.06);
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(141,53,75,0.05);
 }
 .dark .topbar-frost {
   background:
-    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(141,53,75,0.18), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(141,53,75,0.14), transparent 60%),
     linear-gradient(180deg,
-      color-mix(in oklab, var(--pulse-wine) 6%, var(--bg-surface)) 0%,
-      color-mix(in oklab, var(--pulse-wine) 2%, var(--bg-base)) 100%);
+      color-mix(in oklab, var(--pulse-wine) 4%, color-mix(in oklab, var(--bg-surface) 70%, transparent)) 0%,
+      color-mix(in oklab, var(--pulse-wine) 1%, color-mix(in oklab, var(--bg-base) 65%, transparent)) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    inset 0 -1px 0 rgba(0,0,0,0.32),
-    0 1px 0 rgba(141,53,75,0.10);
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    inset 0 -1px 0 rgba(0,0,0,0.28),
+    0 1px 0 rgba(141,53,75,0.08);
 }
 
 /* ════════════════════════════════════════════
@@ -386,12 +379,14 @@ html[lang="ar"] body {
     0 6px 16px -4px rgba(0, 0, 0, 0.40);
 }
 
-/* List-style cards — header band tint + per-row hover */
+/* List-style cards — clearer tinted header band + per-row hover */
 .list-card-header {
-  background: linear-gradient(180deg, rgba(141, 53, 75, 0.04) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(141, 53, 75, 0.07) 0%, rgba(141, 53, 75, 0.025) 100%);
+  box-shadow: inset 0 -1px 0 rgba(141, 53, 75, 0.10);
 }
 .dark .list-card-header {
-  background: linear-gradient(180deg, rgba(207, 89, 118, 0.07) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(207, 89, 118, 0.12) 0%, rgba(207, 89, 118, 0.04) 100%);
+  box-shadow: inset 0 -1px 0 rgba(207, 89, 118, 0.18);
 }
 .list-card-row {
   transition:

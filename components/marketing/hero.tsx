@@ -23,7 +23,7 @@ export function Hero() {
         }}
       />
 
-      <div className="mx-auto max-w-6xl px-5 pt-16 pb-16 lg:px-8 lg:pt-24 lg:pb-24">
+      <div className="mx-auto max-w-6xl px-5 pt-12 pb-10 lg:px-8 lg:pt-20 lg:pb-14">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,7 +82,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-12"
+          className="mt-10"
         >
           <ProjectSpotlightCard />
         </motion.div>

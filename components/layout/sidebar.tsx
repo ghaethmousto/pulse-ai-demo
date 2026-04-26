@@ -14,19 +14,30 @@ import type { LucideIcon } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/navigation";
 import { PulseLogo } from "@/components/brand/logo";
+import { getDataset } from "@/lib/data/al-reem";
 import { cn } from "@/lib/utils";
 
-type NavItem = { href: string; key: string; icon: LucideIcon; section: "workspace" | "monitor" | "system" };
+type NavItem = {
+  href: string;
+  key: string;
+  icon: LucideIcon;
+  section: "workspace" | "monitor" | "system";
+  badge?: number;
+  liveDot?: boolean;
+};
 
-const NAV: NavItem[] = [
-  { href: "/dashboard", key: "dashboard", icon: LayoutDashboard, section: "workspace" },
-  { href: "/projects", key: "projects", icon: Folders, section: "workspace" },
-  { href: "/pulse", key: "pulse", icon: Waves, section: "monitor" },
-  { href: "/tasks", key: "tasks", icon: ListChecks, section: "monitor" },
-  { href: "/approvals", key: "approvals", icon: ClipboardCheck, section: "monitor" },
-  { href: "/reports", key: "reports", icon: FileBarChart, section: "monitor" },
-  { href: "/settings", key: "settings", icon: Settings, section: "system" },
-];
+function buildNav(): NavItem[] {
+  const data = getDataset();
+  return [
+    { href: "/dashboard", key: "dashboard", icon: LayoutDashboard, section: "workspace" },
+    { href: "/projects", key: "projects", icon: Folders, section: "workspace" },
+    { href: "/pulse", key: "pulse", icon: Waves, section: "monitor", liveDot: true },
+    { href: "/tasks", key: "tasks", icon: ListChecks, section: "monitor", badge: data.project.overdueTasks },
+    { href: "/approvals", key: "approvals", icon: ClipboardCheck, section: "monitor", badge: data.project.blockedApprovals },
+    { href: "/reports", key: "reports", icon: FileBarChart, section: "monitor" },
+    { href: "/settings", key: "settings", icon: Settings, section: "system" },
+  ];
+}
 
 const SECTIONS: Array<NavItem["section"]> = ["workspace", "monitor", "system"];
 
@@ -35,15 +46,14 @@ export function Sidebar() {
   const tNav = useTranslations("nav");
   const tProj = useTranslations("demoProject");
   const tSidebar = useTranslations("sidebar");
+  const NAV = buildNav();
 
   return (
     <aside className="hidden w-[224px] shrink-0 flex-col border-e border-border/60 bg-[color:var(--bg-surface-2)] lg:flex">
-      {/* Brand */}
       <div className="flex items-center gap-2 px-4 py-4">
         <PulseLogo />
       </div>
 
-      {/* Project block — bordered, richer block per the screenshots */}
       <div className="mx-3 mb-3">
         <button
           type="button"
@@ -61,7 +71,6 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* Nav with section grouping */}
       <nav className="flex-1 overflow-y-auto px-2.5 pb-3">
         {SECTIONS.map((section) => {
           const items = NAV.filter((n) => n.section === section);
@@ -72,7 +81,7 @@ export function Sidebar() {
                 {tSidebar(`sections.${section}`)}
               </div>
               <ul className="space-y-px">
-                {items.map(({ href, key, icon: Icon }) => {
+                {items.map(({ href, key, icon: Icon, badge, liveDot }) => {
                   const active = pathname === href || pathname.startsWith(`${href}/`);
                   return (
                     <li key={href}>
@@ -82,8 +91,18 @@ export function Sidebar() {
                           "group relative flex items-center gap-2.5 rounded-md px-2 py-[7px] text-[12.5px] transition",
                           active
                             ? "font-semibold text-wine"
-                            : "font-medium text-foreground/65 hover:text-foreground/95",
+                            : "font-medium text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground/95",
                         )}
+                        style={
+                          active
+                            ? {
+                                background:
+                                  "linear-gradient(180deg, rgba(141,53,75,0.10) 0%, rgba(141,53,75,0.06) 100%)",
+                                boxShadow:
+                                  "inset 0 0 0 1px rgba(141,53,75,0.18)",
+                              }
+                            : undefined
+                        }
                       >
                         <Icon
                           className={cn(
@@ -92,7 +111,27 @@ export function Sidebar() {
                           )}
                           strokeWidth={active ? 2 : 1.6}
                         />
-                        <span>{tNav(key)}</span>
+                        <span className="flex-1">{tNav(key)}</span>
+                        {liveDot ? (
+                          <span
+                            aria-hidden
+                            className="pulse-live-dot inline-block size-1.5 rounded-full bg-[#3d7a58]"
+                            style={{ boxShadow: "0 0 6px rgba(61,122,88,0.6)" }}
+                          />
+                        ) : null}
+                        {badge && badge > 0 ? (
+                          <span
+                            aria-label={`${badge}`}
+                            className={cn(
+                              "inline-flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-1 text-[9px] font-bold tabular-nums",
+                              active
+                                ? "bg-wine text-white"
+                                : "bg-wine/15 text-wine ring-1 ring-inset ring-wine/25",
+                            )}
+                          >
+                            {badge}
+                          </span>
+                        ) : null}
                       </Link>
                     </li>
                   );
@@ -103,7 +142,6 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Role pill — matches nav-sidebar.html footer pattern */}
       <div className="mx-3 mb-2 mt-1">
         <div
           className="rounded-md border border-wine/15 px-2.5 py-1.5 text-center text-[10px] font-bold tracking-[0.04em] text-wine"
@@ -113,7 +151,6 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* User row */}
       <div className="mx-3 mb-3 flex items-center gap-2.5 border-t border-border/50 pt-3">
         <span
           aria-hidden

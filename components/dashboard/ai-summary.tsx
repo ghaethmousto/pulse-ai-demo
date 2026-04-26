@@ -1,9 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-
-import { PulseMark } from "@/components/brand/pulse-mark";
 
 export function AiSummary({ summary }: { summary: string }) {
   const t = useTranslations("dashboard.summary");
@@ -17,16 +16,23 @@ export function AiSummary({ summary }: { summary: string }) {
       className="card-hover-primary rounded-[10px] border border-border/70 bg-card p-5 md:p-6"
     >
       <div className="flex items-start gap-3.5">
+        {/* Pulse identity tile — same official asset as launcher / panel header */}
         <span
           aria-hidden
-          className="grid size-9 shrink-0 place-items-center rounded-md text-white"
+          className="pulse-mark-breath grid size-9 shrink-0 place-items-center rounded-full"
           style={{
             background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
             boxShadow:
               "inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.18), 0 4px 12px rgba(141,53,75,0.28)",
           }}
         >
-          <PulseMark width={18} height={14} stroke="#ffffff" baselineOpacity={0.32} />
+          <Image
+            src="/assets/pulse/Pulse - Red Circle Icon.svg"
+            alt=""
+            width={26}
+            height={26}
+            className="block size-[26px] brightness-0 invert"
+          />
         </span>
         <div className="min-w-0 flex-1">
           <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-wine">
