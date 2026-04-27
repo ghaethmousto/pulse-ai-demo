@@ -321,8 +321,17 @@ export function SkeletonRolePerspectives() {
   ];
 
   return (
-    <section className="border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/7.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/65"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-24">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}

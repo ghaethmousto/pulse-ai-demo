@@ -22,8 +22,18 @@ export function SkeletonFooter() {
   const companyLinks = t.raw("companyLinks") as string[];
   const linksByKey = { platformLinks, resourcesLinks, companyLinks };
   return (
-    <footer className="bg-neutral-950 text-neutral-200">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <footer className="relative overflow-hidden bg-neutral-950 text-neutral-200">
+      {/* Background image */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20 dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/9.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-neutral-950/70"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-6">
           {/* Brand */}
           <div className="md:col-span-2">

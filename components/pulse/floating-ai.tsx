@@ -99,7 +99,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
             <div className="overflow-hidden rounded-[14px]">
               {/* Wine header band */}
               <div
-                className="relative flex items-center gap-2 overflow-hidden px-3 py-2.5 text-white"
+                className="relative mx-2 mt-2 flex items-center gap-2 overflow-hidden rounded-[11px] px-3 py-2.5 text-white"
                 style={{
                   background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
                   boxShadow:

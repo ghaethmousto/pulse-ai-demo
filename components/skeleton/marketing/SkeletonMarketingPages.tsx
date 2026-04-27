@@ -20,29 +20,53 @@ function LogoStrip() {
   return <SkeletonTrustedLogos />;
 }
 
-function CTASection() {
+function CTASection({
+  image = "/assets/cards%20background/11.png",
+}: {
+  image?: string;
+} = {}) {
   const t = useTranslations("skeleton.ctaBecomeStory");
   return (
     <section className="mx-auto max-w-7xl px-6 py-16">
-      <div className="rounded-2xl bg-neutral-950 px-6 py-8 text-white border border-neutral-800">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-400">
-          {t("eyebrow")}
-        </p>
-        <div className="mt-2 flex flex-col justify-between gap-5 md:flex-row md:items-center">
-          <h2 className="text-2xl font-semibold">{t("title")}</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/skeleton/contact"
-              className="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-950 transition hover:bg-neutral-100"
-            >
-              {t("request")}
-            </Link>
-            <Link
-              href="/skeleton/contact"
-              className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-white transition hover:border-white"
-            >
-              {t("talk")}
-            </Link>
+      <div
+        className="relative overflow-hidden rounded-2xl px-6 py-8 text-white"
+        style={{
+          border: "1px solid rgba(255,255,255,0.10)",
+          boxShadow:
+            "0 12px 32px -12px rgba(141,53,75,0.45), inset 0 1px 0 rgba(255,255,255,0.10)",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+          style={{
+            backgroundImage: `url("${image}")`,
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-black/45 dark:bg-black/55"
+        />
+        <div className="relative">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-white">
+            {t("eyebrow")}
+          </p>
+          <div className="mt-2 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+            <h2 className="text-2xl font-semibold">{t("title")}</h2>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/skeleton/contact"
+                className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#6e2638] transition hover:bg-neutral-100"
+              >
+                {t("request")}
+              </Link>
+              <Link
+                href="/skeleton/contact"
+                className="rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-black"
+              >
+                {t("talk")}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -62,14 +86,39 @@ function FeatureVisual({ label }: { label: string }) {
    cells (Owner / Consultant / Contractor) and to per-role preview
    tiles (Owner brief / RFI cycle / Tower B). */
 const SOLUTIONS_OUTCOME_BG = [
-  "/assets/cards%20background/1-2.png",
-  "/assets/cards%20background/2.png",
-  "/assets/cards%20background/3.png",
+  "/assets/cards%20background/13.png",
+  "/assets/cards%20background/13.png",
+  "/assets/cards%20background/13.png",
 ];
 const SOLUTIONS_PREVIEW_BG = [
   "/assets/cards%20background/Solutions/2.png",
   "/assets/cards%20background/Solutions/3.png",
   "/assets/cards%20background/Solutions/4.png",
+];
+
+/* Resources page — hero + per-layer preview backgrounds. Layer index
+   `i` maps to Resources/{i+2}.png (Resources/1.png is the hero). */
+const RESOURCES_LAYER_BG = [
+  "/assets/cards%20background/Resources/2.png",
+  "/assets/cards%20background/Resources/3.png",
+  "/assets/cards%20background/Resources/4.png",
+  "/assets/cards%20background/Resources/5.png",
+  "/assets/cards%20background/Resources/6.png",
+  "/assets/cards%20background/Resources/7.png",
+];
+
+/* Customers page — story preview backgrounds, indexed per story. */
+const CUSTOMERS_STORY_BG = [
+  "/assets/cards%20background/customers/1.png",
+  "/assets/cards%20background/customers/2.png",
+  "/assets/cards%20background/customers/3.png",
+];
+
+/* Customers page — "in their words" quote tiles, indexed per quote. */
+const CUSTOMERS_QUOTE_BG = [
+  "/assets/cards%20background/customers/5.png",
+  "/assets/cards%20background/customers/6.png",
+  "/assets/cards%20background/customers/7.png",
 ];
 
 export function SkeletonResourcesPage() {
@@ -83,16 +132,30 @@ export function SkeletonResourcesPage() {
   return (
     <PageShell>
       <section className="border-b border-border bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-            {t("eyebrow")}
-          </p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-            {t("h1")}
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground">
-            {t("subtitle")}
-          </p>
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-2 lg:gap-14">
+          {/* Visual column */}
+          <div className="relative w-full">
+            <div
+              className="relative mx-auto aspect-[4/3] w-[70%] overflow-hidden bg-contain bg-center bg-no-repeat dark:invert dark:hue-rotate-180"
+              style={{
+                backgroundImage:
+                  'url("/assets/cards%20background/Resources/1.png?v=2")',
+              }}
+            />
+          </div>
+
+          {/* Text column */}
+          <div className="text-start">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              {t("eyebrow")}
+            </p>
+            <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              {t("h1")}
+            </h1>
+            <p className="mt-5 max-w-xl text-sm text-muted-foreground">
+              {t("subtitle")}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -100,7 +163,7 @@ export function SkeletonResourcesPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {layers.map((layer) => (
+          {layers.map((layer, i) => (
             <article
               key={layer.title}
               className="rounded-md border border-border bg-card p-6"
@@ -115,7 +178,15 @@ export function SkeletonResourcesPage() {
               </div>
               <h2 className="mt-4 text-xl font-semibold">{layer.title}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{layer.body}</p>
-              <FeatureVisual label={layer.visual} />
+              <div className="relative mt-5 h-[220px] overflow-hidden rounded-md border border-border">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                  style={{
+                    backgroundImage: `url("${RESOURCES_LAYER_BG[i] ?? ""}")`,
+                  }}
+                />
+              </div>
             </article>
           ))}
         </div>
@@ -152,7 +223,7 @@ export function SkeletonResourcesPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection image="/assets/cards%20background/10.png" />
     </PageShell>
   );
 }
@@ -220,7 +291,7 @@ export function SkeletonSolutionsPage() {
             >
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 bg-cover bg-center"
+                className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
                 style={{
                   backgroundImage: `url("${SOLUTIONS_OUTCOME_BG[i] ?? ""}")`,
                 }}
@@ -267,7 +338,7 @@ export function SkeletonSolutionsPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/skeleton/contact"
-                  className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background"
+                  className="rounded-md bg-wine px-4 py-2 text-sm font-medium text-white transition hover:bg-wine-light"
                 >
                   {section.cta}
                 </Link>
@@ -350,8 +421,20 @@ export function SkeletonCustomersPage() {
 
   return (
     <PageShell>
-      <section className="border-b border-border bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-20">
+      <section className="relative overflow-hidden border-b border-border bg-card">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              'url("/assets/cards%20background/customers/head.png")',
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-white/55 dark:bg-black/65"
+        />
+        <div className="relative mx-auto max-w-7xl px-6 py-20">
           <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
             {t("eyebrow")}
           </p>
@@ -365,7 +448,7 @@ export function SkeletonCustomersPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-12">
-        <article className="grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[1.4fr_1fr]">
+        <article className="grid grid-cols-1 items-start overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[1.4fr_1fr]">
           <div className="p-8">
             <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground bidi-iso">
               {t("featuredEyebrow")}
@@ -383,21 +466,17 @@ export function SkeletonCustomersPage() {
               {t("readCaseStudy")}
             </Link>
           </div>
-          <div className="border-t border-border bg-muted p-8 lg:border-s lg:border-t-0">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              {t("outcomeLabel")}
-            </p>
-            <div className="mt-6 grid grid-cols-2 gap-5">
-              {outcomes.map((o) => (
-                <div key={o.label}>
-                  <p className="text-3xl font-semibold bidi-isolate">{o.value}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{o.label}</p>
-                </div>
-              ))}
-            </div>
-            <blockquote className="mt-8 text-sm italic text-foreground/70">
-              &laquo;{t("quote")}&raquo;
-            </blockquote>
+          <div className="relative overflow-hidden border-t border-border lg:border-s lg:border-t-0">
+            <img
+              src="/assets/cards%20background/9.png"
+              alt=""
+              aria-hidden
+              className="block h-[330px] w-full object-cover dark:invert dark:hue-rotate-180"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+            />
           </div>
         </article>
       </section>
@@ -409,13 +488,24 @@ export function SkeletonCustomersPage() {
           {t("moreEyebrow")}
         </p>
         <h2 className="mt-3 text-3xl font-semibold">{t("moreTitle")}</h2>
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {stories.map((story) => (
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 md:grid-cols-3">
+          {stories.map((story, i) => (
             <article
               key={story.company}
-              className="rounded-md border border-border bg-card"
+              className="flex flex-col overflow-hidden rounded-md border border-border bg-card"
             >
-              <FeatureVisual label={`[ ${t("storyImage")} ]`} />
+              <div className="relative w-full overflow-hidden border-b border-border">
+                <img
+                  src={CUSTOMERS_STORY_BG[i] ?? ""}
+                  alt=""
+                  aria-hidden
+                  className="block h-[415.94px] w-full object-cover"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+                />
+              </div>
               <div className="p-5">
                 <p className="text-[10px] uppercase tracking-widest text-muted-foreground bidi-isolate">
                   {story.company}
@@ -431,13 +521,17 @@ export function SkeletonCustomersPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-8">
-        <div className="grid grid-cols-2 overflow-hidden rounded-md border border-border bg-card md:grid-cols-4">
-          {kpis.map((kpi) => (
-            <div key={kpi.label} className="border-border p-6 md:border-e last:md:border-e-0">
-              <p className="text-3xl font-semibold bidi-isolate">{kpi.value}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{kpi.label}</p>
-            </div>
-          ))}
+        <div className="relative overflow-hidden rounded-md border border-border bg-card">
+          <img
+            src="/assets/cards%20background/customers/4.png"
+            alt=""
+            aria-hidden
+            className="block h-auto w-full"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+          />
         </div>
       </section>
 
@@ -445,14 +539,22 @@ export function SkeletonCustomersPage() {
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
           {t("wordsEyebrow")}
         </p>
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {quotes.map((quote) => (
-            <blockquote
+        <div className="mt-8 grid grid-cols-1 items-start gap-4 md:grid-cols-3">
+          {quotes.map((quote, i) => (
+            <div
               key={quote}
-              className="rounded-md border border-dashed border-border bg-card p-6 text-sm text-foreground/80"
+              className="relative overflow-hidden rounded-md border border-border bg-card"
             >
-              &laquo;{quote}&raquo;
-            </blockquote>
+              <img
+                src={CUSTOMERS_QUOTE_BG[i] ?? ""}
+                alt={quote}
+                className="block h-auto w-full"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+              />
+            </div>
           ))}
         </div>
       </section>

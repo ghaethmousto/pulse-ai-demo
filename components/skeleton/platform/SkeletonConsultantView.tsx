@@ -3,6 +3,15 @@
 import { useTranslations } from "next-intl";
 import { SkeletonMetricGrid } from "@/components/skeleton/platform/SkeletonMetricCard";
 
+/* Per-metric image overrides for the Consultant view, in array order. */
+const CONSULTANT_METRIC_IMAGES = [
+  "/assets/cards%20background/consultant/Layer%201.png",
+  "/assets/cards%20background/consultant/Layer%202.png",
+  "/assets/cards%20background/consultant/Layer%203.png",
+  "/assets/cards%20background/consultant/Layer%204.png",
+  "/assets/cards%20background/consultant/Layer%205.png",
+];
+
 export function SkeletonConsultantView() {
   const t = useTranslations("skeleton.platform.consultantView");
   const metrics = t.raw("metrics") as {
@@ -31,9 +40,14 @@ export function SkeletonConsultantView() {
     status: "open" | "done";
   }[];
 
+  const metricsWithImages = metrics.map((m, i) => ({
+    ...m,
+    image: CONSULTANT_METRIC_IMAGES[i],
+  }));
+
   return (
     <>
-      <SkeletonMetricGrid metrics={metrics} />
+      <SkeletonMetricGrid metrics={metricsWithImages} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <section className="rounded-md border border-border bg-card lg:col-span-2">
@@ -82,17 +96,35 @@ export function SkeletonConsultantView() {
             <h2 className="text-base font-semibold">{t("coordination")}</h2>
           </header>
           <div className="p-5">
-            <div className="flex h-44 items-center justify-center rounded border border-dashed border-border bg-muted text-xs text-muted-foreground">
-              {t("matrixPlaceholder")}
+            <div className="relative h-44 overflow-hidden rounded border border-border">
+              <img
+                src="/assets/cards%20background/5.png"
+                alt={t("matrixPlaceholder")}
+                className="absolute inset-0 h-full w-full object-cover dark:invert dark:hue-rotate-180"
+              />
             </div>
             <p className="mt-3 text-xs text-muted-foreground">{t("clashes")}</p>
-            <div className="mt-4 rounded-md border border-border bg-muted p-3">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                {t("pulseSuggests")}
-              </p>
-              <p className="mt-1 text-xs text-foreground/80">
-                {t("pulseSuggestion")}
-              </p>
+            <div className="relative mt-4 overflow-hidden rounded-md border border-border p-3">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                style={{
+                  backgroundImage:
+                    'url("/assets/cards%20background/owner/Layer%202.png")',
+                }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-white/80 dark:bg-black/65"
+              />
+              <div className="relative">
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {t("pulseSuggests")}
+                </p>
+                <p className="mt-1 text-xs text-foreground/80">
+                  {t("pulseSuggestion")}
+                </p>
+              </div>
             </div>
           </div>
         </section>

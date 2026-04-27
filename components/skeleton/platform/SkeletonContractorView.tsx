@@ -3,6 +3,15 @@
 import { useTranslations } from "next-intl";
 import { SkeletonMetricGrid } from "@/components/skeleton/platform/SkeletonMetricCard";
 
+/* Per-metric image overrides for the Contractor view, in array order. */
+const CONTRACTOR_METRIC_IMAGES = [
+  "/assets/cards%20background/contractor/Layer%2010.png",
+  "/assets/cards%20background/contractor/Layer%209.png",
+  "/assets/cards%20background/contractor/Layer%208.png",
+  "/assets/cards%20background/contractor/Layer%207.png",
+  "/assets/cards%20background/contractor/Layer%206.png",
+];
+
 const todayProgress = [70, 30, 45, 100];
 const todayStatusKeys = ["inProgress", "ready", "blocked", "done"] as const;
 const upcomingFlags = [
@@ -49,9 +58,14 @@ export function SkeletonContractorView() {
   const days = t.raw("days") as { d: string; n: string }[];
   const upcomingNames = t.raw("upcoming") as { name: string; crew: string }[];
 
+  const metricsWithImages = metrics.map((m, i) => ({
+    ...m,
+    image: CONTRACTOR_METRIC_IMAGES[i],
+  }));
+
   return (
     <>
-      <SkeletonMetricGrid metrics={metrics} />
+      <SkeletonMetricGrid metrics={metricsWithImages} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <section className="rounded-md border border-border bg-card lg:col-span-2">
@@ -108,8 +122,20 @@ export function SkeletonContractorView() {
         </section>
       </div>
 
-      <section className="rounded-md border border-border bg-card">
-        <header className="flex items-center justify-between border-b border-border px-5 py-4">
+      <section className="relative overflow-hidden rounded-md border border-border bg-card">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+          style={{
+            backgroundImage:
+              'url("/assets/cards%20background/4.png")',
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-white/80 dark:bg-black/70"
+        />
+        <header className="relative flex items-center justify-between border-b border-border px-5 py-4">
           <div>
             <h2 className="text-base font-semibold">{t("upcomingTitle")}</h2>
             <p className="text-xs text-muted-foreground">{t("upcomingMeta")}</p>
@@ -126,7 +152,7 @@ export function SkeletonContractorView() {
             </span>
           </div>
         </header>
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full text-start text-xs">
             <thead className="text-[10px] uppercase tracking-widest text-muted-foreground">
               <tr className="border-b border-border">
@@ -181,7 +207,7 @@ export function SkeletonContractorView() {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-wrap gap-4 border-t border-border px-5 py-3 text-[10px] uppercase tracking-widest text-muted-foreground">
+        <div className="relative flex flex-wrap gap-4 border-t border-border px-5 py-3 text-[10px] uppercase tracking-widest text-muted-foreground">
           <span>■ {t("legendPlanned")}</span>
           <span>□ {t("legendBlocked")}</span>
           <span>◆ {t("legendMilestone")}</span>

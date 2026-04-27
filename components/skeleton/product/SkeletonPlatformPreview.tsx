@@ -24,8 +24,17 @@ export function SkeletonPlatformPreview() {
   const aiNotes = t.raw("aiNotes") as string[];
 
   return (
-    <section className="border-b border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative overflow-hidden border-b border-border bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/9.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/65"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-24">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}

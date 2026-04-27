@@ -50,8 +50,18 @@ export function SkeletonIntegrations() {
   const tCat = useTranslations("skeleton.integrations.categories");
 
   return (
-    <section className="border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#080606]">
+      {/* Background image */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-50 dark:opacity-60 dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/1.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-[#080606]/68"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-24">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}

@@ -280,98 +280,67 @@ html[lang="ar"] body {
 }
 .dark .pulse-fab {
   box-shadow:
-    0 0 10px 2px rgba(141, 53, 75, 0.55),
-    0 0 26px 8px rgba(141, 53, 75, 0.34),
-    0 0 56px 16px rgba(141, 53, 75, 0.18),
-    0 0 90px 24px rgba(141, 53, 75, 0.08),
-    0 4px 12px rgba(141, 53, 75, 0.45),
-    0 22px 50px -12px rgba(0, 0, 0, 0.65);
+    0 0 8px 1px rgba(141, 53, 75, 0.28),
+    0 0 22px 6px rgba(141, 53, 75, 0.16),
+    0 0 44px 12px rgba(141, 53, 75, 0.08),
+    0 4px 10px rgba(141, 53, 75, 0.22),
+    0 22px 50px -14px rgba(0, 0, 0, 0.6);
 }
 
-/* Static burgundy halo — transparent in the disc area, peak just
-   outside the disc edge, fades out. No color visible inside. */
+/* Static base halo — subtle dense band right around the disc that
+   provides the always-on wine "presence" between waves. */
 .pulse-fab-glow {
   position: absolute;
-  inset: -55%;
+  inset: -25%;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 0;
-  filter: blur(8px);
+  filter: none;
   background: radial-gradient(circle at 50% 50%,
-    rgba(141, 53, 75, 0) 0%,
-    rgba(141, 53, 75, 0) 46%,
-    rgba(141, 53, 75, 0.20) 56%,
-    rgba(141, 53, 75, 0.10) 72%,
-    rgba(141, 53, 75, 0) 92%);
+    rgba(141, 53, 75, 0) 38%,
+    rgba(141, 53, 75, 0.30) 42%,
+    rgba(141, 53, 75, 0.18) 75%,
+    rgba(141, 53, 75, 0) 100%);
 }
 .dark .pulse-fab-glow {
   background: radial-gradient(circle at 50% 50%,
-    rgba(141, 53, 75, 0) 0%,
-    rgba(141, 53, 75, 0) 46%,
-    rgba(141, 53, 75, 0.55) 56%,
-    rgba(141, 53, 75, 0.30) 72%,
-    rgba(141, 53, 75, 0.10) 88%,
+    rgba(141, 53, 75, 0) 38%,
+    rgba(141, 53, 75, 0.32) 42%,
+    rgba(141, 53, 75, 0.18) 75%,
     rgba(141, 53, 75, 0) 100%);
 }
 
-/* Three breathing halos — burgundy, blurred, never sharp lines.
-   Light mode uses a quieter keyframe so the halo barely whispers
-   against ivory; dark mode runs the full breath. */
+/* Animated wave rings — solid wine circles that emanate outward from
+   the disc like ripples. Two staggered rings produce a continuous
+   wave effect. */
 .pulse-fab-ring {
   position: absolute;
+  inset: -10%;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 0;
+  background: radial-gradient(circle,
+    rgba(141, 53, 75, 0.42) 0%,
+    rgba(141, 53, 75, 0.30) 55%,
+    rgba(141, 53, 75, 0) 100%);
+  opacity: 0;
   will-change: transform, opacity;
-  animation: pulseFabBreathLight 6s ease-in-out infinite;
+  animation: pulseFabWave 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 .dark .pulse-fab-ring {
-  animation: pulseFabBreathDark 6s ease-in-out infinite;
-}
-/* Each ring is transparent inside the disc area and peaks just past
-   the disc edge — guaranteed no color inside the disc. */
-.pulse-fab-ring--1 {
-  inset: -10%;
-  filter: blur(4px);
-  animation-delay: 0s;
   background: radial-gradient(circle,
-    rgba(141, 53, 75, 0) 0%,
-    rgba(141, 53, 75, 0) 76%,
-    rgba(141, 53, 75, 0.40) 86%,
-    rgba(141, 53, 75, 0.10) 96%,
+    rgba(141, 53, 75, 0.42) 0%,
+    rgba(141, 53, 75, 0.28) 55%,
     rgba(141, 53, 75, 0) 100%);
 }
-.pulse-fab-ring--2 {
-  inset: -22%;
-  filter: blur(7px);
-  animation-delay: 1.4s;
-  background: radial-gradient(circle,
-    rgba(141, 53, 75, 0) 0%,
-    rgba(141, 53, 75, 0) 64%,
-    rgba(141, 53, 75, 0.22) 76%,
-    rgba(141, 53, 75, 0.08) 90%,
-    rgba(141, 53, 75, 0) 100%);
-}
-.pulse-fab-ring--3 {
-  inset: -34%;
-  filter: blur(11px);
-  animation-delay: 2.8s;
-  background: radial-gradient(circle,
-    rgba(141, 53, 75, 0) 0%,
-    rgba(141, 53, 75, 0) 54%,
-    rgba(141, 53, 75, 0.13) 70%,
-    rgba(141, 53, 75, 0.05) 86%,
-    rgba(141, 53, 75, 0) 100%);
-}
+.pulse-fab-ring--1 { animation-delay: 0s; }
+.pulse-fab-ring--2 { animation-delay: 1.6s; }
 
-/* Slow breath — barely-there scale + opacity, no aggressive pulse */
-@keyframes pulseFabBreathLight {
-  0%, 100% { transform: scale(1);     opacity: 0.40; }
-  50%      { transform: scale(1.045); opacity: 0.55; }
-}
-@keyframes pulseFabBreathDark {
-  0%, 100% { transform: scale(1);     opacity: 0.85; }
-  50%      { transform: scale(1.045); opacity: 1; }
+@keyframes pulseFabWave {
+  0%   { transform: scale(0.95); opacity: 0; }
+  10%  { opacity: 0.85; }
+  60%  { opacity: 0.30; }
+  100% { transform: scale(2.4);  opacity: 0; }
 }
 
 /* Subtle glass reflection on top half of the disc */

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { skeletonAuthLinks } from "@/components/skeleton/nav-links";
@@ -11,6 +10,18 @@ export function SkeletonHero() {
   const headline = [t("h1Line1"), t("h1Line2"), t("h1Line3")];
   return (
     <section className="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-[#faf8f6] dark:bg-[#0e0c0c]">
+      {/* Background image — mirrors horizontally in RTL so the diagram
+          sits opposite the copy column instead of overlapping it. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-95 dark:opacity-95 dark:invert dark:hue-rotate-180 rtl:[transform:scaleX(-1)]"
+        style={{ backgroundImage: 'url("/assets/cards%20background/77.jpg")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[#faf8f6]/35 dark:bg-[#0e0c0c]/40"
+      />
+
       {/* Restrained ambient backdrop — controlled radial, not foggy */}
       <div
         aria-hidden
@@ -136,40 +147,6 @@ export function SkeletonHero() {
             }}
           />
 
-          <motion.div
-            className="relative w-full"
-            animate={{ y: [0, -6, 0] }}
-            transition={{
-              duration: 5.5,
-              ease: "easeInOut",
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          >
-            {/* Command-stage card — clean rounded, subtle border, soft
-                wide shadow, inner glass rim. No mask gradient. */}
-            <div
-              className="relative w-full overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-[0_24px_60px_-22px_rgba(32,29,26,0.22)] dark:border-neutral-700/60 dark:bg-[#1a1517] dark:shadow-[0_28px_70px_-20px_rgba(0,0,0,0.7)]"
-            >
-              <Image
-                src="/assets/images/Hero%20reference.png"
-                alt="Pulse AI command core connecting Owner, Consultant, and Contractor"
-                width={1680}
-                height={945}
-                priority
-                className="block h-auto w-full"
-              />
-              {/* Inner top highlight — glass rim */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl"
-                style={{
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 0 0 1px rgba(255,255,255,0.04)",
-                }}
-              />
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -10,8 +10,7 @@ export function SkeletonFinalCTA() {
   const subWords = t("h1Line2").split(" ");
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ background: "#080606" }}
+      className="relative overflow-hidden bg-black"
     >
       {/* Central wine glow */}
       <div

@@ -8,6 +8,18 @@ import {
 } from "@/components/skeleton/platform/SkeletonActivityPanel";
 import { SkeletonDocumentPanel } from "@/components/skeleton/platform/SkeletonDocumentPanel";
 
+/* Per-metric image overrides — order matches the metrics array.
+   Card 4 (Open Items) intentionally uses 6.png and skips 4.png. */
+const SOURCE_OF_TRUTH_METRIC_IMAGES = [
+  "/assets/cards%20background/Source%20of%20truth/1.png?v=2",
+  "/assets/cards%20background/Source%20of%20truth/2.png?v=2",
+  "/assets/cards%20background/Source%20of%20truth/3.png?v=2",
+  "/assets/cards%20background/Source%20of%20truth/6.png?v=2",
+  "/assets/cards%20background/Source%20of%20truth/5.png?v=2",
+];
+const SOURCE_OF_TRUTH_DOCUMENT_IMAGE =
+  "/assets/cards%20background/18.png";
+
 export function SkeletonSourceOfTruthView() {
   const t = useTranslations("skeleton.platform.sourceOfTruthView");
   const metrics = t.raw("metrics") as {
@@ -26,17 +38,23 @@ export function SkeletonSourceOfTruthView() {
   }[];
   const docLegend = t.raw("documentLegend") as { label: string; count: string }[];
 
+  const metricsWithImages = metrics.map((m, i) => ({
+    ...m,
+    image: SOURCE_OF_TRUTH_METRIC_IMAGES[i],
+  }));
+
   return (
     <>
-      <SkeletonMetricGrid metrics={metrics} />
+      <SkeletonMetricGrid metrics={metricsWithImages} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+        <div className="flex lg:col-span-2">
           <SkeletonActivityPanel
             title={t("livingTimeline")}
+            className="flex h-full w-full flex-col"
             toolbar={
               <>
-                <span className="rounded-md border border-foreground bg-foreground px-2 py-1 text-background">
+                <span className="rounded-md border border-wine bg-wine px-2 py-1 text-white">
                   {t("toolbar.schedule")}
                 </span>
                 <span className="rounded-md border border-border px-2 py-1 text-foreground/80">
@@ -55,7 +73,7 @@ export function SkeletonSourceOfTruthView() {
           />
         </div>
         <div className="flex flex-col gap-4">
-          <section className="rounded-md border border-border bg-card">
+          <section className="flex h-full flex-col rounded-md border border-border bg-card">
             <header className="border-b border-border px-5 py-4">
               <h2 className="text-base font-semibold">{t("sameTruth")}</h2>
             </header>
@@ -71,12 +89,14 @@ export function SkeletonSourceOfTruthView() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <SkeletonDocumentPanel
-          title={t("documentGraph")}
-          caption={t("documentCaption")}
-          legend={docLegend}
-        />
+      <SkeletonDocumentPanel
+        title={t("documentGraph")}
+        caption={t("documentCaption")}
+        legend={docLegend}
+        image={SOURCE_OF_TRUTH_DOCUMENT_IMAGE}
+      />
+
+      <div className="grid grid-cols-1 gap-4">
         <section className="rounded-md border border-border bg-card">
           <header className="flex items-center justify-between border-b border-border px-5 py-4">
             <h2 className="text-base font-semibold">{t("decisionLedger")}</h2>

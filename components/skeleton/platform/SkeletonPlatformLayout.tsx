@@ -133,8 +133,19 @@ export function SkeletonPlatformLayout({
             <span className="text-xl font-semibold text-foreground">Pulse AI</span>
           </div>
 
-          <div className="flex-1 overflow-hidden px-4 py-5">
-            <div className="rounded-lg border border-border bg-background p-4 shadow-sm">
+          <div className="relative flex-1 overflow-hidden px-4 py-5">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+              style={{
+                backgroundImage: 'url("/assets/cards%20background/6.png")',
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-card/85 dark:bg-card/80"
+            />
+            <div className="relative rounded-lg border border-border bg-background p-4 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -149,7 +160,7 @@ export function SkeletonPlatformLayout({
               </div>
             </div>
 
-            <nav className="mt-5 space-y-5" aria-label="Platform navigation">
+            <nav className="relative mt-5 space-y-5" aria-label="Platform navigation">
               {sidebarGroups.map((group, groupIndex) => (
                 <div key={group.sectionKey}>
                   <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
@@ -219,34 +230,43 @@ export function SkeletonPlatformLayout({
         </aside>
 
         <main className="p-6 lg:p-8">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground">
-                {roleLabel}
-              </p>
-              <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-                {pageTitle}
-              </h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
-                {t("askPulse")}
-              </span>
-              <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
-                {t("live")}
-              </span>
-            </div>
-          </div>
+          <div className="relative overflow-hidden rounded-md border border-border bg-card p-5">
+            {/* Background image */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-70 dark:invert dark:hue-rotate-180 dark:opacity-80"
+              style={{ backgroundImage: 'url("/assets/cards%20background/17.png")' }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-card/55 dark:bg-card/55"
+            />
 
-          <div
-            className="mt-6 h-6 rounded-md border border-dashed border-border bg-card"
-            aria-hidden
-          />
-          {pageScribble ? (
-            <p className="mt-2 text-right text-[10px] italic text-muted-foreground">
-              {pageScribble}
-            </p>
-          ) : null}
+            <div className="relative flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                  {roleLabel}
+                </p>
+                <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
+                  {pageTitle}
+                </h1>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground/70">
+                  {t("askPulse")}
+                </span>
+                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground/70">
+                  {t("live")}
+                </span>
+              </div>
+            </div>
+
+            {pageScribble ? (
+              <p className="relative mt-3 text-right text-[10px] italic text-muted-foreground">
+                {pageScribble}
+              </p>
+            ) : null}
+          </div>
 
           <div className="mt-6 flex flex-col gap-6">{children}</div>
         </main>

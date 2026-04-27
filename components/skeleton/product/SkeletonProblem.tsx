@@ -203,6 +203,12 @@ export function SkeletonProblem() {
         <div ref={ref} className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
           {problems.map((p, i) => {
             const { Wireframe } = p;
+            const cardBgImages = [
+              "/assets/cards%20background/3.png",
+              "/assets/cards%20background/5.png",
+              "/assets/cards%20background/6.png",
+            ];
+            const cardBg = cardBgImages[i];
             return (
               <motion.div
                 key={p.n}
@@ -221,6 +227,17 @@ export function SkeletonProblem() {
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white p-7 dark:border-neutral-800 dark:bg-neutral-950"
                 style={{ transition: "border-color 0.2s, box-shadow 0.2s" }}
               >
+                {/* Background image */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                  style={{ backgroundImage: `url("${cardBg}")` }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/82 dark:bg-black/68"
+                />
+
                 {/* Top accent bar (hover) */}
                 <div
                   className="absolute inset-x-0 top-0 h-[2px] rounded-t-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -228,23 +245,23 @@ export function SkeletonProblem() {
                 />
 
                 {/* Number */}
-                <span className="mb-4 block font-mono text-[11px] font-semibold tracking-[0.15em] text-[#8d354b]/60">
+                <span className="relative mb-4 block font-mono text-[11px] font-semibold tracking-[0.15em] text-[#8d354b]/60">
                   {p.n}
                 </span>
 
                 {/* Wireframe illustration */}
                 <div
-                  className="mb-5 overflow-hidden rounded-xl border bg-gradient-to-b from-[#fdfaf8] to-[#f8eef0] dark:from-[#1c1416] dark:to-[#1a0e13]"
+                  className="relative mb-5 overflow-hidden rounded-xl border bg-gradient-to-b from-[#fdfaf8] to-[#f8eef0] dark:from-[#1c1416] dark:to-[#1a0e13]"
                   style={{
                     borderColor: p.border,
-                    height: 110,
+                    height: 200,
                   }}
                 >
                   <Wireframe />
                 </div>
 
                 {/* Icon + heading */}
-                <div className="flex items-center gap-3 mb-2">
+                <div className="relative flex items-center gap-3 mb-2">
                   <div
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-[#8d354b]"
                     style={{ background: p.accent, border: `1px solid ${p.border}` }}
@@ -256,7 +273,7 @@ export function SkeletonProblem() {
                   </h3>
                 </div>
 
-                <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                <p className="relative text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
                   {p.body}
                 </p>
               </motion.div>

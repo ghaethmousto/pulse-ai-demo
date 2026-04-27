@@ -3,6 +3,7 @@ interface SkeletonDocumentPanelProps {
   caption?: string;
   legend?: { label: string; count?: string }[];
   placeholder?: string;
+  image?: string;
 }
 
 export function SkeletonDocumentPanel({
@@ -10,6 +11,7 @@ export function SkeletonDocumentPanel({
   caption,
   legend,
   placeholder = "[ force-directed graph · drawings → specs → contracts → submittals ]",
+  image,
 }: SkeletonDocumentPanelProps) {
   return (
     <section className="rounded-md border border-border bg-card">
@@ -20,9 +22,19 @@ export function SkeletonDocumentPanel({
         ) : null}
       </header>
       <div className="p-5">
-        <div className="flex h-56 items-center justify-center rounded border border-dashed border-border bg-muted text-xs text-muted-foreground">
-          {placeholder}
-        </div>
+        {image ? (
+          <div className="overflow-hidden rounded border border-border">
+            <img
+              src={image}
+              alt={title}
+              className="block h-auto w-full dark:invert dark:hue-rotate-180"
+            />
+          </div>
+        ) : (
+          <div className="flex h-56 items-center justify-center rounded border border-dashed border-border bg-muted text-xs text-muted-foreground">
+            {placeholder}
+          </div>
+        )}
         {legend ? (
           <ul className="mt-4 flex flex-wrap gap-4 text-xs text-muted-foreground">
             {legend.map((l) => (

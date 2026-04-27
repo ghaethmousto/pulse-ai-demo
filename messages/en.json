@@ -682,12 +682,12 @@
         "contractorUsage": "Act by task"
       },
       "layers": [
-        {"n": "01", "title": "Document Graph", "body": "Drawings, specs, contracts, submittals — connected by project context, not folder paths.", "visual": "[ drawings → specs → contracts ]"},
+        {"n": "01", "title": "Document Graph", "body": "Drawings, specs, contracts, submittals — connected by project context.", "visual": "[ drawings → specs → contracts ]"},
         {"n": "02", "title": "Decision Ledger", "body": "Every decision captured with owner, rationale, and downstream impact.", "visual": "[ D-041 approved | D-040 selected | D-039 resequenced ]"},
-        {"n": "03", "title": "Schedule Intelligence", "body": "Pulse reconciles master schedule with daily field reports and root-cause analysis.", "visual": "[ baseline ____ actual __/--\\__ ]"},
+        {"n": "03", "title": "Schedule Intelligence", "body": "Pulse reconciles master schedule with daily field reports and root.", "visual": "[ baseline ____ actual __/--\\__ ]"},
         {"n": "04", "title": "Risk Radar", "body": "AI reads drawings, comms, and schedule to flag risk before impact.", "visual": "[ risk radar | 4 high | 12 watched ]"},
         {"n": "05", "title": "RFI & Submittals", "body": "Purpose-built review workflows with SLAs and escalation baked in.", "visual": "[ RFI-124 | SB-088 | overdue → route ]"},
-        {"n": "06", "title": "Ask Pulse", "body": "Natural-language interface to the project. Answers cite the source every time.", "visual": "[ Why did concrete pour slip? ]"}
+        {"n": "06", "title": "Ask Pulse", "body": "Natural-language interface to the project. Answers cite the source.", "visual": "[ Why did concrete pour slip? ]"}
       ]
     },
     "customers": {
