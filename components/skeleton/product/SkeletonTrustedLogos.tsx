@@ -31,7 +31,7 @@ export function SkeletonTrustedLogos() {
             {marqueeLogos.map((logo, index) => (
               <div
                 key={`${logo.label}-${index}`}
-                className="flex h-12 w-32 shrink-0 items-center justify-center opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0"
+                className="logo-strip-item flex h-12 w-32 shrink-0 items-center justify-center transition"
               >
                 <Image
                   src={logo.src}
@@ -49,14 +49,37 @@ export function SkeletonTrustedLogos() {
             animation: logo-marquee 28s linear infinite;
           }
 
-          @keyframes logo-marquee {
-            from {
-              transform: translateX(0);
-            }
+          /* Light mode: keep logos neutral with subtle opacity. */
+          .logo-strip-item {
+            opacity: 0.72;
+            filter: grayscale(1);
+          }
+          .logo-strip-item:hover {
+            opacity: 1;
+            filter: grayscale(0);
+          }
+          /* Dark mode: invert dark logos to white monochrome via CSS treatment.
+             We never mirror or flip the actual artwork — only its luminance. */
+          :is(.dark) .logo-strip-item {
+            opacity: 0.7;
+            filter: brightness(0) invert(1);
+          }
+          :is(.dark) .logo-strip-item:hover {
+            opacity: 1;
+            filter: brightness(0) invert(1);
+          }
 
-            to {
-              transform: translateX(-50%);
-            }
+          @keyframes logo-marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+          /* RTL: reverse marquee direction so the row appears to move
+             with the natural reading flow. */
+          [dir="rtl"] .logo-marquee-track {
+            animation-direction: reverse;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .logo-marquee-track { animation: none; }
           }
         `}</style>
       </div>

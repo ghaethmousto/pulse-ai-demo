@@ -10,11 +10,7 @@ export const metadata: Metadata = {
 
 export default function PlatformOwnerSkeletonPage() {
   return (
-    <SkeletonPlatformLayout
-      view="owner"
-      pageScribble="Owner = numbers + decisions"
-      userBadge={{ name: "S. Al-Mansouri", role: "Owner" }}
-    >
+    <SkeletonPlatformLayout view="owner">
       <SkeletonOwnerView />
     </SkeletonPlatformLayout>
   );

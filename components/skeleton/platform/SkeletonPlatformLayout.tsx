@@ -91,15 +91,11 @@ const portalKeyByView: Record<SkeletonPlatformView, string> = {
 
 interface SkeletonPlatformLayoutProps {
   view: SkeletonPlatformView;
-  pageScribble?: string;
-  userBadge?: { name: string; role: string };
   children: ReactNode;
 }
 
 export function SkeletonPlatformLayout({
   view,
-  pageScribble,
-  userBadge,
   children,
 }: SkeletonPlatformLayoutProps) {
   const t = useTranslations("skeleton.platform");
@@ -108,9 +104,16 @@ export function SkeletonPlatformLayout({
   const tPortals = useTranslations("skeleton.platform.portals");
   const tRoles = useTranslations("skeleton.platform.roleLabels");
   const tTitles = useTranslations("skeleton.platform.pageTitles");
+  const tScribbles = useTranslations("skeleton.platform.scribbles");
+  const tBadges = useTranslations("skeleton.platform.userBadges");
   const portalKey = portalKeyByView[view];
   const roleLabel = tRoles(portalKey);
   const pageTitle = tTitles(portalKey);
+  const pageScribble = tScribbles(portalKey);
+  const userBadge = {
+    name: tBadges(`${portalKey}.name`),
+    role: tBadges(`${portalKey}.role`),
+  };
   return (
     <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <SkeletonPlatformHeader />
@@ -138,9 +141,9 @@ export function SkeletonPlatformLayout({
                     {t("activeProject")}
                   </p>
                   <p className="mt-1 text-base font-semibold text-foreground">
-                    Al Reem Tower
+                    {t("projectName")}
                   </p>
-                  <p className="text-xs text-muted-foreground">185M AED · 28 mo</p>
+                  <p className="text-xs text-muted-foreground">{t("projectMeta")}</p>
                 </div>
                 <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden />
               </div>
@@ -189,7 +192,7 @@ export function SkeletonPlatformLayout({
             </nav>
           </div>
 
-          {userBadge ? (
+          {userBadge.name ? (
             <div className="mt-auto border-t border-border bg-card p-4">
               <div className="rounded-lg border border-wine/30 bg-wine-subtle px-4 py-3 text-center text-sm font-semibold text-wine dark:bg-wine/15">
                 {tPortals(portalKeyByView[view])}
@@ -197,8 +200,8 @@ export function SkeletonPlatformLayout({
               <div className="mt-4 flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine text-sm font-semibold text-white">
                   {userBadge.name
-                    .split(" ")
-                    .map((part) => part[0])
+                    .split(/\s+/)
+                    .map((part) => Array.from(part)[0] ?? "")
                     .join("")
                     .slice(0, 2)}
                 </span>
@@ -206,7 +209,9 @@ export function SkeletonPlatformLayout({
                   <p className="text-sm font-semibold text-foreground">
                     {userBadge.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">{userBadge.role}</p>
+                  {userBadge.role ? (
+                    <p className="text-xs text-muted-foreground">{userBadge.role}</p>
+                  ) : null}
                 </div>
               </div>
             </div>

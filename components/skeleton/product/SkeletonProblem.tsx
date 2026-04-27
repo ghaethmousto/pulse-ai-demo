@@ -6,33 +6,41 @@ import { useTranslations } from "next-intl";
 
 /* ─── Wireframe illustrations for each problem ─────────── */
 
-function FragmentedRealityWireframe() {
+function FragmentedRealityWireframe({
+  ownerLabel,
+  consultantLabel,
+  contractorLabel,
+}: {
+  ownerLabel: string;
+  consultantLabel: string;
+  contractorLabel: string;
+}) {
   // Three disconnected document/file panels with conflicting numbers
   return (
     <svg viewBox="0 0 220 100" className="h-full w-full" fill="none">
       {/* Panel 1 */}
       <g>
-        <rect x="6" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="6" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="14" y1="22" x2="50" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="14" y1="30" x2="42" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="14" y="56" fontSize="11" fontWeight="700" fill="#8d354b">847M</text>
-        <text x="14" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">OWNER</text>
+        <text x="14" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{ownerLabel}</text>
       </g>
       {/* Panel 2 */}
       <g>
-        <rect x="80" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="80" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="88" y1="22" x2="124" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="88" y1="30" x2="116" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="88" y="56" fontSize="11" fontWeight="700" fill="#8d354b">820M</text>
-        <text x="88" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">CONSULTANT</text>
+        <text x="88" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{consultantLabel}</text>
       </g>
       {/* Panel 3 */}
       <g>
-        <rect x="154" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="154" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="162" y1="22" x2="198" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="162" y1="30" x2="190" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="162" y="56" fontSize="11" fontWeight="700" fill="#8d354b">863M</text>
-        <text x="162" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">CONTRACTOR</text>
+        <text x="162" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{contractorLabel}</text>
       </g>
       {/* Disconnect lines (broken) */}
       <line x1="66" y1="49" x2="80" y2="49" stroke="#8d354b" strokeOpacity="0.25" strokeWidth="1" strokeDasharray="2 3" />
@@ -45,7 +53,7 @@ function InvisibleRiskWireframe() {
   // Email/inbox layout with a hidden risk buried at the bottom
   return (
     <svg viewBox="0 0 220 100" className="h-full w-full" fill="none">
-      <rect x="6" y="6" width="208" height="86" rx="5" stroke="#8d354b" strokeOpacity="0.4" strokeWidth="1.2" fill="#fbf6f4" />
+      <rect x="6" y="6" width="208" height="86" rx="5" stroke="#8d354b" strokeOpacity="0.4" strokeWidth="1.2" fill="rgba(255,251,248,0.45)" />
       {/* Inbox rows */}
       {[18, 32, 46, 60, 74].map((y, i) => (
         <g key={y}>
@@ -113,6 +121,9 @@ export function SkeletonProblem() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const t = useTranslations("skeleton.problem");
+  const ownerLabel = t("wireframe.owner");
+  const consultantLabel = t("wireframe.consultant");
+  const contractorLabel = t("wireframe.contractor");
 
   const problems = [
     {
@@ -125,10 +136,16 @@ export function SkeletonProblem() {
         </svg>
       ),
       title: t("card1Title"),
-      body: "Each company maintains its own files, statuses, and numbers. Three companies — three conflicting truths.",
+      body: t("card1Body"),
       accent: "rgba(141,53,75,0.1)",
       border: "rgba(141,53,75,0.25)",
-      Wireframe: FragmentedRealityWireframe,
+      Wireframe: () => (
+        <FragmentedRealityWireframe
+          ownerLabel={ownerLabel}
+          consultantLabel={consultantLabel}
+          contractorLabel={contractorLabel}
+        />
+      ),
     },
     {
       n: "02",
@@ -140,7 +157,7 @@ export function SkeletonProblem() {
         </svg>
       ),
       title: t("card2Title"),
-      body: "Critical decisions get buried in email threads and meeting notes. By the time risk surfaces, it is already a crisis.",
+      body: t("card2Body"),
       accent: "rgba(141,53,75,0.06)",
       border: "rgba(141,53,75,0.15)",
       Wireframe: InvisibleRiskWireframe,
@@ -154,7 +171,7 @@ export function SkeletonProblem() {
         </svg>
       ),
       title: t("card3Title"),
-      body: "Misalignment compounds daily. By the time it surfaces, the budget variance and schedule loss are irreversible.",
+      body: t("card3Body"),
       accent: "rgba(141,53,75,0.04)",
       border: "rgba(141,53,75,0.1)",
       Wireframe: CostlyReworkWireframe,
@@ -217,11 +234,9 @@ export function SkeletonProblem() {
 
                 {/* Wireframe illustration */}
                 <div
-                  className="mb-5 overflow-hidden rounded-xl border"
+                  className="mb-5 overflow-hidden rounded-xl border bg-gradient-to-b from-[#fdfaf8] to-[#f8eef0] dark:from-[#1c1416] dark:to-[#1a0e13]"
                   style={{
                     borderColor: p.border,
-                    background:
-                      "linear-gradient(180deg, #fdfaf8 0%, #f8eef0 100%)",
                     height: 110,
                   }}
                 >

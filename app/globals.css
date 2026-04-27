@@ -189,6 +189,19 @@
   .ring-wine {
     box-shadow: 0 0 0 1px var(--pulse-wine-border);
   }
+
+  /* ── Bidi isolation for inline LTR atoms inside RTL text.
+        Use on phone numbers, emails, URLs, dates, currency, codes. */
+  .bidi-isolate {
+    unicode-bidi: isolate;
+    direction: ltr;
+  }
+  /* Same intent, but lets text inherit direction (use when the atom
+     itself reads naturally either way and only needs isolation from
+     surrounding bidi context). */
+  .bidi-iso {
+    unicode-bidi: isolate;
+  }
 }
 
 /* ════════════════════════════════════════════

@@ -10,13 +10,13 @@ export function SkeletonMetricCard({
   caption,
 }: SkeletonMetricCardProps) {
   return (
-    <div className="rounded-md border border-neutral-300 bg-white p-5">
-      <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+    <div className="rounded-md border border-border bg-card p-5">
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
         {label}
       </p>
-      <p className="mt-3 text-3xl font-semibold text-neutral-900">{value}</p>
+      <p className="mt-3 text-3xl font-semibold text-foreground bidi-isolate">{value}</p>
       {caption ? (
-        <p className="mt-1 text-xs text-neutral-500">{caption}</p>
+        <p className="mt-1 text-xs text-muted-foreground">{caption}</p>
       ) : null}
     </div>
   );

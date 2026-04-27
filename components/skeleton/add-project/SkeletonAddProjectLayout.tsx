@@ -123,8 +123,9 @@ export function SkeletonAddProjectLayout({
               {prev ? (
                 <Link
                   href={prev.href}
-                  className="rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground/80 hover:text-foreground"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground/80 transition hover:text-foreground"
                 >
+                  <span aria-hidden className="rtl:rotate-180">←</span>
                   {t("back")}
                 </Link>
               ) : (
@@ -137,9 +138,10 @@ export function SkeletonAddProjectLayout({
               )}
               <Link
                 href={resolvedNextHref}
-                className="rounded-md bg-wine px-4 py-2 text-sm font-medium text-white hover:bg-wine-light"
+                className="inline-flex items-center gap-1.5 rounded-md bg-wine px-4 py-2 text-sm font-medium text-white transition hover:bg-wine-light"
               >
                 {t(nextLabelKey)}
+                <span aria-hidden className="rtl:rotate-180">→</span>
               </Link>
             </footer>
           </div>

@@ -73,11 +73,11 @@ export function SkeletonHeader() {
             className="h-7 w-7"
             aria-hidden
           />
-          <div className="flex flex-col leading-none">
-            <span className="text-sm font-semibold tracking-wide text-neutral-900 dark:text-[#f5f0ed]">
+          <div className="flex flex-col leading-none gap-0.5">
+            <span className="text-sm font-semibold tracking-wide text-neutral-900 dark:text-[#f5f0ed] bidi-isolate">
               Pulse <span className="text-[#8d354b]">AI</span>
             </span>
-            <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
+            <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-500 leading-tight">
               {t("intelligence")}
             </span>
           </div>

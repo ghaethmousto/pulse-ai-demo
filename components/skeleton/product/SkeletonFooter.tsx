@@ -3,29 +3,24 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const navColumns: { headingKey: "platform" | "resources" | "company"; links: string[] }[] = [
-  {
-    headingKey: "platform",
-    links: ["Overview", "Owner", "Consultant", "Contractor"],
-  },
-  {
-    headingKey: "resources",
-    links: ["Docs", "Changelog", "Case studies", "Security"],
-  },
-  {
-    headingKey: "company",
-    links: ["About", "Careers", "Press", "Legal"],
-  },
+const navColumns: { headingKey: "platform" | "resources" | "company"; linksKey: "platformLinks" | "resourcesLinks" | "companyLinks" }[] = [
+  { headingKey: "platform", linksKey: "platformLinks" },
+  { headingKey: "resources", linksKey: "resourcesLinks" },
+  { headingKey: "company", linksKey: "companyLinks" },
 ];
 
-const contactLines: { label: string; href: string | null }[] = [
-  { label: "demo@pulse-ai.com", href: "mailto:demo@pulse-ai.com" },
-  { label: "+971 50 381 6979", href: "tel:+971503816979" },
-  { label: "Dubai · Abu Dhabi · Riyadh", href: null },
+const contactLines: { value: string; href: string | null; isLtr: boolean }[] = [
+  { value: "demo@pulse-ai.com", href: "mailto:demo@pulse-ai.com", isLtr: true },
+  { value: "+971 50 381 6979", href: "tel:+971503816979", isLtr: true },
+  { value: "office", href: null, isLtr: false },
 ];
 
 export function SkeletonFooter() {
   const t = useTranslations("skeleton.footer");
+  const platformLinks = t.raw("platformLinks") as string[];
+  const resourcesLinks = t.raw("resourcesLinks") as string[];
+  const companyLinks = t.raw("companyLinks") as string[];
+  const linksByKey = { platformLinks, resourcesLinks, companyLinks };
   return (
     <footer className="bg-neutral-950 text-neutral-300">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -55,10 +50,10 @@ export function SkeletonFooter() {
                 {t(col.headingKey)}
               </p>
               <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
-                {col.links.map((l) => (
-                  <li key={l}>
+                {linksByKey[col.linksKey].map((label) => (
+                  <li key={label}>
                     <a href="#" className="transition hover:text-white">
-                      {l}
+                      {label}
                     </a>
                   </li>
                 ))}
@@ -72,17 +67,25 @@ export function SkeletonFooter() {
               {t("contact")}
             </p>
             <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
-              {contactLines.map((c) => (
-                <li key={c.label}>
-                  {c.href ? (
-                    <a href={c.href} className="transition hover:text-white">
-                      {c.label}
-                    </a>
-                  ) : (
-                    c.label
-                  )}
-                </li>
-              ))}
+              {contactLines.map((c) => {
+                const display = c.isLtr ? c.value : t("office");
+                const inner = c.isLtr ? (
+                  <span className="bidi-isolate inline-block">{display}</span>
+                ) : (
+                  display
+                );
+                return (
+                  <li key={c.value}>
+                    {c.href ? (
+                      <a href={c.href} className="transition hover:text-white">
+                        {inner}
+                      </a>
+                    ) : (
+                      inner
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

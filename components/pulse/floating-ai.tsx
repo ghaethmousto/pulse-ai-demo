@@ -23,10 +23,15 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 
   const [open, setOpen] = React.useState(false);
   const [draft, setDraft] = React.useState("");
-  const [briefing, setBriefing] = React.useState<Briefing>(() => ({
+  // `briefingOverride` is set only when the user picks a question or sends
+  // a draft. While it's null, the rendered briefing falls back to the
+  // active-locale greeting — this keeps the default copy in sync with the
+  // language toggle without an effect.
+  const [briefingOverride, setBriefingOverride] = React.useState<Briefing | null>(null);
+  const briefing: Briefing = briefingOverride ?? {
     label: tAssistant("currentSituation"),
     text: tAssistant("greeting"),
-  }));
+  };
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const dialogues = React.useMemo(() => getDialogues(loc), [loc]);
@@ -56,7 +61,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
   }, [open]);
 
   function ask(question: PulseQuestion) {
-    setBriefing({ label: question.question, text: question.answer });
+    setBriefingOverride({ label: question.question, text: question.answer });
     setDraft("");
   }
 
@@ -64,7 +69,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
     const text = draft.trim();
     if (!text) return;
     const match = findAnswer(text, loc);
-    setBriefing(
+    setBriefingOverride(
       match
         ? { label: match.question, text: match.answer }
         : { label: text, text: tAssistant("fallback") },
