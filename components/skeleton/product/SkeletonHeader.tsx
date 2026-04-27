@@ -47,17 +47,17 @@ export function SkeletonHeader() {
       style={{
         background: isDark
           ? scrolled
-            ? "linear-gradient(180deg, rgba(20,16,18,0.78) 0%, rgba(28,18,22,0.55) 60%, rgba(28,18,22,0) 100%)"
-            : "linear-gradient(180deg, rgba(20,16,18,0.62) 0%, rgba(28,18,22,0.36) 60%, rgba(28,18,22,0) 100%)"
+            ? "linear-gradient(180deg, rgba(20,16,18,0.62) 0%, rgba(28,18,22,0.34) 55%, rgba(28,18,22,0) 100%)"
+            : "linear-gradient(180deg, rgba(20,16,18,0.42) 0%, rgba(28,18,22,0.18) 55%, rgba(28,18,22,0) 100%)"
           : scrolled
-            ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.55) 60%, rgba(247,232,236,0) 100%)"
-            : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.4) 60%, rgba(247,232,236,0) 100%)",
-        backdropFilter: "blur(28px) saturate(180%)",
-        WebkitBackdropFilter: "blur(28px) saturate(180%)",
+            ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.5) 60%, rgba(247,232,236,0) 100%)"
+            : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.36) 60%, rgba(247,232,236,0) 100%)",
+        backdropFilter: "blur(20px) saturate(160%)",
+        WebkitBackdropFilter: "blur(20px) saturate(160%)",
         WebkitMaskImage:
-          "linear-gradient(180deg, black 0%, black 70%, rgba(0,0,0,0.6) 88%, transparent 100%)",
+          "linear-gradient(180deg, black 0%, black 72%, rgba(0,0,0,0.45) 90%, transparent 100%)",
         maskImage:
-          "linear-gradient(180deg, black 0%, black 70%, rgba(0,0,0,0.6) 88%, transparent 100%)",
+          "linear-gradient(180deg, black 0%, black 72%, rgba(0,0,0,0.45) 90%, transparent 100%)",
         paddingBottom: 12,
         transition: "background 300ms ease",
       }}

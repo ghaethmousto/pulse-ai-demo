@@ -332,40 +332,23 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         )}
 
       {/* Launcher — official Pulse - Red Circle Icon as the entire visual.
-          The asset already provides the wine disc and the white pulse glyph;
-          we add only a soft breathing halo behind it for "floating + alive". */}
+          Crisp red disc with a sharp inner glyph. Three concentric "signal
+          pulse" rings expand outward and fade to convey an active node
+          sending soft signals — no diffuse outer haze, no glow bleed. */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? tAssistant("close") : tAssistant("open")}
         aria-expanded={open}
-        className="relative z-[1] grid size-[60px] place-items-center rounded-full transition hover:scale-[1.04] active:scale-[0.96]"
+        className="pulse-fab relative z-[1] grid size-[60px] place-items-center rounded-full transition hover:scale-[1.04] active:scale-[0.96]"
         style={{
-          // No background here — the SVG asset is the disc.
-          filter:
-            "drop-shadow(0 10px 24px rgba(141,53,75,0.45)) drop-shadow(0 0 1px rgba(141,53,75,0.30))",
+          boxShadow:
+            "0 2px 4px rgba(141,53,75,0.20), 0 8px 18px -4px rgba(141,53,75,0.32)",
         }}
       >
-        {/* Soft breathing halo behind the disc — keeps the "alive" feel
-            without altering the icon itself. */}
-        <span
-          aria-hidden
-          className="pulse-mark-glow pointer-events-none absolute -inset-2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(207,89,118,0.36) 0%, transparent 70%)",
-          }}
-        />
-        {/* Brighter halo in dark mode for separation from the charcoal stage. */}
-        <span
-          aria-hidden
-          className="pulse-mark-glow pointer-events-none absolute -inset-2 hidden rounded-full dark:block"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(207,89,118,0.55) 0%, transparent 70%)",
-          }}
-        />
-        {/* The official Pulse mark asset. */}
+        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--1" />
+        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--2" />
+        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--3" />
         <Image
           src="/assets/pulse/Pulse - Red Circle Icon.svg"
           alt=""

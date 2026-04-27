@@ -62,7 +62,7 @@ export function SkeletonEconomics() {
             <br />
             {t("titleTrail")}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-neutral-400">
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-neutral-300">
             {t("body")}
           </p>
         </motion.div>
@@ -83,8 +83,8 @@ export function SkeletonEconomics() {
                 className="group relative overflow-hidden rounded-2xl p-6 text-start"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                    "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)",
+                  border: "1px solid rgba(255,255,255,0.14)",
                   borderTop: "2px solid #8d354b",
                 }}
               >
@@ -109,8 +109,8 @@ export function SkeletonEconomics() {
                       />
                     </span>
                   </p>
-                  <p className="mt-3 text-xs font-medium text-neutral-300">{s.label}</p>
-                  <p className="text-xs text-neutral-500">{s.sub}</p>
+                  <p className="mt-3 text-sm font-medium text-neutral-100">{s.label}</p>
+                  <p className="mt-0.5 text-xs text-neutral-400">{s.sub}</p>
                 </div>
               </motion.div>
             );

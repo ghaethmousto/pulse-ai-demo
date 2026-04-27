@@ -22,7 +22,7 @@ export function SkeletonFooter() {
   const companyLinks = t.raw("companyLinks") as string[];
   const linksByKey = { platformLinks, resourcesLinks, companyLinks };
   return (
-    <footer className="bg-neutral-950 text-neutral-300">
+    <footer className="bg-neutral-950 text-neutral-200">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-6">
           {/* Brand */}
@@ -38,7 +38,7 @@ export function SkeletonFooter() {
               />
               <span className="text-sm font-semibold text-white">Pulse AI</span>
             </div>
-            <p className="mt-4 max-w-xs text-xs leading-relaxed text-neutral-400">
+            <p className="mt-4 max-w-xs text-xs leading-relaxed text-neutral-300">
               {t("tagline")}
             </p>
           </div>
@@ -49,7 +49,7 @@ export function SkeletonFooter() {
               <p className="text-xs font-semibold uppercase tracking-widest text-white">
                 {t(col.headingKey)}
               </p>
-              <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+              <ul className="mt-4 space-y-2.5 text-xs text-neutral-300">
                 {linksByKey[col.linksKey].map((label) => (
                   <li key={label}>
                     <a href="#" className="transition hover:text-white">
@@ -66,7 +66,7 @@ export function SkeletonFooter() {
             <p className="text-xs font-semibold uppercase tracking-widest text-white">
               {t("contact")}
             </p>
-            <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
+            <ul className="mt-4 space-y-2.5 text-xs text-neutral-300">
               {contactLines.map((c) => {
                 const display = c.isLtr ? c.value : t("office");
                 const inner = c.isLtr ? (
@@ -90,7 +90,7 @@ export function SkeletonFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-neutral-800 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-neutral-800 pt-6 text-xs text-neutral-400 sm:flex-row sm:items-center">
           <span>{t("credit")}</span>
           <span>{t("rights")}</span>
         </div>

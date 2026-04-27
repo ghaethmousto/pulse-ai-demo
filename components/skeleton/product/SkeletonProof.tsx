@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
@@ -204,7 +205,7 @@ function PulseVisionVisual({ comingSoon }: { comingSoon: string }) {
 interface ProofCardData {
   id: string;
   tag: string;
-  description: string;
+  description: ReactNode;
   cta: string;
   bg: string;
   pattern?: "waves" | "stars" | "rings" | "bars" | "none";
@@ -307,15 +308,15 @@ function ProofCardItem({ card, comingSoon }: { card: ProofCardData; comingSoon: 
 
       {/* Description + CTA */}
       <div className="mt-4 px-1">
-        <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
           {card.description}
         </p>
         <a
           href="#"
-          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80"
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80"
         >
-          {card.cta}
-          <span aria-hidden>›</span>
+          <span>{card.cta}</span>
+          <span aria-hidden className="rtl:rotate-180">›</span>
         </a>
       </div>
     </motion.article>
@@ -328,11 +329,20 @@ export function SkeletonProof() {
   const t = useTranslations("skeleton.proof");
   const tCards = useTranslations("skeleton.proof.cards");
 
+  // Bold emphasis renders inline via next-intl rich text. Keeps "Pulse" /
+  // "Pulse Vision" subtle inside the body without bolding entire sentences.
+  const renderRich = (key: string) =>
+    tCards.rich(key, {
+      b: (chunks) => (
+        <strong className="font-semibold text-[#8d354b]">{chunks}</strong>
+      ),
+    });
+
   const cards: ProofCardData[] = [
     {
       id: "ora",
       tag: tCards("ora.tag"),
-      description: tCards("ora.description"),
+      description: renderRich("ora.description"),
       cta: tCards("ora.cta"),
       bg: "linear-gradient(135deg, #d9c190 0%, #b89968 50%, #c9a978 100%)",
       pattern: "waves",
@@ -343,23 +353,18 @@ export function SkeletonProof() {
       logoAspect: "5/2",
     },
     {
-      id: "emaar",
-      tag: tCards("emaar.tag"),
-      description: tCards("emaar.description"),
-      cta: tCards("emaar.cta"),
-      bg: "linear-gradient(180deg, #1a1f3d 0%, #0f1228 100%)",
-      pattern: "stars",
-      patternColor: "rgba(255,255,255,0.5)",
-      logoSrc: "/assets/logos/emaar.svg",
-      invertLogo: true,
-      accent: "#ffffff",
-      logoMaxWidth: 240,
-      logoAspect: "3/2",
+      id: "vision",
+      tag: tCards("vision.tag"),
+      description: renderRich("vision.description"),
+      cta: tCards("vision.cta"),
+      bg: "#0a0612",
+      isPreview: true,
+      accent: "#e08aa0",
     },
     {
       id: "aldar",
       tag: tCards("aldar.tag"),
-      description: tCards("aldar.description"),
+      description: renderRich("aldar.description"),
       cta: tCards("aldar.cta"),
       bg: "linear-gradient(135deg, #f1eae0 0%, #d9cfc1 50%, #c9bfae 100%)",
       pattern: "none",
@@ -369,53 +374,18 @@ export function SkeletonProof() {
       logoAspect: "3/2",
     },
     {
-      id: "vision",
-      tag: tCards("vision.tag"),
-      description: tCards("vision.description"),
-      cta: tCards("vision.cta"),
-      bg: "#0a0612",
-      isPreview: true,
-      accent: "#e08aa0",
-    },
-    {
-      id: "nakheel",
-      tag: tCards("nakheel.tag"),
-      description: tCards("nakheel.description"),
-      cta: tCards("nakheel.cta"),
-      bg: "linear-gradient(180deg, #0d3a4a 0%, #062430 100%)",
-      pattern: "waves",
-      patternColor: "#5fa8c2",
-      logoSrc: "/assets/logos/nakheel.svg",
+      id: "emaar",
+      tag: tCards("emaar.tag"),
+      description: renderRich("emaar.description"),
+      cta: tCards("emaar.cta"),
+      bg: "linear-gradient(180deg, #1a1f3d 0%, #0f1228 100%)",
+      pattern: "stars",
+      patternColor: "rgba(255,255,255,0.5)",
+      logoSrc: "/assets/logos/emaar.svg",
       invertLogo: true,
-      accent: "#e6f0f5",
-      logoMaxWidth: 220,
-      logoAspect: "3/1",
-    },
-    {
-      id: "adnoc",
-      tag: tCards("adnoc.tag"),
-      description: tCards("adnoc.description"),
-      cta: tCards("adnoc.cta"),
-      bg: "linear-gradient(135deg, #ffffff 0%, #f5f0eb 100%)",
-      pattern: "none",
-      logoSrc: "/assets/logos/adnoc.svg",
-      accent: "#1a1a1a",
-      logoMaxWidth: 200,
-      logoAspect: "5/2",
-    },
-    {
-      id: "mubadala",
-      tag: tCards("mubadala.tag"),
-      description: tCards("mubadala.description"),
-      cta: tCards("mubadala.cta"),
-      bg: "linear-gradient(135deg, #2a3a52 0%, #1a2436 100%)",
-      pattern: "rings",
-      patternColor: "#8aa6c7",
-      logoSrc: "/assets/logos/mubadala.svg",
-      invertLogo: true,
-      accent: "#e6edf5",
-      logoMaxWidth: 220,
-      logoAspect: "5/2",
+      accent: "#ffffff",
+      logoMaxWidth: 240,
+      logoAspect: "3/2",
     },
   ];
 
@@ -457,7 +427,8 @@ export function SkeletonProof() {
 
   return (
     <section
-      className="border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#0a0707]"
+      className="proof-section border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#0a0707]"
+      style={{ ["--proof-fade" as string]: "#f9f7f5" }}
     >
       <div className="mx-auto max-w-7xl px-6 py-20">
         <motion.div
@@ -513,10 +484,29 @@ export function SkeletonProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          className="relative"
         >
+          {/* Edge fade so that any overflowing card-on-hover dissolves
+              gracefully into the section background instead of clipping. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 start-0 z-10 w-6 bg-gradient-to-e from-[#f9f7f5] to-transparent dark:from-[#0a0707]"
+            style={{
+              background:
+                "linear-gradient(to right, var(--proof-fade, #f9f7f5) 0%, transparent 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 end-0 z-10 w-6"
+            style={{
+              background:
+                "linear-gradient(to left, var(--proof-fade, #f9f7f5) 0%, transparent 100%)",
+            }}
+          />
           <div
             ref={viewportRef}
-            className="proof-viewport flex gap-4 overflow-x-auto pb-2"
+            className="proof-viewport flex gap-4 overflow-x-auto pb-2 px-1"
             style={{
               scrollSnapType: "x mandatory",
               scrollbarWidth: "none",

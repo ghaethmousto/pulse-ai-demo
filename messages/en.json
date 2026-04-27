@@ -575,38 +575,23 @@
       "cards": {
         "ora": {
           "tag": "ORA Developers",
-          "description": "ORA Developers recently doubled its land bank in Bayn Al Jessrain — Pulse unified approvals across 6 authorities.",
-          "cta": "Read ORA Developers's story"
-        },
-        "emaar": {
-          "tag": "Emaar Group",
-          "description": "Emaar rolled Pulse across 14 projects in 9 months — one operational truth, one shared decision ledger.",
-          "cta": "Read Emaar Group's story"
-        },
-        "aldar": {
-          "tag": "Aldar",
-          "description": "Aldar reconciled three capital projects against one shared decision ledger — saving AED 22M in prevented rework.",
-          "cta": "Read Aldar's story"
+          "description": "Bayn represents development at a scale where land, approvals, consultants, and delivery teams must operate as one. <b>Pulse</b> turns that complexity into a coordinated development system.",
+          "cta": "View the Bayn development scenario"
         },
         "vision": {
           "tag": "Pulse Vision",
-          "description": "Pulse Vision — upcoming. 24/7 computer vision on every site cam, fed into the project graph.",
+          "description": "<b>Pulse Vision</b> transforms site cameras into live construction intelligence — reading progress, activity, safety signals, and field conditions directly into the project graph.",
           "cta": "Get early access to Pulse Vision"
         },
-        "nakheel": {
-          "tag": "Nakheel",
-          "description": "Nakheel cut end-of-month reconciliation from 6 days to 6 hours — across all active developments.",
-          "cta": "Read Nakheel's story"
+        "aldar": {
+          "tag": "Aldar",
+          "description": "Capital projects lose value when decisions fragment and rework appears too late. <b>Pulse</b> keeps the project record verified, the teams aligned, and the risk visible early.",
+          "cta": "View the capital control scenario"
         },
-        "adnoc": {
-          "tag": "ADNOC",
-          "description": "ADNOC uses Pulse on infrastructure capex projects — full risk register synchronization across stakeholders.",
-          "cta": "Read ADNOC's story"
-        },
-        "mubadala": {
-          "tag": "Mubadala",
-          "description": "Mubadala adopted Pulse to track multi-billion-dirham capital portfolios — board reporting in one click.",
-          "cta": "Read Mubadala's story"
+        "emaar": {
+          "tag": "Emaar Group",
+          "description": "Portfolio-scale delivery requires more than dashboards. <b>Pulse</b> gives leadership a live view of decisions, risks, dependencies, and delays before they become costly.",
+          "cta": "Explore the portfolio command scenario"
         }
       }
     },

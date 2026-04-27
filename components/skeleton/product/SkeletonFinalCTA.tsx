@@ -94,7 +94,7 @@ export function SkeletonFinalCTA() {
         </h2>
 
         <motion.p
-          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-400"
+          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-200"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -120,7 +120,7 @@ export function SkeletonFinalCTA() {
 
         {/* Bottom tagline */}
         <motion.p
-          className="mt-12 text-xs text-neutral-600"
+          className="mt-12 text-xs text-neutral-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -128,8 +128,8 @@ export function SkeletonFinalCTA() {
         >
           {t("tagline")}
           <br />
-          <span style={{ color: "rgba(245,240,237,0.2)" }}>
-            Pulse AI · UAE · 2025
+          <span className="bidi-isolate inline-block" style={{ color: "rgba(245,240,237,0.4)" }}>
+            {t("imprint")}
           </span>
         </motion.p>
       </div>
