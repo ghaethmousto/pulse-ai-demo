@@ -308,12 +308,14 @@ function ProofCardItem({ card, comingSoon }: { card: ProofCardData; comingSoon: 
 
       {/* Description + CTA */}
       <div className="mt-4 px-1">
-        <p className="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+        <p
+          className="max-w-[34ch] text-[13.5px] leading-[1.65] text-neutral-700 dark:text-neutral-200"
+        >
           {card.description}
         </p>
         <a
           href="#"
-          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80"
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80 dark:text-[#e08aa0]"
         >
           <span>{card.cta}</span>
           <span aria-hidden className="rtl:rotate-180">›</span>
@@ -334,7 +336,9 @@ export function SkeletonProof() {
   const renderRich = (key: string) =>
     tCards.rich(key, {
       b: (chunks) => (
-        <strong className="font-semibold text-[#8d354b]">{chunks}</strong>
+        <strong className="font-semibold text-[#8d354b] dark:text-[#e08aa0]">
+          {chunks}
+        </strong>
       ),
     });
 
@@ -428,7 +432,6 @@ export function SkeletonProof() {
   return (
     <section
       className="proof-section border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#0a0707]"
-      style={{ ["--proof-fade" as string]: "#f9f7f5" }}
     >
       <div className="mx-auto max-w-7xl px-6 py-20">
         <motion.div
@@ -446,7 +449,7 @@ export function SkeletonProof() {
               {t("titleLead")}{" "}
               <span className="text-[#8d354b]">{t("titleAccent")}</span>
             </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
               {t("subtitle")}
             </p>
           </div>
@@ -486,24 +489,6 @@ export function SkeletonProof() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative"
         >
-          {/* Edge fade so that any overflowing card-on-hover dissolves
-              gracefully into the section background instead of clipping. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 start-0 z-10 w-6 bg-gradient-to-e from-[#f9f7f5] to-transparent dark:from-[#0a0707]"
-            style={{
-              background:
-                "linear-gradient(to right, var(--proof-fade, #f9f7f5) 0%, transparent 100%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 end-0 z-10 w-6"
-            style={{
-              background:
-                "linear-gradient(to left, var(--proof-fade, #f9f7f5) 0%, transparent 100%)",
-            }}
-          />
           <div
             ref={viewportRef}
             className="proof-viewport flex gap-4 overflow-x-auto pb-2 px-1"

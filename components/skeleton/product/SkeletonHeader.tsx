@@ -43,24 +43,16 @@ export function SkeletonHeader() {
 
   return (
     <header
-      className="sticky top-0 z-40 w-full"
-      style={{
-        background: isDark
-          ? scrolled
-            ? "linear-gradient(180deg, rgba(20,16,18,0.62) 0%, rgba(28,18,22,0.34) 55%, rgba(28,18,22,0) 100%)"
-            : "linear-gradient(180deg, rgba(20,16,18,0.42) 0%, rgba(28,18,22,0.18) 55%, rgba(28,18,22,0) 100%)"
-          : scrolled
-            ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.5) 60%, rgba(247,232,236,0) 100%)"
-            : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.36) 60%, rgba(247,232,236,0) 100%)",
-        backdropFilter: "blur(20px) saturate(160%)",
-        WebkitBackdropFilter: "blur(20px) saturate(160%)",
-        WebkitMaskImage:
-          "linear-gradient(180deg, black 0%, black 72%, rgba(0,0,0,0.45) 90%, transparent 100%)",
-        maskImage:
-          "linear-gradient(180deg, black 0%, black 72%, rgba(0,0,0,0.45) 90%, transparent 100%)",
-        paddingBottom: 12,
-        transition: "background 300ms ease",
-      }}
+      data-scrolled={scrolled ? "true" : "false"}
+      className={[
+        "skeleton-header sticky top-0 z-40 w-full",
+        "border-b border-neutral-900/10 dark:border-neutral-100/10",
+        "bg-[rgba(255,255,255,0.86)] dark:bg-[rgba(10,8,8,0.88)]",
+        "[backdrop-filter:blur(10px)_saturate(140%)]",
+        "[-webkit-backdrop-filter:blur(10px)_saturate(140%)]",
+        "transition-shadow",
+        scrolled ? "shadow-[0_1px_2px_rgba(32,29,26,0.06)] dark:shadow-[0_1px_0_rgba(0,0,0,0.4)]" : "shadow-none",
+      ].join(" ")}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
@@ -91,10 +83,10 @@ export function SkeletonHeader() {
               <Link
                 key={link.key}
                 href={link.href}
-                className={`relative rounded-md px-3 py-1.5 text-sm transition-colors ${
+                className={`relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                   active
-                    ? "text-[#8d354b]"
-                    : "text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+                    ? "text-[#8d354b] dark:text-[#e08aa0]"
+                    : "text-neutral-800 hover:text-neutral-950 dark:text-neutral-200 dark:hover:text-white"
                 }`}
               >
                 {t(link.key)}
@@ -122,7 +114,7 @@ export function SkeletonHeader() {
             type="button"
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
-            className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-900/15 bg-white/60 text-neutral-700 transition-colors hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-100/15 dark:bg-white/[0.04] dark:text-neutral-200 dark:hover:text-[#e08aa0]"
           >
             <motion.span
               key={mounted ? (isDark ? "moon" : "sun") : "idle"}
@@ -149,14 +141,14 @@ export function SkeletonHeader() {
             type="button"
             onClick={toggleLocale}
             aria-label="Switch language"
-            className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-[10px] font-bold tracking-wider text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-900/15 bg-white/60 text-[10px] font-bold tracking-wider text-neutral-700 transition-colors hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-100/15 dark:bg-white/[0.04] dark:text-neutral-200 dark:hover:text-[#e08aa0]"
           >
             <span suppressHydrationWarning>{locale.toUpperCase()}</span>
           </button>
 
           <Link
             href={skeletonAuthLinks.signIn}
-            className="hidden text-sm text-neutral-700 transition-colors hover:text-neutral-950 sm:inline dark:text-neutral-300 dark:hover:text-white"
+            className="hidden text-sm font-medium text-neutral-800 transition-colors hover:text-neutral-950 sm:inline dark:text-neutral-200 dark:hover:text-white"
           >
             {t("signIn")}
           </Link>

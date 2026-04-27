@@ -120,7 +120,7 @@ export function SkeletonFinalCTA() {
 
         {/* Bottom tagline */}
         <motion.p
-          className="mt-12 text-xs text-neutral-400"
+          className="mt-12 text-xs text-neutral-300"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -128,7 +128,7 @@ export function SkeletonFinalCTA() {
         >
           {t("tagline")}
           <br />
-          <span className="bidi-isolate inline-block" style={{ color: "rgba(245,240,237,0.4)" }}>
+          <span className="bidi-isolate inline-block" style={{ color: "rgba(245,240,237,0.6)" }}>
             {t("imprint")}
           </span>
         </motion.p>

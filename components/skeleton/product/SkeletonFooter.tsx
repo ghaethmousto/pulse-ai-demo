@@ -90,7 +90,7 @@ export function SkeletonFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-neutral-800 pt-6 text-xs text-neutral-400 sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-neutral-800 pt-6 text-xs text-neutral-300 sm:flex-row sm:items-center">
           <span>{t("credit")}</span>
           <span>{t("rights")}</span>
         </div>

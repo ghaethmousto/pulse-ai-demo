@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist_Mono, IBM_Plex_Sans_Arabic, Raleway } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LocaleProvider } from "@/components/providers/locale-provider";
-import { PulseLine } from "@/components/ui/PulseLine";
 import { SkeletonI18nBridge } from "@/components/skeleton/SkeletonI18nBridge";
 import enMessages from "@/messages/en.json";
 import arMessages from "@/messages/ar.json";
@@ -46,7 +45,6 @@ export default function SkeletonLayout({
         <ThemeProvider>
           <LocaleProvider>
             <SkeletonI18nBridge enMessages={enMessages} arMessages={arMessages}>
-              <PulseLine />
               {children}
             </SkeletonI18nBridge>
           </LocaleProvider>

@@ -106,30 +106,12 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                     "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.24)",
                 }}
               >
-                <svg
-                  aria-hidden
-                  viewBox="0 0 320 70"
-                  preserveAspectRatio="none"
-                  className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.55]"
-                >
-                  <path
-                    d="M0 35 L80 35 L96 20 L108 50 L124 10 L140 60 L156 20 L170 42 L184 30 L320 30"
-                    fill="none"
-                    stroke="white"
-                    strokeOpacity={0.18}
-                    strokeWidth={1.2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-
                 {/* Official Pulse mark asset — same identity as the launcher */}
                 <span
                   aria-hidden
-                  className="pulse-mark-breath relative grid size-8 shrink-0 place-items-center rounded-full"
+                  className="relative grid size-8 shrink-0 place-items-center rounded-full"
                   style={{
-                    filter:
-                      "drop-shadow(0 0 8px rgba(255,230,236,0.35)) drop-shadow(0 1px 2px rgba(0,0,0,0.24))",
+                    filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.24))",
                   }}
                 >
                   <Image
@@ -182,21 +164,6 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                     "inset 0 0 0 1px var(--pulse-briefing-ring), 0 1px 2px rgba(32,29,26,0.04)",
                 }}
               >
-                <svg
-                  aria-hidden
-                  viewBox="0 0 320 70"
-                  preserveAspectRatio="none"
-                  className="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-[0.16]"
-                >
-                  <path
-                    d="M0 35 L80 35 L96 20 L108 50 L124 10 L140 60 L156 20 L170 42 L184 30 L320 30"
-                    fill="none"
-                    stroke="var(--pulse-briefing-stroke)"
-                    strokeWidth={1.2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
                 <div
                   className="relative z-[1] flex items-center gap-1.5 text-[8.5px] font-semibold uppercase tracking-[0.24em]"
                   style={{ color: "var(--pulse-briefing-label)" }}
@@ -331,10 +298,8 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
           </div>
         )}
 
-      {/* Launcher — official Pulse - Red Circle Icon as the entire visual.
-          Crisp red disc with a sharp inner glyph. Three concentric "signal
-          pulse" rings expand outward and fade to convey an active node
-          sending soft signals — no diffuse outer haze, no glow bleed. */}
+      {/* Launcher — crisp red disc, minimal signal rings. Two thin
+          low-opacity rings only, slow expansion, no halo or filter. */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -343,12 +308,11 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         className="pulse-fab relative z-[1] grid size-[60px] place-items-center rounded-full transition hover:scale-[1.04] active:scale-[0.96]"
         style={{
           boxShadow:
-            "0 2px 4px rgba(141,53,75,0.20), 0 8px 18px -4px rgba(141,53,75,0.32)",
+            "0 1px 2px rgba(141,53,75,0.18), 0 6px 14px -4px rgba(141,53,75,0.22)",
         }}
       >
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--1" />
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--2" />
-        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--3" />
         <Image
           src="/assets/pulse/Pulse - Red Circle Icon.svg"
           alt=""
