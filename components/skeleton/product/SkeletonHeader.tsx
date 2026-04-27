@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
@@ -112,54 +112,41 @@ export function SkeletonHeader() {
 
         {/* Right: theme, locale, sign in, request demo */}
         <div className="flex items-center gap-2.5">
-          {/* Theme toggle — animated icon swap */}
+          {/* Theme toggle */}
           <button
             type="button"
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
             className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={mounted ? (isDark ? "moon" : "sun") : "idle"}
-                initial={{ rotate: -45, opacity: 0, scale: 0.6 }}
-                animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                exit={{ rotate: 45, opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.22 }}
-                className="flex"
-              >
-                {mounted && isDark ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-                  </svg>
-                )}
-              </motion.span>
-            </AnimatePresence>
+            <motion.span
+              key={mounted ? (isDark ? "moon" : "sun") : "idle"}
+              initial={{ rotate: -45, opacity: 0, scale: 0.6 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.22 }}
+              className="flex"
+            >
+              {mounted && isDark ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+              )}
+            </motion.span>
           </button>
 
-          {/* Language toggle EN/AR — same circle treatment as theme */}
+          {/* Language toggle EN/AR */}
           <button
             type="button"
             onClick={toggleLocale}
             aria-label="Switch language"
             className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-[10px] font-bold tracking-wider text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={locale}
-                initial={{ y: -8, opacity: 0, scale: 0.7 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 8, opacity: 0, scale: 0.7 }}
-                transition={{ duration: 0.18 }}
-              >
-                {locale.toUpperCase()}
-              </motion.span>
-            </AnimatePresence>
+            <span suppressHydrationWarning>{locale.toUpperCase()}</span>
           </button>
 
           <Link
