@@ -97,13 +97,14 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
             }}
           >
             <div className="overflow-hidden rounded-[14px]">
-              {/* Wine header band */}
+              {/* Wine header band — flows into the panel via a soft
+                  bottom fade instead of a hard cut. */}
               <div
-                className="relative flex items-center gap-2 overflow-hidden px-3 py-2.5 text-white"
+                className="relative flex items-center gap-2 px-3 pt-2.5 pb-3 text-white"
                 style={{
-                  background: "linear-gradient(180deg, #9e4259 0%, #7a2b3f 100%)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.24)",
+                  background:
+                    "linear-gradient(180deg, #9e4259 0%, #7a2b3f 70%, rgba(122,43,63,0) 100%)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10)",
                 }}
               >
                 {/* Official Pulse mark asset — same identity as the launcher */}
@@ -157,7 +158,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
 
               {/* Briefing card */}
               <div
-                className="relative mx-2 mb-1.5 mt-2 overflow-hidden rounded-[11px] px-3 py-2.5"
+                className="relative mx-2 mb-1.5 mt-1 overflow-hidden rounded-[11px] px-3 py-2.5"
                 style={{
                   background: "var(--pulse-briefing-bg)",
                   boxShadow:
