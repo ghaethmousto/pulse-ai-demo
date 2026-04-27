@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/skeleton/layout,_N_T_/skeleton/platform/layout,_N_T_/skeleton/platform/owner/layout,_N_T_/skeleton/platform/owner/page,_N_T_/skeleton/platform/owner"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/skeleton/platform/owner/__PAGE__",
+    "/skeleton/platform/owner",
+    "/skeleton/platform",
+    "/skeleton",
+    "/_index",
+    "/_head"
+  ]
+}

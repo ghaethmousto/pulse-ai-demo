@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/skeleton/layout,_N_T_/skeleton/add-project/layout,_N_T_/skeleton/add-project/role/layout,_N_T_/skeleton/add-project/role/page,_N_T_/skeleton/add-project/role"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/skeleton/add-project/role/__PAGE__",
+    "/skeleton/add-project/role",
+    "/skeleton/add-project",
+    "/skeleton",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "/[locale]/(app)/dashboard/page": "app/[locale]/(app)/dashboard/page.js",
+  "/[locale]/(marketing)/page": "app/[locale]/(marketing)/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/skeleton/add-project/connect-tools/page": "app/skeleton/add-project/connect-tools/page.js",
+  "/skeleton/add-project/first-briefing/page": "app/skeleton/add-project/first-briefing/page.js",
+  "/skeleton/add-project/project-invites/page": "app/skeleton/add-project/project-invites/page.js",
+  "/skeleton/add-project/pulse-reads/page": "app/skeleton/add-project/pulse-reads/page.js",
+  "/skeleton/add-project/role/page": "app/skeleton/add-project/role/page.js",
+  "/skeleton/contact/page": "app/skeleton/contact/page.js",
+  "/skeleton/customers/page": "app/skeleton/customers/page.js",
+  "/skeleton/platform/consultant/page": "app/skeleton/platform/consultant/page.js",
+  "/skeleton/platform/contractor/page": "app/skeleton/platform/contractor/page.js",
+  "/skeleton/platform/owner/page": "app/skeleton/platform/owner/page.js",
+  "/skeleton/platform/source-of-truth/page": "app/skeleton/platform/source-of-truth/page.js",
+  "/skeleton/product/page": "app/skeleton/product/page.js",
+  "/skeleton/resources/page": "app/skeleton/resources/page.js",
+  "/skeleton/solutions/page": "app/skeleton/solutions/page.js"
+}

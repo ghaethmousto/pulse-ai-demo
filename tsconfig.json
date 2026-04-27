@@ -34,6 +34,15 @@
     "node_modules",
     "starter-files",
     "design",
-    "demo-data"
+    "demo-data",
+    "artifacts/**",
+    ".migration-backup/**",
+    ".next/**",
+    "node_modules/**",
+    "lib/api-client-react/**",
+    "lib/api-spec/**",
+    "lib/api-zod/**",
+    "lib/db/**",
+    "scripts/**"
   ]
 }

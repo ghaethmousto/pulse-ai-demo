@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/skeleton/layout,_N_T_/skeleton/platform/layout,_N_T_/skeleton/platform/source-of-truth/layout,_N_T_/skeleton/platform/source-of-truth/page,_N_T_/skeleton/platform/source-of-truth"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/skeleton/platform/source-of-truth/__PAGE__",
+    "/skeleton/platform/source-of-truth",
+    "/skeleton/platform",
+    "/skeleton",
+    "/_index",
+    "/_head"
+  ]
+}
