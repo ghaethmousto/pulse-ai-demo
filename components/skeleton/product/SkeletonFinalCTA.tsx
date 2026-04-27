@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { PulseLinkButton, PulseIcon } from "@/components/ui/PulseButton";
 
-const headlineWords = ["Built", "for", "the", "future."];
-const subWords = ["Available", "today."];
-
 export function SkeletonFinalCTA() {
+  const t = useTranslations("skeleton.finalCta");
+  const headlineWords = t("h1Line1").split(" ");
+  const subWords = t("h1Line2").split(" ");
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ background: "#080606" }}
+      className="relative overflow-hidden bg-black"
     >
       {/* Central wine glow */}
       <div
@@ -48,7 +48,7 @@ export function SkeletonFinalCTA() {
             transition={{ duration: 1.5, repeat: Infinity }}
           />
           <span className="text-xs font-semibold tracking-widest text-[#8d354b] uppercase">
-            Now Available · UAE & GCC
+            {t("badge")}
           </span>
         </motion.div>
 
@@ -93,14 +93,13 @@ export function SkeletonFinalCTA() {
         </h2>
 
         <motion.p
-          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-400"
+          className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-neutral-200"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          Give your project team the intelligence layer they deserve. One truth.
-          Every role. Real time.
+          {t("body")}
         </motion.p>
 
         <motion.div
@@ -110,26 +109,26 @@ export function SkeletonFinalCTA() {
           viewport={{ once: true }}
           transition={{ delay: 0.75, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
         >
-          <PulseLinkButton href="#" variant="darkPrimary" icon={<PulseIcon />}>
-            Get started
+          <PulseLinkButton href="/skeleton/add-project/role" variant="darkPrimary" icon={<PulseIcon />}>
+            {t("primary")}
           </PulseLinkButton>
-          <PulseLinkButton href="#" variant="darkSecondary">
-            Contact an expert
+          <PulseLinkButton href="/skeleton/contact" variant="darkSecondary">
+            {t("secondary")}
           </PulseLinkButton>
         </motion.div>
 
         {/* Bottom tagline */}
         <motion.p
-          className="mt-12 text-xs text-neutral-600"
+          className="mt-12 text-xs text-neutral-300"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 1, duration: 0.6 }}
         >
-          Designed and built for the future of construction intelligence.
+          {t("tagline")}
           <br />
-          <span style={{ color: "rgba(245,240,237,0.2)" }}>
-            Pulse AI · UAE · 2025
+          <span className="bidi-isolate inline-block" style={{ color: "rgba(245,240,237,0.6)" }}>
+            {t("imprint")}
           </span>
         </motion.p>
       </div>

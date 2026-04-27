@@ -2,36 +2,45 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { useTranslations } from "next-intl";
 
 /* ─── Wireframe illustrations for each problem ─────────── */
 
-function FragmentedRealityWireframe() {
+function FragmentedRealityWireframe({
+  ownerLabel,
+  consultantLabel,
+  contractorLabel,
+}: {
+  ownerLabel: string;
+  consultantLabel: string;
+  contractorLabel: string;
+}) {
   // Three disconnected document/file panels with conflicting numbers
   return (
     <svg viewBox="0 0 220 100" className="h-full w-full" fill="none">
       {/* Panel 1 */}
       <g>
-        <rect x="6" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="6" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="14" y1="22" x2="50" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="14" y1="30" x2="42" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="14" y="56" fontSize="11" fontWeight="700" fill="#8d354b">847M</text>
-        <text x="14" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">OWNER</text>
+        <text x="14" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{ownerLabel}</text>
       </g>
       {/* Panel 2 */}
       <g>
-        <rect x="80" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="80" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="88" y1="22" x2="124" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="88" y1="30" x2="116" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="88" y="56" fontSize="11" fontWeight="700" fill="#8d354b">820M</text>
-        <text x="88" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">CONSULTANT</text>
+        <text x="88" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{consultantLabel}</text>
       </g>
       {/* Panel 3 */}
       <g>
-        <rect x="154" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="#fbf6f4" />
+        <rect x="154" y="10" width="60" height="78" rx="4" stroke="#8d354b" strokeOpacity="0.45" strokeWidth="1.2" fill="rgba(255,251,248,0.55)" />
         <line x1="162" y1="22" x2="198" y2="22" stroke="#8d354b" strokeOpacity="0.35" strokeWidth="1.2" strokeLinecap="round" />
         <line x1="162" y1="30" x2="190" y2="30" stroke="#8d354b" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
         <text x="162" y="56" fontSize="11" fontWeight="700" fill="#8d354b">863M</text>
-        <text x="162" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">CONTRACTOR</text>
+        <text x="162" y="72" fontSize="6.5" fill="#8d354b" fillOpacity="0.6" letterSpacing="0.4">{contractorLabel}</text>
       </g>
       {/* Disconnect lines (broken) */}
       <line x1="66" y1="49" x2="80" y2="49" stroke="#8d354b" strokeOpacity="0.25" strokeWidth="1" strokeDasharray="2 3" />
@@ -44,7 +53,7 @@ function InvisibleRiskWireframe() {
   // Email/inbox layout with a hidden risk buried at the bottom
   return (
     <svg viewBox="0 0 220 100" className="h-full w-full" fill="none">
-      <rect x="6" y="6" width="208" height="86" rx="5" stroke="#8d354b" strokeOpacity="0.4" strokeWidth="1.2" fill="#fbf6f4" />
+      <rect x="6" y="6" width="208" height="86" rx="5" stroke="#8d354b" strokeOpacity="0.4" strokeWidth="1.2" fill="rgba(255,251,248,0.45)" />
       {/* Inbox rows */}
       {[18, 32, 46, 60, 74].map((y, i) => (
         <g key={y}>
@@ -108,56 +117,66 @@ function CostlyReworkWireframe() {
   );
 }
 
-const problems = [
-  {
-    n: "01",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="7" height="18" rx="1" />
-        <rect x="9" y="8" width="7" height="13" rx="1" />
-        <rect x="16" y="13" width="7" height="8" rx="1" />
-      </svg>
-    ),
-    title: "Fragmented Reality",
-    body: "Each company maintains its own files, statuses, and numbers. Three companies — three conflicting truths.",
-    accent: "rgba(141,53,75,0.1)",
-    border: "rgba(141,53,75,0.25)",
-    Wireframe: FragmentedRealityWireframe,
-  },
-  {
-    n: "02",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-        <line x1="12" y1="9" x2="12" y2="13" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
-      </svg>
-    ),
-    title: "Invisible Risk",
-    body: "Critical decisions get buried in email threads and meeting notes. By the time risk surfaces, it is already a crisis.",
-    accent: "rgba(141,53,75,0.06)",
-    border: "rgba(141,53,75,0.15)",
-    Wireframe: InvisibleRiskWireframe,
-  },
-  {
-    n: "03",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
-    title: "Costly Rework",
-    body: "Misalignment compounds daily. By the time it surfaces, the budget variance and schedule loss are irreversible.",
-    accent: "rgba(141,53,75,0.04)",
-    border: "rgba(141,53,75,0.1)",
-    Wireframe: CostlyReworkWireframe,
-  },
-];
-
 export function SkeletonProblem() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const t = useTranslations("skeleton.problem");
+  const ownerLabel = t("wireframe.owner");
+  const consultantLabel = t("wireframe.consultant");
+  const contractorLabel = t("wireframe.contractor");
+
+  const problems = [
+    {
+      n: "01",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="7" height="18" rx="1" />
+          <rect x="9" y="8" width="7" height="13" rx="1" />
+          <rect x="16" y="13" width="7" height="8" rx="1" />
+        </svg>
+      ),
+      title: t("card1Title"),
+      body: t("card1Body"),
+      accent: "rgba(141,53,75,0.1)",
+      border: "rgba(141,53,75,0.25)",
+      Wireframe: () => (
+        <FragmentedRealityWireframe
+          ownerLabel={ownerLabel}
+          consultantLabel={consultantLabel}
+          contractorLabel={contractorLabel}
+        />
+      ),
+    },
+    {
+      n: "02",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      ),
+      title: t("card2Title"),
+      body: t("card2Body"),
+      accent: "rgba(141,53,75,0.06)",
+      border: "rgba(141,53,75,0.15)",
+      Wireframe: InvisibleRiskWireframe,
+    },
+    {
+      n: "03",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+      title: t("card3Title"),
+      body: t("card3Body"),
+      accent: "rgba(141,53,75,0.04)",
+      border: "rgba(141,53,75,0.1)",
+      Wireframe: CostlyReworkWireframe,
+    },
+  ];
 
   return (
     <section className="border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0e0c0c]">
@@ -169,23 +188,27 @@ export function SkeletonProblem() {
           transition={{ duration: 0.55 }}
         >
           <p className="text-xs uppercase tracking-widest text-[#8d354b] font-semibold">
-            The Problem
+            {t("eyebrow")}
           </p>
           <h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-neutral-900 dark:text-[#f5f0ed] sm:text-4xl">
-            Every stakeholder works from a{" "}
-            <span className="text-[#8d354b]">different version</span> of the
-            truth.
+            {t("titleLead")}{" "}
+            <span className="text-[#8d354b]">{t("titleAccent")}</span>
+            {t("titleTrail")}
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-            Drawings in one drive. Decisions in an inbox. Tasks in a
-            spreadsheet. Risks in a slide deck. Multiplied across 3 companies —
-            chaos is inevitable.
+            {t("body")}
           </p>
         </motion.div>
 
         <div ref={ref} className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
           {problems.map((p, i) => {
             const { Wireframe } = p;
+            const cardBgImages = [
+              "/assets/cards%20background/3.png",
+              "/assets/cards%20background/5.png",
+              "/assets/cards%20background/6.png",
+            ];
+            const cardBg = cardBgImages[i];
             return (
               <motion.div
                 key={p.n}
@@ -204,6 +227,17 @@ export function SkeletonProblem() {
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white p-7 dark:border-neutral-800 dark:bg-neutral-950"
                 style={{ transition: "border-color 0.2s, box-shadow 0.2s" }}
               >
+                {/* Background image */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                  style={{ backgroundImage: `url("${cardBg}")` }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/82 dark:bg-black/68"
+                />
+
                 {/* Top accent bar (hover) */}
                 <div
                   className="absolute inset-x-0 top-0 h-[2px] rounded-t-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -211,25 +245,23 @@ export function SkeletonProblem() {
                 />
 
                 {/* Number */}
-                <span className="mb-4 block font-mono text-[11px] font-semibold tracking-[0.15em] text-[#8d354b]/60">
+                <span className="relative mb-4 block font-mono text-[11px] font-semibold tracking-[0.15em] text-[#8d354b]/60">
                   {p.n}
                 </span>
 
                 {/* Wireframe illustration */}
                 <div
-                  className="mb-5 overflow-hidden rounded-xl border"
+                  className="relative mb-5 overflow-hidden rounded-xl border bg-gradient-to-b from-[#fdfaf8] to-[#f8eef0] dark:from-[#1c1416] dark:to-[#1a0e13]"
                   style={{
                     borderColor: p.border,
-                    background:
-                      "linear-gradient(180deg, #fdfaf8 0%, #f8eef0 100%)",
-                    height: 110,
+                    height: 200,
                   }}
                 >
                   <Wireframe />
                 </div>
 
                 {/* Icon + heading */}
-                <div className="flex items-center gap-3 mb-2">
+                <div className="relative flex items-center gap-3 mb-2">
                   <div
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-[#8d354b]"
                     style={{ background: p.accent, border: `1px solid ${p.border}` }}
@@ -241,7 +273,7 @@ export function SkeletonProblem() {
                   </h3>
                 </div>
 
-                <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                <p className="relative text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
                   {p.body}
                 </p>
               </motion.div>

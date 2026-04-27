@@ -1,43 +1,40 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
-const sidebarItems = [
-  { label: "Overview", active: true },
-  { label: "Documents", active: false },
-  { label: "Decisions", active: false },
-  { label: "Tasks", active: false },
-  { label: "Risks", active: false },
-  { label: "Submittals", active: false },
-  { label: "Timeline", active: false },
-  { label: "Intelligence", active: false },
-];
-
-const kpis = [
-  { label: "Budget", value: "847M", unit: "AED", color: "#5aad7a", trend: "on track" },
-  { label: "Schedule", value: "+2d", unit: "variance", color: "#d97706", trend: "at risk" },
-  { label: "RFIs", value: "12", unit: "open", color: "#d97706", trend: "pending" },
-  { label: "Risks", value: "4", unit: "high", color: "#8d354b", trend: "escalated" },
-];
-
-const feed = [
-  { tag: "RFI · OPEN", tagColor: "#d97706", title: "RFI-124 — slab edge detail clarification", meta: "blocks 2 tasks · L4 east", dot: "#d97706" },
-  { tag: "SUBMITTAL · APPROVED", tagColor: "#3f8a5c", title: "SB-88 cladding panels approved", meta: "procurement unblocked", dot: "#3f8a5c" },
-  { tag: "SCHEDULE", tagColor: "#2563a6", title: "MEP rough-in wk-34 delayed +3d", meta: "3 mitigations proposed", dot: "#2563a6" },
-  { tag: "RISK · WEATHER", tagColor: "#8d354b", title: "Wk-34 storm — pour at risk", meta: "crane ops escalated +6h", dot: "#8d354b" },
-  { tag: "DECISION · APPROVED", tagColor: "#3f8a5c", title: "Façade vendor switch — Owner sign-off", meta: "6 docs linked · audit trail", dot: "#3f8a5c" },
-];
-
-const aiNotes = [
-  { text: "RFI-124 blocks 3 downstream tasks on L4 east. Recommend escalation to Owner by EOD.", severity: "high" },
-  { text: "Submittal SB-88 approved — procurement team should initiate PO immediately.", severity: "ok" },
-  { text: "Weather risk wk-34: 68% chance of pour delay. 2 rescheduling options modelled.", severity: "med" },
-];
+const tagColors = ["#d97706", "#3f8a5c", "#2563a6", "#8d354b", "#3f8a5c"];
+const dotColors = ["#d97706", "#3f8a5c", "#2563a6", "#8d354b", "#3f8a5c"];
+const kpiColors = ["#5aad7a", "#d97706", "#d97706", "#8d354b"];
+const aiSeverities: ("high" | "ok" | "med")[] = ["high", "ok", "med"];
 
 export function SkeletonPlatformPreview() {
+  const t = useTranslations("skeleton.platformPreview");
+  const sidebarItems = t.raw("sidebarItems") as string[];
+  const kpis = t.raw("kpis") as {
+    label: string;
+    value: string;
+    unit: string;
+  }[];
+  const feed = t.raw("feed") as {
+    tag: string;
+    title: string;
+    meta: string;
+  }[];
+  const aiNotes = t.raw("aiNotes") as string[];
+
   return (
-    <section className="border-b border-neutral-200 bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative overflow-hidden border-b border-border bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/9.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/65"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-24">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -46,15 +43,14 @@ export function SkeletonPlatformPreview() {
           transition={{ duration: 0.55 }}
         >
           <p className="text-xs font-semibold uppercase tracking-widest text-[#8d354b]">
-            The Platform
+            {t("eyebrow")}
           </p>
-          <h2 className="mt-4 text-3xl font-semibold text-neutral-900 sm:text-4xl">
-            One operational space.{" "}
-            <span className="text-[#8d354b]">All project intelligence.</span>
+          <h2 className="mt-4 text-3xl font-semibold text-foreground sm:text-4xl">
+            {t("titleLead")}{" "}
+            <span className="text-[#8d354b]">{t("titleAccent")}</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-500">
-            Real-time decisions, risks, tasks, and AI insights — unified across
-            Owner, Consultant, and Contractor.
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -68,18 +64,17 @@ export function SkeletonPlatformPreview() {
           style={{ perspective: 1200 }}
         >
           <div
-            className="overflow-hidden rounded-2xl text-left shadow-2xl"
+            className="overflow-hidden rounded-2xl text-start shadow-2xl bg-[#fbfaf8] dark:bg-[#181314]"
             style={{
               border: "1px solid rgba(141,53,75,0.18)",
-              background: "#fbfaf8",
               boxShadow:
-                "0 32px 64px -16px rgba(0,0,0,0.12), 0 0 0 1px rgba(141,53,75,0.05) inset",
+                "0 32px 64px -16px rgba(0,0,0,0.20), 0 0 0 1px rgba(141,53,75,0.08) inset",
             }}
           >
             {/* Window chrome */}
             <div
-              className="flex items-center gap-2 border-b px-4 py-3"
-              style={{ borderColor: "#ece6df", background: "#f5f0eb" }}
+              className="flex items-center gap-2 border-b px-4 py-3 bg-[#f5f0eb] dark:bg-[#221a1c]"
+              style={{ borderColor: "rgba(141,53,75,0.16)" }}
             >
               <div className="flex gap-1.5">
                 {["#d56b80", "#e2a557", "#74b88f"].map((c, i) => (
@@ -87,24 +82,23 @@ export function SkeletonPlatformPreview() {
                 ))}
               </div>
               <div
-                className="mx-auto flex items-center gap-2 rounded-md px-3 py-1"
+                className="mx-auto flex items-center gap-2 rounded-md px-3 py-1 bg-white dark:bg-[#0e0c0c]"
                 style={{
-                  background: "white",
-                  border: "1px solid #ece6df",
+                  border: "1px solid rgba(141,53,75,0.18)",
                   fontSize: 11,
-                  color: "#7a6f64",
+                  color: "var(--fg-tertiary, #7a6f64)",
                 }}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#3f8a5c]" />
-                pulse.ai/projects/al-reem-tower
+                <span className="bidi-isolate">{t("browserUrl")}</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr_280px]">
               {/* Sidebar */}
               <aside
-                className="border-b lg:border-b-0 lg:border-r p-4"
-                style={{ borderColor: "#ece6df", background: "#fbfaf8" }}
+                className="border-b lg:border-b-0 lg:border-r p-4 bg-[#fbfaf8] dark:bg-[#1a1314]"
+                style={{ borderColor: "rgba(141,53,75,0.14)" }}
               >
                 <div className="mb-5 flex items-center gap-2">
                   <div
@@ -113,33 +107,36 @@ export function SkeletonPlatformPreview() {
                   >
                     <span style={{ fontSize: 10, fontWeight: 700, color: "white" }}>P</span>
                   </div>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#1a1614" }}>Pulse</span>
+                  <span className="text-xs font-bold text-[#1a1614] dark:text-[#f5f0ed]">Pulse</span>
                 </div>
                 <ul className="space-y-1">
-                  {sidebarItems.map((s) => (
-                    <li
-                      key={s.label}
-                      className="rounded-lg px-2.5 py-1.5"
-                      style={{
-                        fontSize: 11,
-                        fontWeight: s.active ? 600 : 400,
-                        color: s.active ? "#8d354b" : "#7a6f64",
-                        background: s.active ? "rgba(141,53,75,0.08)" : "transparent",
-                        borderLeft: s.active ? "2px solid #8d354b" : "2px solid transparent",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {s.label}
-                    </li>
-                  ))}
+                  {sidebarItems.map((label, idx) => {
+                    const active = idx === 0;
+                    return (
+                      <li
+                        key={label}
+                        className={`rounded-lg px-2.5 py-1.5 cursor-pointer ${
+                          active
+                            ? "text-[#8d354b] bg-[rgba(141,53,75,0.08)] border-s-2 border-[#8d354b]"
+                            : "text-[#7a6f64] dark:text-[#a89c8e] border-s-2 border-transparent"
+                        }`}
+                        style={{
+                          fontSize: 11,
+                          fontWeight: active ? 600 : 400,
+                        }}
+                      >
+                        {label}
+                      </li>
+                    );
+                  })}
                 </ul>
               </aside>
 
               {/* Main content */}
-              <div className="p-5 overflow-hidden" style={{ background: "white" }}>
+              <div className="p-5 overflow-hidden bg-white dark:bg-[#0e0c0c]">
                 <div className="flex items-center justify-between mb-3">
-                  <span style={{ fontSize: 10, color: "#a89c8e", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600 }}>
-                    Project · Al Reem Tower
+                  <span className="text-[10px] font-semibold text-[#a89c8e] dark:text-[#7a6f64]" style={{ letterSpacing: "0.1em" }}>
+                    {t("projectLabel")}
                   </span>
                   <div className="flex items-center gap-2">
                     {/* Live badge */}
@@ -160,52 +157,49 @@ export function SkeletonPlatformPreview() {
                         animate={{ opacity: [1, 0.3, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                       />
-                      LIVE
+                      {t("live")}
                     </span>
                     <span
-                      className="rounded-full px-2 py-0.5"
+                      className="rounded-full px-2 py-0.5 text-[#7a6f64] dark:text-[#a89c8e] bg-[#f5f0eb] dark:bg-[#221a1c]"
                       style={{
                         fontSize: 9,
-                        color: "#7a6f64",
-                        background: "#f5f0eb",
-                        border: "1px solid #ece6df",
+                        border: "1px solid rgba(141,53,75,0.16)",
                         fontWeight: 600,
                       }}
                     >
-                      14 members
+                      {t("members")}
                     </span>
                   </div>
                 </div>
 
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: "#1a1614", marginBottom: 16, letterSpacing: "-0.01em" }}>
-                  Overview
+                <h3 className="text-[22px] font-bold text-[#1a1614] dark:text-[#f5f0ed]" style={{ marginBottom: 16, letterSpacing: "-0.01em" }}>
+                  {t("overview")}
                 </h3>
 
                 {/* KPI cards — text centered */}
                 <div className="grid grid-cols-2 gap-2 mb-4 sm:grid-cols-4">
-                  {kpis.map((k) => (
+                  {kpis.map((k, idx) => (
                     <div
                       key={k.label}
-                      className="rounded-xl p-3 transition-all hover:-translate-y-0.5"
+                      className="rounded-xl p-3 transition-all hover:-translate-y-0.5 bg-[#fbfaf8] dark:bg-[#181314]"
                       style={{
-                        background: "#fbfaf8",
-                        border: "1px solid #ece6df",
+                        border: "1px solid rgba(141,53,75,0.14)",
                         boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
                         textAlign: "center",
                       }}
                     >
-                      <p style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#a89c8e", fontWeight: 600 }}>{k.label}</p>
-                      <p style={{ fontSize: 22, fontWeight: 700, color: k.color, lineHeight: 1.2, marginTop: 6 }}>{k.value}</p>
-                      <p style={{ fontSize: 9, color: "#a89c8e", marginTop: 4 }}>{k.unit}</p>
+                      <p className="text-[#a89c8e] dark:text-[#7a6f64]" style={{ fontSize: 9, letterSpacing: "0.1em", fontWeight: 600 }}>{k.label}</p>
+                      <p className="bidi-isolate" style={{ fontSize: 22, fontWeight: 700, color: kpiColors[idx], lineHeight: 1.2, marginTop: 6 }}>{k.value}</p>
+                      <p className="text-[#a89c8e] dark:text-[#7a6f64]" style={{ fontSize: 9, marginTop: 4 }}>{k.unit}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* Live feed — sticky notes / cards layout */}
-                <div className="rounded-xl overflow-hidden" style={{ border: "1px solid #ece6df", background: "#fbfaf8" }}>
+                <div className="rounded-xl overflow-hidden bg-[#fbfaf8] dark:bg-[#181314]" style={{ border: "1px solid rgba(141,53,75,0.14)" }}>
                   <div
-                    className="flex items-center gap-2 px-3 py-2"
-                    style={{ borderBottom: "1px solid #ece6df", background: "#fbfaf8" }}
+                    className="flex items-center gap-2 px-3 py-2 bg-[#fbfaf8] dark:bg-[#1a1314]"
+                    style={{ borderBottom: "1px solid rgba(141,53,75,0.14)" }}
                   >
                     <motion.span
                       className="h-1.5 w-1.5 rounded-full"
@@ -213,14 +207,16 @@ export function SkeletonPlatformPreview() {
                       animate={{ opacity: [1, 0.3, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                     />
-                    <span style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a6f64", fontWeight: 600 }}>
-                      One reconciled view · Streaming
+                    <span className="text-[#7a6f64] dark:text-[#a89c8e]" style={{ fontSize: 9, letterSpacing: "0.1em", fontWeight: 600 }}>
+                      {t("feedHeader")}
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 gap-2.5 p-3 sm:grid-cols-2">
                     {feed.map((f, i) => {
                       const tilt = (i % 5) - 2; // -2..+2 degrees
+                      const tagColor = tagColors[i] ?? "#8d354b";
+                      const dotColor = dotColors[i] ?? "#8d354b";
                       return (
                         <motion.div
                           key={f.title}
@@ -232,26 +228,25 @@ export function SkeletonPlatformPreview() {
                           className="relative rounded-lg p-3"
                           style={{
                             background: `linear-gradient(180deg, #fffaf3 0%, #fdf2e8 100%)`,
-                            borderTop: `3px solid ${f.tagColor}`,
-                            borderRight: "1px solid rgba(0,0,0,0.04)",
+                            borderTop: `3px solid ${tagColor}`,
+                            borderInlineEnd: "1px solid rgba(0,0,0,0.04)",
                             borderBottom: "1px solid rgba(0,0,0,0.06)",
-                            borderLeft: "1px solid rgba(0,0,0,0.04)",
+                            borderInlineStart: "1px solid rgba(0,0,0,0.04)",
                             boxShadow:
                               "0 1px 1px rgba(0,0,0,0.03), 0 4px 10px -4px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5) inset",
                           }}
                         >
                           {/* Pin dot */}
                           <span
-                            className="absolute right-2.5 top-2.5 h-1.5 w-1.5 rounded-full"
-                            style={{ background: f.dot, boxShadow: `0 0 0 3px ${f.tagColor}22` }}
+                            className="absolute end-2.5 top-2.5 h-1.5 w-1.5 rounded-full"
+                            style={{ background: dotColor, boxShadow: `0 0 0 3px ${tagColor}22` }}
                           />
                           <p
                             style={{
                               fontSize: 9,
                               fontWeight: 700,
-                              color: f.tagColor,
+                              color: tagColor,
                               letterSpacing: "0.06em",
-                              textTransform: "uppercase",
                               marginBottom: 4,
                             }}
                           >
@@ -272,8 +267,8 @@ export function SkeletonPlatformPreview() {
 
               {/* Pulse Intelligence sidebar */}
               <aside
-                className="border-t lg:border-l lg:border-t-0 p-4"
-                style={{ borderColor: "#ece6df", background: "#fbfaf8" }}
+                className="border-t lg:border-s lg:border-t-0 p-4 bg-[#fbfaf8] dark:bg-[#1a1314]"
+                style={{ borderColor: "rgba(141,53,75,0.14)" }}
               >
                 <div className="flex items-center gap-2 mb-4">
                   <div
@@ -282,22 +277,20 @@ export function SkeletonPlatformPreview() {
                   >
                     <span style={{ fontSize: 9, fontWeight: 700, color: "white" }}>AI</span>
                   </div>
-                  <p
+                  <p className="text-[#7a6f64] dark:text-[#a89c8e]"
                     style={{
                       fontSize: 10,
                       fontWeight: 700,
                       letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "#7a6f64",
                     }}
                   >
-                    Pulse Intelligence
+                    {t("intelligenceLabel")}
                   </p>
                 </div>
                 <ul className="space-y-3">
-                  {aiNotes.map((n, i) => (
+                  {aiNotes.map((note, i) => (
                     <motion.li
-                      key={n.text}
+                      key={note}
                       initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -305,15 +298,15 @@ export function SkeletonPlatformPreview() {
                       className="rounded-xl p-3"
                       style={{
                         background:
-                          n.severity === "high"
+                          aiSeverities[i] === "high"
                             ? "rgba(141,53,75,0.06)"
-                            : n.severity === "ok"
+                            : aiSeverities[i] === "ok"
                               ? "rgba(63,138,92,0.05)"
                               : "rgba(37,99,166,0.05)",
                         border: `1px solid ${
-                          n.severity === "high"
+                          aiSeverities[i] === "high"
                             ? "rgba(141,53,75,0.18)"
-                            : n.severity === "ok"
+                            : aiSeverities[i] === "ok"
                               ? "rgba(63,138,92,0.18)"
                               : "rgba(37,99,166,0.18)"
                         }`,
@@ -324,31 +317,30 @@ export function SkeletonPlatformPreview() {
                           className="mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
                           style={{
                             background:
-                              n.severity === "high"
+                              aiSeverities[i] === "high"
                                 ? "#8d354b"
-                                : n.severity === "ok"
+                                : aiSeverities[i] === "ok"
                                   ? "#3f8a5c"
                                   : "#2563a6",
                           }}
                         />
-                        <p style={{ fontSize: 11, color: "#3a3431", lineHeight: 1.55 }}>{n.text}</p>
+                        <p className="text-[#3a3431] dark:text-[#d4cfc8]" style={{ fontSize: 11, lineHeight: 1.55 }}>{note}</p>
                       </div>
                     </motion.li>
                   ))}
                 </ul>
 
                 <div
-                  className="mt-4 rounded-xl px-3 py-2.5 cursor-pointer transition-colors hover:bg-[rgba(141,53,75,0.06)]"
+                  className="mt-4 rounded-xl px-3 py-2.5 cursor-pointer transition-colors hover:bg-[rgba(141,53,75,0.06)] bg-white dark:bg-[#0e0c0c]"
                   style={{
-                    background: "white",
                     border: "1px solid rgba(141,53,75,0.2)",
                   }}
                 >
-                  <p style={{ fontSize: 10, color: "#a89c8e", marginBottom: 4, fontWeight: 600 }}>
-                    Ask Pulse AI
+                  <p className="text-[#a89c8e] dark:text-[#7a6f64]" style={{ fontSize: 10, marginBottom: 4, fontWeight: 600 }}>
+                    {t("askPulse")}
                   </p>
-                  <p style={{ fontSize: 11, color: "#a89c8e", fontStyle: "italic" }}>
-                    What risks could delay wk-34 handover?
+                  <p className="text-[#a89c8e] dark:text-[#7a6f64]" style={{ fontSize: 11, fontStyle: "italic" }}>
+                    {t("askPulseExample")}
                   </p>
                 </div>
               </aside>

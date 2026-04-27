@@ -1,5 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   Activity,
   AlertTriangle,
@@ -27,90 +30,98 @@ import {
 } from "@/components/skeleton/platform/SkeletonPlatformViewSwitcher";
 
 const sidebarGroups: {
-  title: string;
-  items: { label: string; icon: LucideIcon; badge?: string }[];
+  sectionKey: string;
+  items: { itemKey: string; icon: LucideIcon; badge?: string }[];
 }[] = [
   {
-    title: "Overview",
+    sectionKey: "overview",
     items: [
-      { label: "Dashboard", icon: LayoutGrid },
-      { label: "Projects", icon: FolderKanban },
+      { itemKey: "dashboard", icon: LayoutGrid },
+      { itemKey: "projects", icon: FolderKanban },
     ],
   },
   {
-    title: "Monitor",
+    sectionKey: "monitor",
     items: [
-      { label: "Project Pulse", icon: Activity },
-      { label: "Timeline", icon: Calendar },
-      { label: "Tasks", icon: ClipboardList },
-      { label: "Approvals", icon: Check, badge: "2" },
+      { itemKey: "projectPulse", icon: Activity },
+      { itemKey: "timeline", icon: Calendar },
+      { itemKey: "tasks", icon: ClipboardList },
+      { itemKey: "approvals", icon: Check, badge: "2" },
     ],
   },
   {
-    title: "Project Data",
+    sectionKey: "projectData",
     items: [
-      { label: "Documents", icon: FileText, badge: "22" },
-      { label: "Stakeholders", icon: Users },
-      { label: "Meetings", icon: ClipboardCheck },
-      { label: "Site", icon: MapPin },
+      { itemKey: "documents", icon: FileText, badge: "22" },
+      { itemKey: "stakeholders", icon: Users },
+      { itemKey: "meetings", icon: ClipboardCheck },
+      { itemKey: "site", icon: MapPin },
     ],
   },
   {
-    title: "Intelligence",
+    sectionKey: "intelligence",
     items: [
-      { label: "AI Insights", icon: Brain },
-      { label: "Risks", icon: AlertTriangle, badge: "3" },
-      { label: "Reports", icon: BarChart3 },
+      { itemKey: "aiInsights", icon: Brain },
+      { itemKey: "risks", icon: AlertTriangle, badge: "3" },
+      { itemKey: "reports", icon: BarChart3 },
     ],
   },
   {
-    title: "Business",
+    sectionKey: "business",
     items: [
-      { label: "Financials", icon: DollarSign },
-      { label: "Templates", icon: Shapes },
+      { itemKey: "financials", icon: DollarSign },
+      { itemKey: "templates", icon: Shapes },
     ],
   },
   {
-    title: "System",
+    sectionKey: "system",
     items: [
-      { label: "Team", icon: Users },
-      { label: "Settings", icon: Settings },
+      { itemKey: "team", icon: Users },
+      { itemKey: "settings", icon: Settings },
     ],
   },
 ];
 
-const portalLabelByView: Record<SkeletonPlatformView, string> = {
-  "source-of-truth": "Platform Portal",
-  consultant: "Consultant Portal",
-  contractor: "Contractor Portal",
-  owner: "Owner Portal",
+const portalKeyByView: Record<SkeletonPlatformView, string> = {
+  "source-of-truth": "sourceOfTruth",
+  consultant: "consultant",
+  contractor: "contractor",
+  owner: "owner",
 };
 
 interface SkeletonPlatformLayoutProps {
   view: SkeletonPlatformView;
-  roleLabel: string;
-  pageTitle: string;
-  pageScribble?: string;
-  userBadge?: { name: string; role: string };
   children: ReactNode;
 }
 
 export function SkeletonPlatformLayout({
   view,
-  roleLabel,
-  pageTitle,
-  pageScribble,
-  userBadge,
   children,
 }: SkeletonPlatformLayoutProps) {
+  const t = useTranslations("skeleton.platform");
+  const tSections = useTranslations("skeleton.platform.sections");
+  const tItems = useTranslations("skeleton.platform.items");
+  const tPortals = useTranslations("skeleton.platform.portals");
+  const tRoles = useTranslations("skeleton.platform.roleLabels");
+  const tTitles = useTranslations("skeleton.platform.pageTitles");
+  const tScribbles = useTranslations("skeleton.platform.scribbles");
+  const tBadges = useTranslations("skeleton.platform.userBadges");
+  const portalKey = portalKeyByView[view];
+  const roleLabel = tRoles(portalKey);
+  const pageTitle = tTitles(portalKey);
+  const pageScribble = tScribbles(portalKey);
+  const userBadge = {
+    name: tBadges(`${portalKey}.name`),
+    role: tBadges(`${portalKey}.role`),
+  };
   return (
-    <div className="flex min-h-screen w-full flex-col bg-neutral-50 text-neutral-900">
+    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <SkeletonPlatformHeader />
       <SkeletonPlatformViewSwitcher active={view} />
 
       <div className="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 lg:grid-cols-[280px_1fr]">
-        <aside className="flex flex-col border-r border-neutral-200 bg-[#fbf7f5]">
-          <div className="flex items-center gap-3 border-b border-neutral-200 bg-white px-5 py-6">
+        <aside className="flex flex-col border-r border-border bg-card">
+          <div className="flex items-center gap-3 border-b border-border bg-card px-5 py-6">
             <Image
               src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
               alt=""
@@ -119,56 +130,67 @@ export function SkeletonPlatformLayout({
               className="h-10 w-10"
               aria-hidden
             />
-            <span className="text-xl font-semibold text-neutral-950">Pulse AI</span>
+            <span className="text-xl font-semibold text-foreground">Pulse AI</span>
           </div>
 
-          <div className="flex-1 overflow-hidden px-4 py-5">
-            <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+          <div className="relative flex-1 overflow-hidden px-4 py-5">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+              style={{
+                backgroundImage: 'url("/assets/cards%20background/6.png")',
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-card/85 dark:bg-card/80"
+            />
+            <div className="relative rounded-lg border border-border bg-background p-4 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
-                    Active Project
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    {t("activeProject")}
                   </p>
-                  <p className="mt-1 text-base font-semibold text-neutral-950">
-                    Marina Tower Ph2
+                  <p className="mt-1 text-base font-semibold text-foreground">
+                    {t("projectName")}
                   </p>
-                  <p className="text-xs text-neutral-500">847M AED · 28 mo</p>
+                  <p className="text-xs text-muted-foreground">{t("projectMeta")}</p>
                 </div>
-                <ChevronDown className="h-4 w-4 text-neutral-400" aria-hidden />
+                <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden />
               </div>
             </div>
 
-            <nav className="mt-5 space-y-5" aria-label="Platform navigation">
+            <nav className="relative mt-5 space-y-5" aria-label="Platform navigation">
               {sidebarGroups.map((group, groupIndex) => (
-                <div key={group.title}>
-                  <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-neutral-400">
-                    {group.title}
+                <div key={group.sectionKey}>
+                  <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    {tSections(group.sectionKey)}
                   </p>
-                  <ul className="mt-2 space-y-1 text-base text-neutral-600">
+                  <ul className="mt-2 space-y-1 text-base text-foreground/70">
                     {group.items.map((item, itemIndex) => {
                       const isActive = groupIndex === 0 && itemIndex === 0;
                       const Icon = item.icon;
 
                       return (
                         <li
-                          key={item.label}
+                          key={item.itemKey}
                           className={
                             isActive
-                              ? "flex items-center gap-3 rounded-lg border-l-4 border-[#9b3151] bg-[#f1e7e9] px-3 py-2.5 text-[#8d2948]"
-                              : "flex items-center gap-3 px-3 py-2.5 text-neutral-600"
+                              ? "flex items-center gap-3 rounded-lg border-l-4 border-wine bg-wine-subtle px-3 py-2.5 text-wine dark:bg-wine/15"
+                              : "flex items-center gap-3 px-3 py-2.5 text-foreground/70"
                           }
                         >
                           <Icon
                             className={
                               isActive
-                                ? "h-5 w-5 text-[#9b3151]"
-                                : "h-5 w-5 text-neutral-500"
+                                ? "h-5 w-5 text-wine"
+                                : "h-5 w-5 text-muted-foreground"
                             }
                             aria-hidden
                           />
-                          <span className="min-w-0 flex-1">{item.label}</span>
+                          <span className="min-w-0 flex-1">{tItems(item.itemKey)}</span>
                           {item.badge ? (
-                            <span className="rounded-full bg-[#a83d5c] px-2 py-0.5 text-xs font-semibold text-white">
+                            <span className="rounded-full bg-wine px-2 py-0.5 text-xs font-semibold text-white">
                               {item.badge}
                             </span>
                           ) : null}
@@ -181,24 +203,26 @@ export function SkeletonPlatformLayout({
             </nav>
           </div>
 
-          {userBadge ? (
-            <div className="mt-auto border-t border-neutral-200 bg-white p-4">
-              <div className="rounded-lg border border-[#ead4db] bg-[#f7edef] px-4 py-3 text-center text-sm font-semibold text-[#9b3151]">
-                {portalLabelByView[view]}
+          {userBadge.name ? (
+            <div className="mt-auto border-t border-border bg-card p-4">
+              <div className="rounded-lg border border-wine/30 bg-wine-subtle px-4 py-3 text-center text-sm font-semibold text-wine dark:bg-wine/15">
+                {tPortals(portalKeyByView[view])}
               </div>
               <div className="mt-4 flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#9b3151] text-sm font-semibold text-white">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine text-sm font-semibold text-white">
                   {userBadge.name
-                    .split(" ")
-                    .map((part) => part[0])
+                    .split(/\s+/)
+                    .map((part) => Array.from(part)[0] ?? "")
                     .join("")
                     .slice(0, 2)}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-neutral-950">
+                  <p className="text-sm font-semibold text-foreground">
                     {userBadge.name}
                   </p>
-                  <p className="text-xs text-neutral-500">{userBadge.role}</p>
+                  {userBadge.role ? (
+                    <p className="text-xs text-muted-foreground">{userBadge.role}</p>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -206,34 +230,43 @@ export function SkeletonPlatformLayout({
         </aside>
 
         <main className="p-6 lg:p-8">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-neutral-500">
-                {roleLabel}
-              </p>
-              <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
-                {pageTitle}
-              </h1>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-700">
-                ◌ Ask Pulse...
-              </span>
-              <span className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-700">
-                • Live
-              </span>
-            </div>
-          </div>
+          <div className="relative overflow-hidden rounded-md border border-border bg-card p-5">
+            {/* Background image */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-70 dark:invert dark:hue-rotate-180 dark:opacity-80"
+              style={{ backgroundImage: 'url("/assets/cards%20background/17.png")' }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-card/55 dark:bg-card/55"
+            />
 
-          <div
-            className="mt-6 h-6 rounded-md border border-dashed border-neutral-300 bg-white"
-            aria-hidden
-          />
-          {pageScribble ? (
-            <p className="mt-2 text-right text-[10px] italic text-neutral-500">
-              {pageScribble}
-            </p>
-          ) : null}
+            <div className="relative flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                  {roleLabel}
+                </p>
+                <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
+                  {pageTitle}
+                </h1>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground/70">
+                  {t("askPulse")}
+                </span>
+                <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground/70">
+                  {t("live")}
+                </span>
+              </div>
+            </div>
+
+            {pageScribble ? (
+              <p className="relative mt-3 text-right text-[10px] italic text-muted-foreground">
+                {pageScribble}
+              </p>
+            ) : null}
+          </div>
 
           <div className="mt-6 flex flex-col gap-6">{children}</div>
         </main>

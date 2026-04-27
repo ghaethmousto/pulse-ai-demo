@@ -64,3 +64,25 @@ export function getNextStep(key: AddProjectStepKey): AddProjectStep | null {
     ? addProjectSteps[idx + 1]
     : null;
 }
+
+/**
+ * Map kebab-case step key (used in routes/state) to the camelCase
+ * translation key used under skeleton.addProject.stepLabels and
+ * skeleton.addProject.stepTitles.
+ */
+export function stepKeyToTranslationKey(
+  key: AddProjectStepKey,
+): "role" | "projectInvites" | "connectTools" | "pulseReads" | "firstBriefing" {
+  switch (key) {
+    case "role":
+      return "role";
+    case "project-invites":
+      return "projectInvites";
+    case "connect-tools":
+      return "connectTools";
+    case "pulse-reads":
+      return "pulseReads";
+    case "first-briefing":
+      return "firstBriefing";
+  }
+}

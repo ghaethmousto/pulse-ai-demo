@@ -1,12 +1,27 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { PulseLinkButton, PortalArrow } from "@/components/ui/PulseButton";
 
 /* ─── Mini Dashboard Mockups ─────────────────────────────── */
 
-function OwnerDashboard() {
+interface OwnerDashboardLabels {
+  label: string;
+  live: string;
+  spent: string;
+  budget: string;
+  schedule: string;
+  rfis: string;
+  onTrack: string;
+  variance: string;
+  pending: string;
+  generateReport: string;
+  pendingCount: string;
+}
+
+function OwnerDashboard({ labels }: { labels: OwnerDashboardLabels }) {
   return (
     <div
       className="relative overflow-hidden rounded-t-2xl"
@@ -20,11 +35,11 @@ function OwnerDashboard() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-[#8d354b]" />
-          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Al Reem Tower · Owner View
+          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em" }}>
+            {labels.label}
           </span>
         </div>
-        <span style={{ fontSize: 9, color: "rgba(245,240,237,0.3)" }}>Live</span>
+        <span style={{ fontSize: 9, color: "rgba(245,240,237,0.3)" }}>{labels.live}</span>
       </div>
 
       {/* Budget ring + KPI row */}
@@ -39,23 +54,24 @@ function OwnerDashboard() {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span style={{ fontSize: 13, fontWeight: 700, color: "#f5f0ed", lineHeight: 1 }}>72%</span>
-            <span style={{ fontSize: 8, color: "rgba(245,240,237,0.4)", letterSpacing: "0.05em" }}>spent</span>
+            <span style={{ fontSize: 8, color: "rgba(245,240,237,0.4)", letterSpacing: "0.05em" }}>{labels.spent}</span>
           </div>
         </div>
 
         {/* KPI chips */}
         <div className="flex flex-col gap-2 flex-1">
           {[
-            { label: "Budget", value: "847M", unit: "AED", ok: true },
-            { label: "Schedule", value: "+2d", unit: "variance", ok: false },
-            { label: "RFIs Open", value: "12", unit: "pending", ok: false },
+            { label: labels.budget, value: "847M", unit: "AED", ok: true },
+            { label: labels.schedule, value: "+2d", unit: labels.variance, ok: false },
+            { label: labels.rfis, value: "12", unit: labels.pending, ok: false },
           ].map((k) => (
             <div key={k.label}
               className="flex items-center justify-between rounded-lg px-3 py-1.5"
               style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
               <span style={{ fontSize: 10, color: "rgba(245,240,237,0.45)" }}>{k.label}</span>
               <span style={{ fontSize: 11, fontWeight: 600, color: k.ok ? "#5aad7a" : "#f5f0ed" }}>
-                {k.value} <span style={{ fontSize: 9, fontWeight: 400, color: "rgba(245,240,237,0.35)" }}>{k.unit}</span>
+                <span className="bidi-isolate">{k.value}</span>{" "}
+                <span style={{ fontSize: 9, fontWeight: 400, color: "rgba(245,240,237,0.35)" }}>{k.unit}</span>
               </span>
             </div>
           ))}
@@ -66,24 +82,32 @@ function OwnerDashboard() {
       <div className="flex gap-2">
         <div className="flex-1 rounded-lg py-2 text-center"
           style={{ background: "#8d354b", fontSize: 10, fontWeight: 600, color: "white", letterSpacing: "0.04em" }}>
-          Generate Board Report
+          {labels.generateReport}
         </div>
         <div className="rounded-lg px-3 py-2"
           style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", fontSize: 10, color: "rgba(245,240,237,0.5)" }}>
-          6 pending
+          {labels.pendingCount}
         </div>
       </div>
     </div>
   );
 }
 
-function ConsultantDashboard() {
-  const rfis = [
-    { id: "RFI-124", title: "Slab edge clarification", status: "Open", statusColor: "#f59e0b" },
-    { id: "RFI-121", title: "Façade panel anchor detail", status: "Reviewed", statusColor: "#5aad7a" },
-    { id: "RFI-118", title: "MEP shaft clearance", status: "Closed", statusColor: "rgba(245,240,237,0.3)" },
-    { id: "RFI-115", title: "Fire damper positioning", status: "Open", statusColor: "#f59e0b" },
-  ];
+interface ConsultantDashboardLabels {
+  label: string;
+  reviewedCount: string;
+  items: { id: string; title: string; status: string }[];
+}
+
+function ConsultantDashboard({ labels }: { labels: ConsultantDashboardLabels }) {
+  const statusColors: Record<string, string> = {
+    Open: "#f59e0b",
+    Reviewed: "#5aad7a",
+    Closed: "rgba(245,240,237,0.3)",
+    "مفتوح": "#f59e0b",
+    "مراجَع": "#5aad7a",
+    "مغلق": "rgba(245,240,237,0.3)",
+  };
   return (
     <div
       className="relative overflow-hidden rounded-t-2xl"
@@ -96,11 +120,11 @@ function ConsultantDashboard() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-[#3b7ec8]" />
-          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            RFI Tracker · Consultant
+          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em" }}>
+            {labels.label}
           </span>
         </div>
-        <span style={{ fontSize: 9, color: "rgba(245,240,237,0.3)" }}>14/18 reviewed</span>
+        <span style={{ fontSize: 9, color: "rgba(245,240,237,0.3)" }} className="bidi-isolate">{labels.reviewedCount}</span>
       </div>
 
       {/* Progress bar */}
@@ -112,32 +136,40 @@ function ConsultantDashboard() {
 
       {/* RFI rows */}
       <div className="flex flex-col gap-1.5">
-        {rfis.map((r) => (
+        {labels.items.map((r) => {
+          const c = statusColors[r.status] ?? "#f59e0b";
+          return (
           <div key={r.id}
             className="flex items-center justify-between rounded-lg px-3 py-2"
             style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
             <div>
-              <span style={{ fontSize: 9, fontWeight: 600, color: "#3b7ec8", letterSpacing: "0.06em" }}>{r.id}</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: "#3b7ec8", letterSpacing: "0.06em" }} className="bidi-isolate">{r.id}</span>
               <p style={{ fontSize: 10, color: "rgba(245,240,237,0.6)", marginTop: 1, lineHeight: 1.2 }}>{r.title}</p>
             </div>
             <span
               className="rounded-full px-2 py-0.5"
-              style={{ fontSize: 9, fontWeight: 600, color: r.statusColor, background: `${r.statusColor}18`, border: `1px solid ${r.statusColor}30`, letterSpacing: "0.05em" }}>
+              style={{ fontSize: 9, fontWeight: 600, color: c, background: `${c}18`, border: `1px solid ${c}30`, letterSpacing: "0.05em" }}>
               {r.status}
             </span>
           </div>
-        ))}
+        );})}
       </div>
     </div>
   );
 }
 
-function ContractorDashboard() {
+interface ContractorDashboardLabels {
+  label: string;
+  fieldLog: string;
+  items: { label: string }[];
+}
+
+function ContractorDashboard({ labels }: { labels: ContractorDashboardLabels }) {
   const tasks = [
-    { label: "Concrete pour — Level 14", pct: 100, done: true },
-    { label: "MEP rough-in — Wk 34", pct: 65, done: false },
-    { label: "Façade panels — East wing", pct: 38, done: false },
-    { label: "Fire protection — L12-14", pct: 20, done: false },
+    { label: labels.items[0]?.label ?? "", pct: 100, done: true },
+    { label: labels.items[1]?.label ?? "", pct: 65, done: false },
+    { label: labels.items[2]?.label ?? "", pct: 38, done: false },
+    { label: labels.items[3]?.label ?? "", pct: 20, done: false },
   ];
   return (
     <div
@@ -151,14 +183,14 @@ function ContractorDashboard() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-[#5aad7a]" />
-          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Today&apos;s Tasks · Wk 34
+          <span style={{ fontSize: 10, color: "rgba(245,240,237,0.5)", letterSpacing: "0.1em" }}>
+            {labels.label}
           </span>
         </div>
         <span
           className="rounded-full px-2 py-0.5"
           style={{ fontSize: 9, fontWeight: 600, color: "#5aad7a", background: "rgba(90,173,122,0.12)", border: "1px solid rgba(90,173,122,0.25)" }}>
-          Field Log
+          {labels.fieldLog}
         </span>
       </div>
 
@@ -180,7 +212,7 @@ function ContractorDashboard() {
                   {t.label}
                 </span>
               </div>
-              <span style={{ fontSize: 9, fontWeight: 600, color: t.done ? "#5aad7a" : "rgba(245,240,237,0.45)" }}>{t.pct}%</span>
+              <span style={{ fontSize: 9, fontWeight: 600, color: t.done ? "#5aad7a" : "rgba(245,240,237,0.45)" }} className="bidi-isolate">{t.pct}%</span>
             </div>
             <div className="h-1 w-full rounded-full" style={{ background: "rgba(255,255,255,0.06)" }}>
               <div
@@ -198,71 +230,108 @@ function ContractorDashboard() {
   );
 }
 
-/* ─── Role Data ───────────────────────────────────────────── */
-
-const roles = [
-  {
-    title: "Owner",
-    label: "Executive Control",
-    icon: "◆",
-    iconColor: "#8d354b",
-    iconBg: "rgba(141,53,75,0.12)",
-    iconBorder: "rgba(141,53,75,0.25)",
-    bullets: [
-      "Executive dashboards",
-      "Budget & schedule visibility",
-      "Board-ready reporting",
-      "Decision tracking",
-    ],
-    cta: "Enter Owner Portal",
-    Dashboard: OwnerDashboard,
-    accentBorder: "rgba(141,53,75,0.3)",
-    accentGlow: "rgba(141,53,75,0.12)",
-  },
-  {
-    title: "Consultant",
-    label: "Review & Compliance",
-    icon: "◈",
-    iconColor: "#3b7ec8",
-    iconBg: "rgba(59,126,200,0.12)",
-    iconBorder: "rgba(59,126,200,0.25)",
-    bullets: [
-      "RFIs & submittals",
-      "Multi-discipline review",
-      "Compliance & QA",
-      "Design coordination",
-    ],
-    cta: "Enter Consultant Portal",
-    Dashboard: ConsultantDashboard,
-    accentBorder: "rgba(59,126,200,0.3)",
-    accentGlow: "rgba(59,126,200,0.08)",
-  },
-  {
-    title: "Contractor",
-    label: "Execution & Delivery",
-    icon: "◉",
-    iconColor: "#5aad7a",
-    iconBg: "rgba(90,173,122,0.12)",
-    iconBorder: "rgba(90,173,122,0.25)",
-    bullets: [
-      "Daily task execution",
-      "Field updates",
-      "Blockers & dependencies",
-      "Delivery tracking",
-    ],
-    cta: "Enter Contractor Portal",
-    Dashboard: ContractorDashboard,
-    accentBorder: "rgba(90,173,122,0.3)",
-    accentGlow: "rgba(90,173,122,0.08)",
-  },
-];
-
 /* ─── Component ───────────────────────────────────────────── */
 
 export function SkeletonRolePerspectives() {
+  const t = useTranslations("skeleton.rolePerspectives");
+  const tOwner = useTranslations("skeleton.rolePerspectives.owner");
+  const tConsultant = useTranslations("skeleton.rolePerspectives.consultant");
+  const tContractor = useTranslations("skeleton.rolePerspectives.contractor");
+
+  const ownerBullets = tOwner.raw("bullets") as string[];
+  const consultantBullets = tConsultant.raw("bullets") as string[];
+  const contractorBullets = tContractor.raw("bullets") as string[];
+
+  const roles = [
+    {
+      title: tOwner("title"),
+      label: tOwner("label"),
+      icon: "◆",
+      iconColor: "#8d354b",
+      iconBg: "rgba(141,53,75,0.12)",
+      iconBorder: "rgba(141,53,75,0.25)",
+      bullets: ownerBullets,
+      cta: tOwner("cta"),
+      Dashboard: () => (
+        <OwnerDashboard
+          labels={{
+            label: tOwner("dashboard.label"),
+            live: tOwner("dashboard.live"),
+            spent: tOwner("dashboard.spent"),
+            budget: tOwner("dashboard.budget"),
+            schedule: tOwner("dashboard.schedule"),
+            rfis: tOwner("dashboard.rfis"),
+            onTrack: tOwner("dashboard.onTrack"),
+            variance: tOwner("dashboard.variance"),
+            pending: tOwner("dashboard.pending"),
+            generateReport: tOwner("dashboard.generateReport"),
+            pendingCount: tOwner("dashboard.pendingCount"),
+          }}
+        />
+      ),
+      accentBorder: "rgba(141,53,75,0.3)",
+      accentGlow: "rgba(141,53,75,0.12)",
+    },
+    {
+      title: tConsultant("title"),
+      label: tConsultant("label"),
+      icon: "◈",
+      iconColor: "#3b7ec8",
+      iconBg: "rgba(59,126,200,0.12)",
+      iconBorder: "rgba(59,126,200,0.25)",
+      bullets: consultantBullets,
+      cta: tConsultant("cta"),
+      Dashboard: () => (
+        <ConsultantDashboard
+          labels={{
+            label: tConsultant("dashboard.label"),
+            reviewedCount: tConsultant("dashboard.reviewedCount"),
+            items: tConsultant.raw("dashboard.items") as {
+              id: string;
+              title: string;
+              status: string;
+            }[],
+          }}
+        />
+      ),
+      accentBorder: "rgba(59,126,200,0.3)",
+      accentGlow: "rgba(59,126,200,0.08)",
+    },
+    {
+      title: tContractor("title"),
+      label: tContractor("label"),
+      icon: "◉",
+      iconColor: "#5aad7a",
+      iconBg: "rgba(90,173,122,0.12)",
+      iconBorder: "rgba(90,173,122,0.25)",
+      bullets: contractorBullets,
+      cta: tContractor("cta"),
+      Dashboard: () => (
+        <ContractorDashboard
+          labels={{
+            label: tContractor("dashboard.label"),
+            fieldLog: tContractor("dashboard.fieldLog"),
+            items: tContractor.raw("dashboard.items") as { label: string }[],
+          }}
+        />
+      ),
+      accentBorder: "rgba(90,173,122,0.3)",
+      accentGlow: "rgba(90,173,122,0.08)",
+    },
+  ];
+
   return (
-    <section className="border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
-      <div className="mx-auto max-w-7xl px-6 py-24">
+    <section className="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+        style={{ backgroundImage: 'url("/assets/cards%20background/7.png")' }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/65"
+      />
+      <div className="relative mx-auto max-w-7xl px-6 py-24">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -270,16 +339,15 @@ export function SkeletonRolePerspectives() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55 }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-            For every role on the project
+          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+            {t("eyebrow")}
           </p>
           <h2 className="mt-4 text-3xl font-semibold text-neutral-900 dark:text-[#f5f0ed] sm:text-4xl">
-            Three perspectives.{" "}
-            <span className="text-[#8d354b]">One reality.</span>
+            {t("title1")}{" "}
+            <span className="text-[#8d354b]">{t("title2")}</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-            Each stakeholder sees exactly what they need — no more noise, no
-            missing context. All from one shared project truth.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -329,7 +397,7 @@ export function SkeletonRolePerspectives() {
                           {role.icon}
                         </div>
                         <div>
-                          <p style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: role.iconColor }}>
+                          <p style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.1em", color: role.iconColor }}>
                             {role.label}
                           </p>
                           <h3 className="text-base font-semibold text-neutral-900 dark:text-[#f5f0ed]">

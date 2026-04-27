@@ -1,24 +1,52 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "motion/react";
+import { useLocale as useIntlLocale, useTranslations } from "next-intl";
+import { motion } from "motion/react";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
 } from "@/components/skeleton/nav-links";
-import { useLocale } from "@/components/providers/locale-provider";
+import { useOptionalLocale } from "@/components/providers/locale-provider";
 import { PulseLinkButton, PulseIcon } from "@/components/ui/PulseButton";
 
-export function SkeletonHeader() {
+export type SkeletonHeaderMode = "skeleton" | "production";
+
+interface SkeletonHeaderProps {
+  /** "skeleton" preserves the existing /skeleton/* link tree and the
+   *  client-state locale toggle. "production" routes the logo to
+   *  /{locale}, swaps the locale toggle for a URL navigation, and
+   *  reads the active locale from next-intl. */
+  mode?: SkeletonHeaderMode;
+}
+
+export function SkeletonHeader({ mode = "skeleton" }: SkeletonHeaderProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
   const pathname = usePathname() ?? "";
   const { theme, setTheme } = useTheme();
-  const { locale, toggleLocale } = useLocale();
+  const skeletonCtx = useOptionalLocale();
+  const intlLocale = useIntlLocale();
+  const t = useTranslations("skeleton.nav");
+
+  const isProduction = mode === "production";
+  const locale = isProduction ? intlLocale : (skeletonCtx?.locale ?? intlLocale);
+  const homeHref = isProduction ? `/${locale}` : "/skeleton/product";
+  const toggleLocale = useCallback(() => {
+    if (isProduction) {
+      const next = locale === "en" ? "ar" : "en";
+      const stripped = pathname.replace(/^\/(en|ar)(?=\/|$)/, "") || "/";
+      const target = stripped === "/" ? `/${next}` : `/${next}${stripped}`;
+      router.push(target);
+      return;
+    }
+    skeletonCtx?.toggleLocale();
+  }, [isProduction, locale, pathname, router, skeletonCtx]);
 
   useEffect(() => {
     startTransition(() => setMounted(true));
@@ -34,6 +62,9 @@ export function SkeletonHeader() {
   const isDark = theme === "dark";
   const isActive = (href: string) => {
     if (href === "/skeleton/product") {
+      // Production landing (`/en`, `/ar`) and skeleton product both map to
+      // the "Product" nav entry.
+      if (isProduction) return pathname === `/${locale}` || pathname === "/";
       return pathname === "/" || pathname.startsWith("/skeleton/product");
     }
     return pathname.startsWith(href);
@@ -41,25 +72,20 @@ export function SkeletonHeader() {
 
   return (
     <header
-      className="sticky top-0 z-40 w-full"
-      style={{
-        background: scrolled
-          ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.55) 60%, rgba(247,232,236,0) 100%)"
-          : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.4) 60%, rgba(247,232,236,0) 100%)",
-        backdropFilter: "blur(28px) saturate(180%)",
-        WebkitBackdropFilter: "blur(28px) saturate(180%)",
-        // No hard border — soft fade into page via mask
-        WebkitMaskImage:
-          "linear-gradient(180deg, black 0%, black 70%, rgba(0,0,0,0.6) 88%, transparent 100%)",
-        maskImage:
-          "linear-gradient(180deg, black 0%, black 70%, rgba(0,0,0,0.6) 88%, transparent 100%)",
-        paddingBottom: 12,
-        transition: "background 300ms ease",
-      }}
+      data-scrolled={scrolled ? "true" : "false"}
+      className={[
+        "skeleton-header sticky top-0 z-40 w-full",
+        "border-b border-neutral-900/10 dark:border-neutral-100/10",
+        "bg-[rgba(255,255,255,0.86)] dark:bg-[rgba(10,8,8,0.88)]",
+        "[backdrop-filter:blur(10px)_saturate(140%)]",
+        "[-webkit-backdrop-filter:blur(10px)_saturate(140%)]",
+        "transition-shadow",
+        scrolled ? "shadow-[0_1px_2px_rgba(32,29,26,0.06)] dark:shadow-[0_1px_0_rgba(0,0,0,0.4)]" : "shadow-none",
+      ].join(" ")}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href={homeHref} className="flex items-center gap-2.5">
           <Image
             src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
             alt=""
@@ -68,12 +94,12 @@ export function SkeletonHeader() {
             className="h-7 w-7"
             aria-hidden
           />
-          <div className="flex flex-col leading-none">
-            <span className="text-sm font-semibold tracking-wide text-neutral-900 dark:text-[#f5f0ed]">
+          <div className="flex flex-col leading-none gap-0.5">
+            <span className="text-sm font-semibold tracking-wide text-neutral-900 dark:text-[#f5f0ed] bidi-isolate">
               Pulse <span className="text-[#8d354b]">AI</span>
             </span>
-            <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-              Project Intelligence
+            <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-neutral-500 dark:text-neutral-500 leading-tight">
+              {t("intelligence")}
             </span>
           </div>
         </Link>
@@ -82,17 +108,19 @@ export function SkeletonHeader() {
         <nav className="relative hidden items-center gap-1 md:flex">
           {skeletonNavLinks.map((link) => {
             const active = isActive(link.href);
+            const navHref =
+              isProduction && link.href === "/skeleton/product" ? homeHref : link.href;
             return (
               <Link
-                key={link.label}
-                href={link.href}
-                className={`relative rounded-md px-3 py-1.5 text-sm transition-colors ${
+                key={link.key}
+                href={navHref}
+                className={`relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                   active
-                    ? "text-[#8d354b]"
-                    : "text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+                    ? "text-[#8d354b] dark:text-[#e08aa0]"
+                    : "text-neutral-800 hover:text-neutral-950 dark:text-neutral-200 dark:hover:text-white"
                 }`}
               >
-                {link.label}
+                {t(link.key)}
                 {active && (
                   <motion.span
                     layoutId="nav-active-pill"
@@ -112,61 +140,48 @@ export function SkeletonHeader() {
 
         {/* Right: theme, locale, sign in, request demo */}
         <div className="flex items-center gap-2.5">
-          {/* Theme toggle — animated icon swap */}
+          {/* Theme toggle */}
           <button
             type="button"
             onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
-            className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-900/15 bg-white/60 text-neutral-700 transition-colors hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-100/15 dark:bg-white/[0.04] dark:text-neutral-200 dark:hover:text-[#e08aa0]"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={mounted ? (isDark ? "moon" : "sun") : "idle"}
-                initial={{ rotate: -45, opacity: 0, scale: 0.6 }}
-                animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                exit={{ rotate: 45, opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.22 }}
-                className="flex"
-              >
-                {mounted && isDark ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-                  </svg>
-                )}
-              </motion.span>
-            </AnimatePresence>
+            <motion.span
+              key={mounted ? (isDark ? "moon" : "sun") : "idle"}
+              initial={{ rotate: -45, opacity: 0, scale: 0.6 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.22 }}
+              className="flex"
+            >
+              {mounted && isDark ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              ) : (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                </svg>
+              )}
+            </motion.span>
           </button>
 
-          {/* Language toggle EN/AR — same circle treatment as theme */}
+          {/* Language toggle EN/AR */}
           <button
             type="button"
             onClick={toggleLocale}
             aria-label="Switch language"
-            className="hidden h-8 w-8 items-center justify-center rounded-full border border-neutral-300/70 bg-white/40 text-[10px] font-bold tracking-wider text-neutral-700 backdrop-blur-md transition-all hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-700 dark:bg-neutral-900/40 dark:text-neutral-300"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-neutral-900/15 bg-white/60 text-[10px] font-bold tracking-wider text-neutral-700 transition-colors hover:border-[#8d354b]/40 hover:text-[#8d354b] sm:flex dark:border-neutral-100/15 dark:bg-white/[0.04] dark:text-neutral-200 dark:hover:text-[#e08aa0]"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={locale}
-                initial={{ y: -8, opacity: 0, scale: 0.7 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 8, opacity: 0, scale: 0.7 }}
-                transition={{ duration: 0.18 }}
-              >
-                {locale.toUpperCase()}
-              </motion.span>
-            </AnimatePresence>
+            <span suppressHydrationWarning>{locale.toUpperCase()}</span>
           </button>
 
           <Link
             href={skeletonAuthLinks.signIn}
-            className="hidden text-sm text-neutral-700 transition-colors hover:text-neutral-950 sm:inline dark:text-neutral-300 dark:hover:text-white"
+            className="hidden text-sm font-medium text-neutral-800 transition-colors hover:text-neutral-950 sm:inline dark:text-neutral-200 dark:hover:text-white"
           >
-            Sign in
+            {t("signIn")}
           </Link>
 
           {/* Premium primary button using new system */}
@@ -175,7 +190,7 @@ export function SkeletonHeader() {
             variant="primary"
             icon={<PulseIcon />}
           >
-            Request Demo
+            {t("requestDemo")}
           </PulseLinkButton>
         </div>
       </div>

@@ -1,8 +1,10 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 /* ─── Brand Card Visuals ─────────────────────────────────── */
 
@@ -34,7 +36,6 @@ function BrandLogoCard({
       className="absolute inset-0 overflow-hidden"
       style={{ background: bg }}
     >
-      {/* Pattern overlay */}
       {pattern === "waves" && (
         <svg
           viewBox="0 0 400 500"
@@ -128,7 +129,7 @@ function BrandLogoCard({
   );
 }
 
-function PulseVisionVisual() {
+function PulseVisionVisual({ comingSoon }: { comingSoon: string }) {
   return (
     <div
       className="absolute inset-0 overflow-hidden"
@@ -137,7 +138,6 @@ function PulseVisionVisual() {
           "radial-gradient(ellipse 120% 90% at 50% 50%, #1a0e2e 0%, #0a0612 70%, #050208 100%)",
       }}
     >
-      {/* Concentric pulsing rings */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative" style={{ width: 200, height: 200 }}>
           {[
@@ -186,7 +186,6 @@ function PulseVisionVisual() {
         </div>
       </div>
 
-      {/* Coming soon label */}
       <div className="absolute bottom-16 left-0 right-0 text-center">
         <span
           style={{
@@ -194,22 +193,19 @@ function PulseVisionVisual() {
             fontWeight: 700,
             letterSpacing: "0.25em",
             color: "rgba(245,240,237,0.5)",
-            textTransform: "uppercase",
           }}
         >
-          Coming Soon
+          {comingSoon}
         </span>
       </div>
     </div>
   );
 }
 
-/* ─── Card Data ──────────────────────────────────────────── */
-
-interface ProofCard {
+interface ProofCardData {
   id: string;
   tag: string;
-  description: React.ReactNode;
+  description: ReactNode;
   cta: string;
   bg: string;
   pattern?: "waves" | "stars" | "rings" | "bars" | "none";
@@ -222,148 +218,13 @@ interface ProofCard {
   logoAspect?: string;
 }
 
-const cards: ProofCard[] = [
-  {
-    id: "ora",
-    tag: "ORA Developers",
-    description: (
-      <>
-        ORA Developers recently doubled its land bank in Bayn Al Jessrain —{" "}
-        <strong className="font-semibold text-[#8d354b]">Pulse</strong> unified
-        approvals across 6 authorities.
-      </>
-    ),
-    cta: "Read ORA Developers's story",
-    bg: "linear-gradient(135deg, #d9c190 0%, #b89968 50%, #c9a978 100%)",
-    pattern: "waves",
-    patternColor: "#7a5d35",
-    logoSrc: "/assets/logos/ora.svg",
-    accent: "#3a2614",
-    logoMaxWidth: 200,
-    logoAspect: "5/2",
-  },
-  {
-    id: "emaar",
-    tag: "Emaar Group",
-    description: (
-      <>
-        Emaar rolled{" "}
-        <strong className="font-semibold text-[#8d354b]">Pulse</strong> across
-        14 projects in 9 months — one operational truth, one shared decision
-        ledger.
-      </>
-    ),
-    cta: "Read Emaar Group's story",
-    bg: "linear-gradient(180deg, #1a1f3d 0%, #0f1228 100%)",
-    pattern: "stars",
-    patternColor: "rgba(255,255,255,0.5)",
-    logoSrc: "/assets/logos/emaar.svg",
-    invertLogo: true,
-    accent: "#ffffff",
-    logoMaxWidth: 240,
-    logoAspect: "3/2",
-  },
-  {
-    id: "aldar",
-    tag: "Aldar",
-    description: (
-      <>
-        Aldar reconciled three capital projects against one shared decision
-        ledger — saving{" "}
-        <strong className="font-bold text-[#8d354b]">AED 22M</strong> in
-        prevented rework.
-      </>
-    ),
-    cta: "Read Aldar's story",
-    bg: "linear-gradient(135deg, #f1eae0 0%, #d9cfc1 50%, #c9bfae 100%)",
-    pattern: "none",
-    logoSrc: "/assets/logos/aldar.svg",
-    accent: "#1a1a1a",
-    logoMaxWidth: 240,
-    logoAspect: "3/2",
-  },
-  {
-    id: "vision",
-    tag: "Pulse Vision",
-    description: (
-      <>
-        <strong className="font-semibold text-[#8d354b]">Pulse Vision</strong>{" "}
-        — upcoming. 24/7 computer vision on every site cam, fed into the project
-        graph.
-      </>
-    ),
-    cta: "Get early access to Pulse Vision",
-    bg: "#0a0612",
-    isPreview: true,
-    accent: "#e08aa0",
-  },
-  {
-    id: "nakheel",
-    tag: "Nakheel",
-    description: (
-      <>
-        Nakheel cut end-of-month reconciliation from{" "}
-        <strong className="font-semibold text-[#8d354b]">6 days to 6 hours</strong>{" "}
-        — across all active developments.
-      </>
-    ),
-    cta: "Read Nakheel's story",
-    bg: "linear-gradient(180deg, #0d3a4a 0%, #062430 100%)",
-    pattern: "waves",
-    patternColor: "#5fa8c2",
-    logoSrc: "/assets/logos/nakheel.svg",
-    invertLogo: true,
-    accent: "#e6f0f5",
-    logoMaxWidth: 220,
-    logoAspect: "3/1",
-  },
-  {
-    id: "adnoc",
-    tag: "ADNOC",
-    description: (
-      <>
-        ADNOC uses{" "}
-        <strong className="font-semibold text-[#8d354b]">Pulse</strong> on
-        infrastructure capex projects — full risk register synchronization
-        across stakeholders.
-      </>
-    ),
-    cta: "Read ADNOC's story",
-    bg: "linear-gradient(135deg, #ffffff 0%, #f5f0eb 100%)",
-    pattern: "none",
-    logoSrc: "/assets/logos/adnoc.svg",
-    accent: "#1a1a1a",
-    logoMaxWidth: 200,
-    logoAspect: "5/2",
-  },
-  {
-    id: "mubadala",
-    tag: "Mubadala",
-    description: (
-      <>
-        Mubadala adopted{" "}
-        <strong className="font-semibold text-[#8d354b]">Pulse</strong> to track
-        multi-billion-dirham capital portfolios — board reporting in one click.
-      </>
-    ),
-    cta: "Read Mubadala's story",
-    bg: "linear-gradient(135deg, #2a3a52 0%, #1a2436 100%)",
-    pattern: "rings",
-    patternColor: "#8aa6c7",
-    logoSrc: "/assets/logos/mubadala.svg",
-    invertLogo: true,
-    accent: "#e6edf5",
-    logoMaxWidth: 220,
-    logoAspect: "5/2",
-  },
-];
-
-/* ─── Card Component ─────────────────────────────────────── */
-
-function ProofCardItem({ card }: { card: ProofCard }) {
+function ProofCardItem({ card, comingSoon }: { card: ProofCardData; comingSoon: string }) {
   const [hovered, setHovered] = useState(false);
-  const isDark = card.bg.includes("0a0612") || card.bg.includes("1a1f3d") ||
-                  card.bg.includes("0d3a4a") || card.bg.includes("2a3a52");
+  const isDark =
+    card.bg.includes("0a0612") ||
+    card.bg.includes("1a1f3d") ||
+    card.bg.includes("0d3a4a") ||
+    card.bg.includes("2a3a52");
   return (
     <motion.article
       onMouseEnter={() => setHovered(true)}
@@ -378,7 +239,6 @@ function ProofCardItem({ card }: { card: ProofCard }) {
       animate={{ y: hovered ? -6 : 0 }}
       transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      {/* Image card */}
       <div
         className="relative overflow-hidden rounded-2xl"
         style={{
@@ -390,7 +250,7 @@ function ProofCardItem({ card }: { card: ProofCard }) {
         }}
       >
         {card.isPreview ? (
-          <PulseVisionVisual />
+          <PulseVisionVisual comingSoon={comingSoon} />
         ) : (
           <BrandLogoCard
             src={card.logoSrc!}
@@ -404,15 +264,13 @@ function ProofCardItem({ card }: { card: ProofCard }) {
           />
         )}
 
-        {/* Bottom-left tag — subtle, brand-themed (no white pill) */}
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-4 start-4 end-4">
           <span
-            className="inline-flex items-center gap-1.5"
+            className="inline-flex items-center gap-1.5 bidi-isolate"
             style={{
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: "0.08em",
-              textTransform: "uppercase",
               color: card.accent,
               textShadow: isDark
                 ? "0 1px 2px rgba(0,0,0,0.3)"
@@ -450,15 +308,17 @@ function ProofCardItem({ card }: { card: ProofCard }) {
 
       {/* Description + CTA */}
       <div className="mt-4 px-1">
-        <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p
+          className="max-w-[34ch] text-[13.5px] leading-[1.65] text-neutral-700 dark:text-neutral-200"
+        >
           {card.description}
         </p>
         <a
           href="#"
-          className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80"
+          className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#8d354b] transition-opacity hover:opacity-80 dark:text-[#e08aa0]"
         >
-          {card.cta}
-          <span>→</span>
+          <span>{card.cta}</span>
+          <span aria-hidden className="rtl:rotate-180">›</span>
         </a>
       </div>
     </motion.article>
@@ -468,6 +328,71 @@ function ProofCardItem({ card }: { card: ProofCard }) {
 /* ─── Main Component ─────────────────────────────────────── */
 
 export function SkeletonProof() {
+  const t = useTranslations("skeleton.proof");
+  const tCards = useTranslations("skeleton.proof.cards");
+
+  // Bold emphasis renders inline via next-intl rich text. Keeps "Pulse" /
+  // "Pulse Vision" subtle inside the body without bolding entire sentences.
+  const renderRich = (key: string) =>
+    tCards.rich(key, {
+      b: (chunks) => (
+        <strong className="font-semibold text-[#8d354b] dark:text-[#e08aa0]">
+          {chunks}
+        </strong>
+      ),
+    });
+
+  const cards: ProofCardData[] = [
+    {
+      id: "ora",
+      tag: tCards("ora.tag"),
+      description: renderRich("ora.description"),
+      cta: tCards("ora.cta"),
+      bg: "linear-gradient(135deg, #d9c190 0%, #b89968 50%, #c9a978 100%)",
+      pattern: "waves",
+      patternColor: "#7a5d35",
+      logoSrc: "/assets/logos/ora.svg",
+      accent: "#3a2614",
+      logoMaxWidth: 200,
+      logoAspect: "5/2",
+    },
+    {
+      id: "vision",
+      tag: tCards("vision.tag"),
+      description: renderRich("vision.description"),
+      cta: tCards("vision.cta"),
+      bg: "#0a0612",
+      isPreview: true,
+      accent: "#e08aa0",
+    },
+    {
+      id: "aldar",
+      tag: tCards("aldar.tag"),
+      description: renderRich("aldar.description"),
+      cta: tCards("aldar.cta"),
+      bg: "linear-gradient(135deg, #f1eae0 0%, #d9cfc1 50%, #c9bfae 100%)",
+      pattern: "none",
+      logoSrc: "/assets/logos/aldar.svg",
+      accent: "#1a1a1a",
+      logoMaxWidth: 240,
+      logoAspect: "3/2",
+    },
+    {
+      id: "emaar",
+      tag: tCards("emaar.tag"),
+      description: renderRich("emaar.description"),
+      cta: tCards("emaar.cta"),
+      bg: "linear-gradient(180deg, #1a1f3d 0%, #0f1228 100%)",
+      pattern: "stars",
+      patternColor: "rgba(255,255,255,0.5)",
+      logoSrc: "/assets/logos/emaar.svg",
+      invertLogo: true,
+      accent: "#ffffff",
+      logoMaxWidth: 240,
+      logoAspect: "3/2",
+    },
+  ];
+
   const viewportRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
@@ -475,8 +400,8 @@ export function SkeletonProof() {
   const updateScrollState = useCallback(() => {
     const el = viewportRef.current;
     if (!el) return;
-    setCanPrev(el.scrollLeft > 4);
-    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    setCanPrev(Math.abs(el.scrollLeft) > 4);
+    setCanNext(Math.abs(el.scrollLeft) + el.clientWidth < el.scrollWidth - 4);
   }, []);
 
   useEffect(() => {
@@ -506,8 +431,7 @@ export function SkeletonProof() {
 
   return (
     <section
-      className="border-b border-neutral-200 dark:border-neutral-800"
-      style={{ background: "#f9f7f5" }}
+      className="proof-section border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#0a0707]"
     >
       <div className="mx-auto max-w-7xl px-6 py-20">
         <motion.div
@@ -519,15 +443,14 @@ export function SkeletonProof() {
         >
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-[#8d354b]">
-              Proof
+              {t("eyebrow")}
             </p>
-            <h2 className="mt-3 text-3xl font-semibold text-neutral-900 sm:text-4xl">
-              Teams ship projects{" "}
-              <span className="text-[#8d354b]">on Pulse.</span>
+            <h2 className="mt-3 text-3xl font-semibold text-neutral-900 dark:text-[#f5f0ed] sm:text-4xl">
+              {t("titleLead")}{" "}
+              <span className="text-[#8d354b]">{t("titleAccent")}</span>
             </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-500">
-              From land acquisition to handover — construction&apos;s most
-              demanding teams trust Pulse to keep every stakeholder aligned.
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
+              {t("subtitle")}
             </p>
           </div>
 
@@ -536,9 +459,9 @@ export function SkeletonProof() {
               type="button"
               onClick={scrollPrev}
               disabled={!canPrev}
-              aria-label="Previous"
-              className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-neutral-700 transition-all hover:border-[#8d354b] hover:text-[#8d354b] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-neutral-300 disabled:hover:text-neutral-700"
-              style={{ borderColor: "#d4cfc8" }}
+              aria-label={t("prev")}
+              className="flex h-10 w-10 items-center justify-center rounded-full border bg-white dark:bg-[#181314] text-neutral-700 dark:text-neutral-300 transition-all hover:border-[#8d354b] hover:text-[#8d354b] disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ borderColor: "rgba(141,53,75,0.22)" }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="15 18 9 12 15 6" />
@@ -548,9 +471,9 @@ export function SkeletonProof() {
               type="button"
               onClick={scrollNext}
               disabled={!canNext}
-              aria-label="Next"
-              className="flex h-10 w-10 items-center justify-center rounded-full border bg-white text-neutral-700 transition-all hover:border-[#8d354b] hover:text-[#8d354b] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-neutral-300 disabled:hover:text-neutral-700"
-              style={{ borderColor: "#d4cfc8" }}
+              aria-label={t("next")}
+              className="flex h-10 w-10 items-center justify-center rounded-full border bg-white dark:bg-[#181314] text-neutral-700 dark:text-neutral-300 transition-all hover:border-[#8d354b] hover:text-[#8d354b] disabled:opacity-30 disabled:cursor-not-allowed"
+              style={{ borderColor: "rgba(141,53,75,0.22)" }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="9 18 15 12 9 6" />
@@ -564,10 +487,11 @@ export function SkeletonProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
+          className="relative"
         >
           <div
             ref={viewportRef}
-            className="proof-viewport flex gap-4 overflow-x-auto pb-2"
+            className="proof-viewport flex gap-4 overflow-x-auto pb-2 px-1"
             style={{
               scrollSnapType: "x mandatory",
               scrollbarWidth: "none",
@@ -576,14 +500,14 @@ export function SkeletonProof() {
             }}
           >
             {cards.map((card) => (
-              <ProofCardItem key={card.id} card={card} />
+              <ProofCardItem key={card.id} card={card} comingSoon={t("comingSoon")} />
             ))}
           </div>
         </motion.div>
 
         <p className="mt-6 flex items-center gap-2 text-xs text-neutral-400 sm:hidden">
-          <span>←</span>
-          Swipe to see more stories
+          <span aria-hidden>‹</span>
+          {t("swipeHint")}
         </p>
       </div>
     </section>

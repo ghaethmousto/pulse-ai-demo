@@ -10,10 +10,7 @@ export const metadata: Metadata = {
 
 export default function AddProjectConnectToolsSkeletonPage() {
   return (
-    <SkeletonAddProjectLayout
-      step="connect-tools"
-      title="Connect your tools and documents."
-    >
+    <SkeletonAddProjectLayout step="connect-tools">
       <SkeletonConnectToolsStep />
     </SkeletonAddProjectLayout>
   );

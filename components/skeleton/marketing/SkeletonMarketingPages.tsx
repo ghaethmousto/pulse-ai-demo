@@ -1,95 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { SkeletonFooter } from "@/components/skeleton/product/SkeletonFooter";
 import { SkeletonHeader } from "@/components/skeleton/product/SkeletonHeader";
 import { SkeletonTrustedLogos } from "@/components/skeleton/product/SkeletonTrustedLogos";
 
-const platformLayers = [
-  {
-    n: "01",
-    title: "Document Graph",
-    body: "Drawings, specs, contracts, submittals - connected by project context, not folder paths.",
-    visual: "[ drawings -> specs -> contracts ]",
-  },
-  {
-    n: "02",
-    title: "Decision Ledger",
-    body: "Every decision captured with owner, rationale, and downstream impact.",
-    visual: "[ D-041 approved | D-040 selected | D-039 resequenced ]",
-  },
-  {
-    n: "03",
-    title: "Schedule Intelligence",
-    body: "Pulse reconciles master schedule with daily field reports and root-cause analysis.",
-    visual: "[ baseline ____ actual __/--\\__ ]",
-  },
-  {
-    n: "04",
-    title: "Risk Radar",
-    body: "AI reads drawings, comms, and schedule to flag risk before impact.",
-    visual: "[ risk radar | 4 high | 12 watched ]",
-  },
-  {
-    n: "05",
-    title: "RFI & Submittals",
-    body: "Purpose-built review workflows with SLAs and escalation baked in.",
-    visual: "[ RFI-124 | SB-088 | overdue -> route ]",
-  },
-  {
-    n: "06",
-    title: "Ask Pulse",
-    body: "Natural-language interface to the project. Answers cite the source every time.",
-    visual: "[ Why did concrete pour slip? ]",
-  },
-];
-
-const solutionSections = [
-  {
-    tag: "01 - Owner",
-    title: "Hand the board a defensible report in 5 minutes.",
-    body: "Pulse turns a project of scattered signals into an executive brief - status, risk, cashflow, and decisions with source trails.",
-    cta: "Read the owner playbook ->",
-    visualTitle: "Monday brief - 03",
-    chips: ["Decision ledger", "Portfolio KPIs", "Risk radar", "Ask Pulse"],
-  },
-  {
-    tag: "02 - Consultant",
-    title: "Cut RFI cycle from 14 days to 4.",
-    body: "Pulse drafts the response map, finds precedent, routes for sign-off, and tracks SLA risk by discipline.",
-    cta: "Read the consultant playbook ->",
-    visualTitle: "RFI cycle - last 30 days",
-    chips: ["RFI dashboard", "Document graph", "Submittal intelligence"],
-  },
-  {
-    tag: "03 - Contractor",
-    title: "See the slip three weeks before it happens.",
-    body: "Pulse reconciles material procurement with daily field reports, weather, deliveries, and crew availability.",
-    cta: "Read the contractor playbook ->",
-    visualTitle: "Tower B - pour 4-7",
-    chips: ["Schedule intelligence", "Daily report", "Mobile field app"],
-  },
-];
-
-const customerStories = [
-  {
-    company: "Emaar",
-    title: "Cut board-pack prep from 18h to 90min across 14 active projects.",
-    metric: "-92%",
-  },
-  {
-    company: "Aldar",
-    title: "Caught a 4-week schedule slip before it hit procurement.",
-    metric: "23d",
-  },
-  {
-    company: "ORA",
-    title: "Closed 312 RFIs with full audit trail and zero contract disputes.",
-    metric: "0",
-  },
-];
-
 function PageShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50 text-neutral-950">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SkeletonHeader />
       <main className="flex-1">{children}</main>
       <SkeletonFooter />
@@ -98,35 +17,56 @@ function PageShell({ children }: { children: React.ReactNode }) {
 }
 
 function LogoStrip() {
-  return (
-    <SkeletonTrustedLogos />
-  );
+  return <SkeletonTrustedLogos />;
 }
 
-function CTASection() {
+function CTASection({
+  image = "/assets/cards%20background/11.png",
+}: {
+  image?: string;
+} = {}) {
+  const t = useTranslations("skeleton.ctaBecomeStory");
   return (
     <section className="mx-auto max-w-7xl px-6 py-16">
-      <div className="rounded-md bg-neutral-950 px-6 py-8 text-white">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-400">
-          Become the next story
-        </p>
-        <div className="mt-2 flex flex-col justify-between gap-5 md:flex-row md:items-center">
-          <h2 className="text-2xl font-semibold">
-            Book a 30-min walkthrough on your project.
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/skeleton/contact"
-              className="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-950"
-            >
-              Request Demo
-            </Link>
-            <Link
-              href="/skeleton/contact"
-              className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-white"
-            >
-              Talk to founder
-            </Link>
+      <div
+        className="relative overflow-hidden rounded-2xl px-6 py-8 text-white"
+        style={{
+          border: "1px solid rgba(255,255,255,0.10)",
+          boxShadow:
+            "0 12px 32px -12px rgba(141,53,75,0.45), inset 0 1px 0 rgba(255,255,255,0.10)",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+          style={{
+            backgroundImage: `url("${image}")`,
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-black/45 dark:bg-black/55"
+        />
+        <div className="relative">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-white">
+            {t("eyebrow")}
+          </p>
+          <div className="mt-2 flex flex-col justify-between gap-5 md:flex-row md:items-center">
+            <h2 className="text-2xl font-semibold">{t("title")}</h2>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/skeleton/contact"
+                className="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#6e2638] transition hover:bg-neutral-100"
+              >
+                {t("request")}
+              </Link>
+              <Link
+                href="/skeleton/contact"
+                className="rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-black"
+              >
+                {t("talk")}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -136,27 +76,86 @@ function CTASection() {
 
 function FeatureVisual({ label }: { label: string }) {
   return (
-    <div className="mt-5 flex h-36 items-center justify-center rounded border border-dashed border-neutral-300 bg-neutral-50 text-xs text-neutral-500">
+    <div className="mt-5 flex h-36 items-center justify-center rounded-md border border-dashed border-border bg-muted text-xs text-muted-foreground">
       {label}
     </div>
   );
 }
 
+/* Solutions page card backgrounds — index-mapped to outcome strip
+   cells (Owner / Consultant / Contractor) and to per-role preview
+   tiles (Owner brief / RFI cycle / Tower B). */
+const SOLUTIONS_OUTCOME_BG = [
+  "/assets/cards%20background/13.png",
+  "/assets/cards%20background/13.png",
+  "/assets/cards%20background/13.png",
+];
+const SOLUTIONS_PREVIEW_BG = [
+  "/assets/cards%20background/Solutions/2.png",
+  "/assets/cards%20background/Solutions/3.png",
+  "/assets/cards%20background/Solutions/4.png",
+];
+
+/* Resources page — hero + per-layer preview backgrounds. Layer index
+   `i` maps to Resources/{i+2}.png (Resources/1.png is the hero). */
+const RESOURCES_LAYER_BG = [
+  "/assets/cards%20background/Resources/2.png",
+  "/assets/cards%20background/Resources/3.png",
+  "/assets/cards%20background/Resources/4.png",
+  "/assets/cards%20background/Resources/5.png",
+  "/assets/cards%20background/Resources/6.png",
+  "/assets/cards%20background/Resources/7.png",
+];
+
+/* Customers page — story preview backgrounds, indexed per story. */
+const CUSTOMERS_STORY_BG = [
+  "/assets/cards%20background/customers/1.png",
+  "/assets/cards%20background/customers/2.png",
+  "/assets/cards%20background/customers/3.png",
+];
+
+/* Customers page — "in their words" quote tiles, indexed per quote. */
+const CUSTOMERS_QUOTE_BG = [
+  "/assets/cards%20background/customers/5.png",
+  "/assets/cards%20background/customers/6.png",
+  "/assets/cards%20background/customers/7.png",
+];
+
 export function SkeletonResourcesPage() {
+  const t = useTranslations("skeleton.resources");
+  const layers = t.raw("layers") as {
+    n: string;
+    title: string;
+    body: string;
+    visual: string;
+  }[];
   return (
     <PageShell>
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-            The platform
-          </p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-            Every layer of the project, reconciled.
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-neutral-600">
-            Pulse is built as six deeply connected surfaces. Each one becomes
-            more valuable because of the others.
-          </p>
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-20 lg:grid-cols-2 lg:gap-14">
+          {/* Visual column */}
+          <div className="relative w-full">
+            <div
+              className="relative mx-auto aspect-[4/3] w-[70%] overflow-hidden bg-contain bg-center bg-no-repeat dark:invert dark:hue-rotate-180"
+              style={{
+                backgroundImage:
+                  'url("/assets/cards%20background/Resources/1.png?v=2")',
+              }}
+            />
+          </div>
+
+          {/* Text column */}
+          <div className="text-start">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              {t("eyebrow")}
+            </p>
+            <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+              {t("h1")}
+            </h1>
+            <p className="mt-5 max-w-xl text-sm text-muted-foreground">
+              {t("subtitle")}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -164,53 +163,59 @@ export function SkeletonResourcesPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {platformLayers.map((layer) => (
+          {layers.map((layer, i) => (
             <article
               key={layer.title}
-              className="rounded-md border border-neutral-300 bg-white p-6"
+              className="rounded-md border border-border bg-card p-6"
             >
               <div className="flex items-start justify-between gap-4">
-                <span className="text-[10px] uppercase tracking-widest text-neutral-500">
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground bidi-isolate">
                   {layer.n}
                 </span>
-                <span className="rounded-full border border-neutral-300 px-2 py-0.5 text-[10px]">
-                  Feature
+                <span className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground">
+                  {t("featureLabel")}
                 </span>
               </div>
               <h2 className="mt-4 text-xl font-semibold">{layer.title}</h2>
-              <p className="mt-2 text-sm text-neutral-600">{layer.body}</p>
-              <FeatureVisual label={layer.visual} />
+              <p className="mt-2 text-sm text-muted-foreground">{layer.body}</p>
+              <div className="relative mt-5 h-[220px] overflow-hidden rounded-md border border-border">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                  style={{
+                    backgroundImage: `url("${RESOURCES_LAYER_BG[i] ?? ""}")`,
+                  }}
+                />
+              </div>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-          How roles use Pulse
+        <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          {t("rolesEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          The same surfaces, three different jobs.
-        </h2>
-        <div className="mt-8 overflow-hidden rounded-md border border-neutral-300 bg-white">
-          <table className="w-full text-left text-sm">
-            <thead className="border-b border-neutral-300 text-[10px] uppercase tracking-widest text-neutral-500">
+        <h2 className="mt-3 text-3xl font-semibold">{t("rolesTitle")}</h2>
+        <div className="mt-8 overflow-hidden rounded-md border border-border bg-card">
+          <table className="w-full text-start text-sm">
+            <thead className="border-b border-border text-[10px] uppercase tracking-widest text-muted-foreground">
               <tr>
-                <th className="px-4 py-3">Surface</th>
-                <th className="px-4 py-3">Owner</th>
-                <th className="px-4 py-3">Consultant</th>
-                <th className="px-4 py-3">Contractor</th>
+                <th className="px-4 py-3 text-start">{t("table.surface")}</th>
+                <th className="px-4 py-3 text-start">{t("table.owner")}</th>
+                <th className="px-4 py-3 text-start">{t("table.consultant")}</th>
+                <th className="px-4 py-3 text-start">{t("table.contractor")}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-200 text-xs text-neutral-700">
-              {platformLayers.slice(0, 6).map((layer) => (
+            <tbody className="divide-y divide-border text-xs text-foreground/70">
+              {layers.map((layer) => (
                 <tr key={layer.title}>
-                  <td className="px-4 py-3 font-medium text-neutral-950">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     {layer.title}
                   </td>
-                  <td className="px-4 py-3">Search and audit</td>
-                  <td className="px-4 py-3">Review and route</td>
-                  <td className="px-4 py-3">Act by task</td>
+                  <td className="px-4 py-3">{t("table.ownerUsage")}</td>
+                  <td className="px-4 py-3">{t("table.consultantUsage")}</td>
+                  <td className="px-4 py-3">{t("table.contractorUsage")}</td>
                 </tr>
               ))}
             </tbody>
@@ -218,31 +223,57 @@ export function SkeletonResourcesPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection image="/assets/cards%20background/10.png" />
     </PageShell>
   );
 }
 
 export function SkeletonSolutionsPage() {
+  const t = useTranslations("skeleton.solutions");
+  const chips = t.raw("chips") as string[];
+  const outcomes = t.raw("outcomes") as { label: string; value: string; caption: string }[];
+  const sections = t.raw("sections") as {
+    tag: string;
+    title: string;
+    body: string;
+    cta: string;
+    visualTitle: string;
+    chips: string[];
+  }[];
+  const lensesShort = t.raw("lensesShort") as string[];
+
   return (
     <PageShell>
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-            Solutions by role
+      <section className="relative overflow-hidden border-b border-border bg-card">
+        {/* Cinematic backdrop image */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              'url("/assets/cards%20background/Solutions/1.png")',
+          }}
+        />
+        {/* Readability wash — light in light mode, dark in dark mode */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-white/55 dark:bg-black/65"
+        />
+        <div className="relative mx-auto max-w-7xl px-6 py-20 text-center">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+            {t("eyebrow")}
           </p>
           <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-            Pick your job. We&apos;ve already mapped the work.
+            {t("h1")}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm text-neutral-600">
-            The same source, three different jobs. Pick the one that wakes you
-            up at 2am.
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground">
+            {t("subtitle")}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs">
-            {["01 Owner", "02 Consultant", "03 Contractor"].map((chip) => (
+            {chips.map((chip) => (
               <span
                 key={chip}
-                className="rounded-full border border-neutral-300 px-3 py-1"
+                className="rounded-full border border-border bg-card/80 px-3 py-1 text-foreground/80 backdrop-blur-sm"
               >
                 {chip}
               </span>
@@ -252,41 +283,53 @@ export function SkeletonSolutionsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid grid-cols-1 overflow-hidden rounded-md border border-neutral-300 bg-white md:grid-cols-3">
-          {[
-            ["Owner outcome", "12hrs", "reporting prep saved monthly"],
-            ["Consultant outcome", "-71%", "median RFI turnaround"],
-            ["Contractor outcome", "+19d", "avg. early warning lead time"],
-          ].map(([label, value, caption]) => (
-            <div key={label} className="border-neutral-200 p-6 md:border-r">
-              <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-                {label}
-              </p>
-              <p className="mt-2 text-4xl font-semibold">{value}</p>
-              <p className="mt-1 text-xs text-neutral-500">{caption}</p>
+        <div className="grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card md:grid-cols-3">
+          {outcomes.map((o, i) => (
+            <div
+              key={o.label}
+              className="relative overflow-hidden border-border p-6 md:border-e last:md:border-e-0"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-cover bg-center dark:invert dark:hue-rotate-180"
+                style={{
+                  backgroundImage: `url("${SOLUTIONS_OUTCOME_BG[i] ?? ""}")`,
+                }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/68"
+              />
+              <div className="relative">
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {o.label}
+                </p>
+                <p className="mt-2 text-4xl font-semibold bidi-isolate">{o.value}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{o.caption}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {solutionSections.map((section) => (
-        <section key={section.tag} className="border-t border-neutral-200">
+      {sections.map((section, i) => (
+        <section key={section.tag} className="border-t border-border">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-2">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.24em] text-[#8d1f33]">
+              <p className="text-[10px] uppercase tracking-[0.24em] text-wine">
                 {section.tag}
               </p>
               <h2 className="mt-4 max-w-xl text-3xl font-semibold leading-tight sm:text-4xl">
                 {section.title}
               </h2>
-              <p className="mt-5 max-w-xl text-sm text-neutral-600">
+              <p className="mt-5 max-w-xl text-sm text-muted-foreground">
                 {section.body}
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {section.chips.map((chip) => (
                   <span
                     key={chip}
-                    className="rounded-full border border-neutral-300 px-2 py-1 text-[10px]"
+                    className="rounded-full border border-border bg-card px-2 py-1 text-[10px] text-foreground/80"
                   >
                     {chip}
                   </span>
@@ -295,31 +338,48 @@ export function SkeletonSolutionsPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="/skeleton/contact"
-                  className="rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white"
+                  className="rounded-md bg-wine px-4 py-2 text-sm font-medium text-white transition hover:bg-wine-light"
                 >
                   {section.cta}
                 </Link>
                 <Link
                   href="/skeleton/contact"
-                  className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium"
+                  className="rounded-md border border-border px-4 py-2 text-sm font-medium"
                 >
-                  Book demo
+                  {t("ctaBookDemo")}
                 </Link>
               </div>
             </div>
-            <div className="rounded-md border border-neutral-300 bg-white p-5">
+            <div className="rounded-md border border-border bg-card p-5">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-semibold">{section.visualTitle}</h3>
-                <span className="rounded-full border border-neutral-300 px-2 py-0.5 text-[10px]">
-                  Live view
+                <span className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground">
+                  {t("liveView")}
                 </span>
               </div>
-              <FeatureVisual label="[ project signal preview ]" />
+              <div
+                className="relative mt-5 h-36 overflow-hidden rounded-md border border-border"
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url("${SOLUTIONS_PREVIEW_BG[i] ?? ""}")`,
+                  }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/30 dark:bg-black/40"
+                />
+                <div className="relative flex h-full items-center justify-center text-xs text-muted-foreground/80">
+                  {t("previewLabel")}
+                </div>
+              </div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {section.chips.slice(0, 2).map((chip) => (
                   <span
                     key={chip}
-                    className="rounded-full bg-neutral-100 px-2 py-1 text-[10px]"
+                    className="rounded-full bg-muted px-2 py-1 text-[10px] text-foreground/80"
                   >
                     {chip}
                   </span>
@@ -331,15 +391,16 @@ export function SkeletonSolutionsPage() {
       ))}
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-          Why it matters
+        <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          {t("whyEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          Three lenses on the same project.
-        </h2>
+        <h2 className="mt-3 text-3xl font-semibold">{t("whyTitle")}</h2>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {["Owner sees defensible status.", "Consultant sees review flow.", "Contractor sees blockers and crews."].map((text) => (
-            <div key={text} className="rounded-md border border-dashed border-neutral-300 bg-white p-5 text-sm">
+          {lensesShort.map((text) => (
+            <div
+              key={text}
+              className="rounded-md border border-dashed border-border bg-card p-5 text-sm"
+            >
               {text}
             </div>
           ))}
@@ -352,66 +413,70 @@ export function SkeletonSolutionsPage() {
 }
 
 export function SkeletonCustomersPage() {
+  const t = useTranslations("skeleton.customers");
+  const outcomes = t.raw("outcomes") as { value: string; label: string }[];
+  const stories = t.raw("stories") as { company: string; title: string; metric: string }[];
+  const kpis = t.raw("kpis") as { value: string; label: string }[];
+  const quotes = t.raw("quotes") as string[];
+
   return (
     <PageShell>
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20">
-          <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-            Customers
+      <section className="relative overflow-hidden border-b border-border bg-card">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              'url("/assets/cards%20background/customers/head.png")',
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-white/55 dark:bg-black/65"
+        />
+        <div className="relative mx-auto max-w-7xl px-6 py-20">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+            {t("eyebrow")}
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-            The teams shipping at the front of the region.
+            {t("h1")}
           </h1>
-          <p className="mt-5 max-w-2xl text-sm text-neutral-600">
-            Pulse runs on UAE construction projects where delay, auditability,
-            and decisions matter every day.
+          <p className="mt-5 max-w-2xl text-sm text-muted-foreground">
+            {t("subtitle")}
           </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-12">
-        <article className="grid grid-cols-1 overflow-hidden rounded-md border border-neutral-300 bg-white lg:grid-cols-[1.4fr_1fr]">
+        <article className="grid grid-cols-1 items-start overflow-hidden rounded-md border border-border bg-card lg:grid-cols-[1.4fr_1fr]">
           <div className="p-8">
-            <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-              Featured - 04 / 2026
+            <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground bidi-iso">
+              {t("featuredEyebrow")}
             </p>
             <h2 className="mt-4 max-w-xl text-3xl font-semibold">
-              How Emaar&apos;s owner team replaced Sunday-night reporting with a
-              06:00 brief.
+              {t("featuredTitle")}
             </h2>
-            <p className="mt-4 max-w-xl text-sm text-neutral-600">
-              Across active towers, project directors stopped chasing
-              consultants for status. Pulse drafts the brief, sources every
-              figure, and waits in their inbox before coffee.
+            <p className="mt-4 max-w-xl text-sm text-muted-foreground">
+              {t("featuredBody")}
             </p>
             <Link
               href="/skeleton/contact"
-              className="mt-6 inline-block rounded-md bg-[#7b1022] px-4 py-2 text-sm font-medium text-white"
+              className="mt-6 inline-block rounded-md bg-wine px-4 py-2 text-sm font-medium text-white transition hover:bg-wine-light"
             >
-              Read the case study &rarr;
+              {t("readCaseStudy")}
             </Link>
           </div>
-          <div className="border-t border-neutral-300 bg-neutral-100 p-8 lg:border-l lg:border-t-0">
-            <p className="text-[10px] uppercase tracking-widest text-neutral-500">
-              Outcome
-            </p>
-            <div className="mt-6 grid grid-cols-2 gap-5">
-              {[
-                ["-92%", "reporting prep"],
-                ["18+1.5h", "monthly board pack"],
-                ["14", "projects live"],
-                ["0", "disputes tied"],
-              ].map(([value, label]) => (
-                <div key={value}>
-                  <p className="text-3xl font-semibold">{value}</p>
-                  <p className="mt-1 text-xs text-neutral-500">{label}</p>
-                </div>
-              ))}
-            </div>
-            <blockquote className="mt-8 text-sm italic text-neutral-700">
-              &quot;We replaced four spreadsheets, a status email, and one Sunday
-              call. The board now reads our pack like a newsroom.&quot;
-            </blockquote>
+          <div className="relative overflow-hidden border-t border-border lg:border-s lg:border-t-0">
+            <img
+              src="/assets/cards%20background/9.png"
+              alt=""
+              aria-hidden
+              className="block h-[330px] w-full object-cover dark:invert dark:hue-rotate-180"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+            />
           </div>
         </article>
       </section>
@@ -419,25 +484,34 @@ export function SkeletonCustomersPage() {
       <LogoStrip />
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-          More stories
+        <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          {t("moreEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          Outcomes, not testimonials.
-        </h2>
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {customerStories.map((story) => (
+        <h2 className="mt-3 text-3xl font-semibold">{t("moreTitle")}</h2>
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 md:grid-cols-3">
+          {stories.map((story, i) => (
             <article
               key={story.company}
-              className="rounded-md border border-neutral-300 bg-white"
+              className="flex flex-col overflow-hidden rounded-md border border-border bg-card"
             >
-              <FeatureVisual label="[ story image ]" />
+              <div className="relative w-full overflow-hidden border-b border-border">
+                <img
+                  src={CUSTOMERS_STORY_BG[i] ?? ""}
+                  alt=""
+                  aria-hidden
+                  className="block h-[415.94px] w-full object-cover"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+                />
+              </div>
               <div className="p-5">
-                <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground bidi-isolate">
                   {story.company}
                 </p>
                 <h3 className="mt-2 text-sm font-semibold">{story.title}</h3>
-                <p className="mt-5 text-2xl font-semibold text-[#7b1022]">
+                <p className="mt-5 text-2xl font-semibold text-wine bidi-isolate">
                   {story.metric}
                 </p>
               </div>
@@ -447,37 +521,40 @@ export function SkeletonCustomersPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-8">
-        <div className="grid grid-cols-2 overflow-hidden rounded-md border border-neutral-300 bg-white md:grid-cols-4">
-          {[
-            ["84", "projects live"],
-            ["14B", "AED in scope"],
-            ["6,200", "daily active users"],
-            ["312k", "decisions logged"],
-          ].map(([value, label]) => (
-            <div key={value} className="border-neutral-200 p-6 md:border-r">
-              <p className="text-3xl font-semibold">{value}</p>
-              <p className="mt-1 text-xs text-neutral-500">{label}</p>
-            </div>
-          ))}
+        <div className="relative overflow-hidden rounded-md border border-border bg-card">
+          <img
+            src="/assets/cards%20background/customers/4.png"
+            alt=""
+            aria-hidden
+            className="block h-auto w-full"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+          />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-          In their words
+        <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+          {t("wordsEyebrow")}
         </p>
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {[
-            "Pulse is the first tool that gives me a board pack I can actually defend.",
-            "My team stopped writing the same RFI response three times.",
-            "It surfaces the risk before the site feels it.",
-          ].map((quote) => (
-            <blockquote
+        <div className="mt-8 grid grid-cols-1 items-start gap-4 md:grid-cols-3">
+          {quotes.map((quote, i) => (
+            <div
               key={quote}
-              className="rounded-md border border-dashed border-neutral-300 bg-white p-6 text-sm text-neutral-700"
+              className="relative overflow-hidden rounded-md border border-border bg-card"
             >
-              &quot;{quote}&quot;
-            </blockquote>
+              <img
+                src={CUSTOMERS_QUOTE_BG[i] ?? ""}
+                alt={quote}
+                className="block h-auto w-full"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-white/10 dark:bg-white/15"
+              />
+            </div>
           ))}
         </div>
       </section>
@@ -488,65 +565,66 @@ export function SkeletonCustomersPage() {
 }
 
 export function SkeletonContactPage() {
+  const t = useTranslations("skeleton.contact");
+  const fieldKeys = ["name", "email", "company", "role", "projectSize"] as const;
+  const contactCards: { value: string; isLtr: boolean }[] = [
+    { value: "demo@pulse-ai.com", isLtr: true },
+    { value: "+971 50 381 6979", isLtr: true },
+    { value: t("office"), isLtr: false },
+  ];
+
   return (
     <PageShell>
-      <section className="border-b border-neutral-200 bg-white">
+      <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-[1fr_440px]">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-              Request Demo
+            <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              {t("eyebrow")}
             </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-              Walk through Pulse on a real project shape.
+              {t("h1")}
             </h1>
-            <p className="mt-5 max-w-2xl text-sm text-neutral-600">
-              We will map your owner, consultant, and contractor workflows into
-              a focused 30-minute walkthrough.
+            <p className="mt-5 max-w-2xl text-sm text-muted-foreground">
+              {t("subtitle")}
             </p>
             <div className="mt-8 grid max-w-2xl grid-cols-1 gap-3 text-sm md:grid-cols-3">
-              {[
-                "demo@pulse-ai.com",
-                "+971 50 381 6979",
-                "Dubai · Abu Dhabi · Riyadh",
-              ].map((item) => (
+              {contactCards.map((card) => (
                 <div
-                  key={item}
-                  className="rounded-md border border-neutral-300 bg-neutral-50 p-4"
+                  key={card.value}
+                  className="rounded-md border border-border bg-muted p-4 text-foreground/80"
                 >
-                  {item}
+                  {card.isLtr ? (
+                    <span className="bidi-isolate inline-block">{card.value}</span>
+                  ) : (
+                    card.value
+                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-md border border-neutral-300 bg-neutral-50 p-6">
-            <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-500">
-              Demo request
+          <div className="rounded-md border border-border bg-muted p-6">
+            <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              {t("demoRequest")}
             </p>
             <div className="mt-5 space-y-3">
-              {[
-                "Name",
-                "Work email",
-                "Company",
-                "Role",
-                "Project size",
-              ].map((field) => (
+              {fieldKeys.map((field) => (
                 <div
                   key={field}
-                  className="rounded-md border border-dashed border-neutral-300 bg-white px-3 py-3 text-sm text-neutral-500"
+                  className="rounded-md border border-dashed border-border bg-card px-3 py-3 text-sm text-muted-foreground"
                 >
-                  {field}
+                  {t(`fields.${field}`)}
                 </div>
               ))}
-              <div className="h-28 rounded-md border border-dashed border-neutral-300 bg-white px-3 py-3 text-sm text-neutral-500">
-                What should Pulse show you?
+              <div className="h-28 rounded-md border border-dashed border-border bg-card px-3 py-3 text-sm text-muted-foreground">
+                {t("fields.message")}
               </div>
             </div>
             <Link
               href="mailto:demo@pulse-ai.com"
-              className="mt-5 block rounded-md bg-neutral-950 px-4 py-3 text-center text-sm font-medium text-white"
+              className="mt-5 block rounded-md bg-foreground px-4 py-3 text-center text-sm font-medium text-background transition hover:opacity-90"
             >
-              Request demo by email
+              {t("submit")}
             </Link>
           </div>
         </div>
@@ -555,13 +633,16 @@ export function SkeletonContactPage() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["For owners", "Board reporting, decisions, risk and budget."],
-            ["For consultants", "RFI flow, submittals, document graph and SLA."],
-            ["For contractors", "Daily plan, blockers, photos and escalation."],
-          ].map(([title, body]) => (
-            <div key={title} className="rounded-md border border-neutral-300 bg-white p-6">
-              <h2 className="text-lg font-semibold">{title}</h2>
-              <p className="mt-2 text-sm text-neutral-600">{body}</p>
+            { titleKey: "forOwners" as const, bodyKey: "forOwnersBody" as const },
+            { titleKey: "forConsultants" as const, bodyKey: "forConsultantsBody" as const },
+            { titleKey: "forContractors" as const, bodyKey: "forContractorsBody" as const },
+          ].map((item) => (
+            <div
+              key={item.titleKey}
+              className="rounded-md border border-border bg-card p-6"
+            >
+              <h2 className="text-lg font-semibold">{t(item.titleKey)}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{t(item.bodyKey)}</p>
             </div>
           ))}
         </div>

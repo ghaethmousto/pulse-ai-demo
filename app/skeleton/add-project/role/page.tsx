@@ -9,10 +9,7 @@ export const metadata: Metadata = {
 
 export default function AddProjectRoleSkeletonPage() {
   return (
-    <SkeletonAddProjectLayout
-      step="role"
-      title="Welcome. Let's connect your project."
-    >
+    <SkeletonAddProjectLayout step="role">
       <SkeletonRoleStep />
     </SkeletonAddProjectLayout>
   );

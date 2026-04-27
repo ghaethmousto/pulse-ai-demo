@@ -10,13 +10,7 @@ export const metadata: Metadata = {
 
 export default function PlatformSourceOfTruthSkeletonPage() {
   return (
-    <SkeletonPlatformLayout
-      view="source-of-truth"
-      roleLabel="All roles · Overview"
-      pageTitle="Source of truth — Marina Tower Ph2"
-      pageScribble="single reconciled view · same data, all stakeholders"
-      userBadge={{ name: "Pulse · live", role: "" }}
-    >
+    <SkeletonPlatformLayout view="source-of-truth">
       <SkeletonSourceOfTruthView />
     </SkeletonPlatformLayout>
   );

@@ -1,5 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { skeletonAuthLinks } from "@/components/skeleton/nav-links";
 import { SkeletonAddProjectStepper } from "./SkeletonAddProjectStepper";
 import {
@@ -7,18 +11,21 @@ import {
   getNextStep,
   getPrevStep,
   getStep,
+  stepKeyToTranslationKey,
   type AddProjectStepKey,
 } from "./steps";
 
 interface SkeletonAddProjectLayoutProps {
   step: AddProjectStepKey;
-  title: string;
+  /** Optional override for the H1 title; otherwise derived from step. */
+  title?: string;
   intro?: ReactNode;
   children: ReactNode;
   /** Override the default Next link target (defaults to next step). */
   nextHref?: string;
-  /** Override the default Next button label. */
-  nextLabel?: string;
+  /** Translation key under skeleton.addProject for the Next button label,
+   *  or pass a literal nextLabel for ad-hoc text. */
+  nextLabelKey?: "next" | "goToDashboard";
   skipHref?: string;
 }
 
@@ -28,21 +35,33 @@ export function SkeletonAddProjectLayout({
   intro,
   children,
   nextHref,
-  nextLabel = "Next →",
+  nextLabelKey = "next",
   skipHref = skeletonAuthLinks.seePlatform,
 }: SkeletonAddProjectLayoutProps) {
+  const t = useTranslations("skeleton.addProject");
+  const tStepLabels = useTranslations("skeleton.addProject.stepLabels");
+  const tStepTitles = useTranslations("skeleton.addProject.stepTitles");
+
   const current = getStep(step);
   const prev = getPrevStep(step);
   const next = getNextStep(step);
   const resolvedNextHref =
     nextHref ?? next?.href ?? skeletonAuthLinks.seePlatform;
+  const resolvedTitle = title ?? tStepTitles(stepKeyToTranslationKey(step));
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-neutral-50 text-neutral-900">
-      <header className="border-b border-neutral-200 bg-white">
+    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
+      <header className="border-b border-border bg-card">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
           <Link href="/skeleton/product" className="flex items-center gap-2">
-            <span className="h-6 w-6 rounded-sm border border-neutral-300 bg-neutral-100" />
+            <Image
+              src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
+              alt=""
+              width={24}
+              height={24}
+              className="h-6 w-6"
+              aria-hidden
+            />
             <span className="text-sm font-semibold">Pulse AI</span>
           </Link>
 
@@ -50,16 +69,16 @@ export function SkeletonAddProjectLayout({
 
           <Link
             href={skipHref}
-            className="text-xs text-neutral-500 hover:text-neutral-900"
+            className="text-xs text-muted-foreground hover:text-foreground"
           >
-            Skip setup
+            {t("skipSetup")}
           </Link>
         </div>
       </header>
 
       <nav
         aria-label="Add project progress"
-        className="border-b border-neutral-200 bg-neutral-50"
+        className="border-b border-border bg-background"
       >
         <ol className="mx-auto flex max-w-6xl flex-wrap gap-2 px-4 py-3 text-xs sm:px-6">
           {addProjectSteps.map((s) => {
@@ -72,13 +91,13 @@ export function SkeletonAddProjectLayout({
                   aria-current={isCurrent ? "step" : undefined}
                   className={
                     isCurrent
-                      ? "rounded-md border border-neutral-900 bg-neutral-900 px-2 py-1 text-white"
+                      ? "rounded-md border border-foreground bg-foreground px-2 py-1 text-background"
                       : isDone
-                      ? "rounded-md border border-neutral-300 bg-white px-2 py-1 text-neutral-700"
-                      : "rounded-md border border-dashed border-neutral-300 bg-white px-2 py-1 text-neutral-500"
+                      ? "rounded-md border border-border bg-card px-2 py-1 text-foreground/80"
+                      : "rounded-md border border-dashed border-border bg-card px-2 py-1 text-muted-foreground"
                   }
                 >
-                  {s.number}. {s.shortLabel}
+                  {s.number}. {tStepLabels(stepKeyToTranslationKey(s.key))}
                 </Link>
               </li>
             );
@@ -88,11 +107,11 @@ export function SkeletonAddProjectLayout({
 
       <main className="flex-1">
         <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 sm:px-6 sm:py-10">
-          <div className="rounded-md border border-neutral-300 bg-white p-6 sm:p-8">
-            <header className="border-b border-neutral-200 pb-6">
-              <h1 className="text-3xl font-semibold sm:text-4xl">{title}</h1>
+          <div className="rounded-md border border-border bg-card p-6 sm:p-8">
+            <header className="border-b border-border pb-6">
+              <h1 className="text-3xl font-semibold sm:text-4xl">{resolvedTitle}</h1>
               {intro ? (
-                <p className="mt-3 max-w-2xl text-sm text-neutral-600">
+                <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
                   {intro}
                 </p>
               ) : null}
@@ -100,27 +119,29 @@ export function SkeletonAddProjectLayout({
 
             <div className="py-8">{children}</div>
 
-            <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-6">
+            <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
               {prev ? (
                 <Link
                   href={prev.href}
-                  className="rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground/80 transition hover:text-foreground"
                 >
-                  ← Back
+                  <span aria-hidden className="rtl:rotate-180">←</span>
+                  {t("back")}
                 </Link>
               ) : (
                 <span
                   aria-hidden
-                  className="invisible rounded-md border border-neutral-300 px-4 py-2 text-sm"
+                  className="invisible rounded-md border border-border px-4 py-2 text-sm"
                 >
-                  ← Back
+                  {t("back")}
                 </span>
               )}
               <Link
                 href={resolvedNextHref}
-                className="rounded-md border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white"
+                className="inline-flex items-center gap-1.5 rounded-md bg-wine px-4 py-2 text-sm font-medium text-white transition hover:bg-wine-light"
               >
-                {nextLabel}
+                {t(nextLabelKey)}
+                <span aria-hidden className="rtl:rotate-180">→</span>
               </Link>
             </footer>
           </div>

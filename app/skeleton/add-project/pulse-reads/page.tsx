@@ -10,10 +10,7 @@ export const metadata: Metadata = {
 
 export default function AddProjectPulseReadsSkeletonPage() {
   return (
-    <SkeletonAddProjectLayout
-      step="pulse-reads"
-      title="Pulse is reading your project."
-    >
+    <SkeletonAddProjectLayout step="pulse-reads">
       <SkeletonPulseReadsStep />
     </SkeletonAddProjectLayout>
   );
