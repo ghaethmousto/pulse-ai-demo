@@ -30,5 +30,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "starter-files"]
+  "exclude": [
+    "node_modules",
+    "starter-files",
+    "design",
+    "demo-data"
+  ]
 }
