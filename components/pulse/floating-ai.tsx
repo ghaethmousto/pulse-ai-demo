@@ -313,7 +313,6 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
         <span aria-hidden className="pulse-fab-glow" />
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--1" />
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--2" />
-        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--3" />
         <Image
           src="/assets/pulse/Pulse - Red Circle Icon.svg"
           alt=""
