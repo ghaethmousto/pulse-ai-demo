@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Reference-only assets — not part of the production app.
+    "design/**",
+    "starter-files/**",
+    "demo-data/**",
   ]),
 ]);
 

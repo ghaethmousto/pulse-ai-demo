@@ -4,9 +4,19 @@
     "dashboard": "Dashboard",
     "projects": "Projects",
     "pulse": "Project Pulse",
+    "timeline": "Timeline",
     "tasks": "Tasks",
     "approvals": "Approvals",
+    "documents": "Documents",
+    "stakeholders": "Stakeholders",
+    "meetings": "Meetings",
+    "site": "Site",
+    "aiInsights": "AI Insights",
+    "risks": "Risks",
     "reports": "Reports",
+    "financials": "Financials",
+    "templates": "Templates",
+    "team": "Team",
     "settings": "Settings"
   },
   "common": {
@@ -20,33 +30,155 @@
     "explorePlatform": "Explore Platform",
     "status": "Status",
     "risk": "Risk",
-    "progress": "Progress"
+    "progress": "Progress",
+    "send": "Send",
+    "notifications": "Notifications",
+    "searchPlaceholder": "Search projects, risks, approvals…",
+    "askPulse": "Ask Pulse…"
   },
   "landing": {
-    "heroTitle": "Pulse AI for Construction Intelligence",
-    "heroSubtitle": "A unified AI-powered operating layer for consultants, contractors, owners, approvals, reports, project risks, and real-time progress tracking.",
-    "primaryCta": "Explore Demo",
+    "heroTitle": "An intelligent operating layer for every construction project.",
+    "heroSubtitle": "Pulse AI unifies consultants, contractors, owners, approvals, reports, risks, and progress into a single live surface — so no decision waits on a chase or a missing file.",
+    "primaryCta": "Open Live Demo",
     "secondaryCta": "View Project Pulse",
+    "spotlight": "Live demo project",
     "problemTitle": "Construction information is fragmented.",
     "problemBody": "Projects lose time, money, and accountability when emails, WhatsApp messages, PDFs, drawings, spreadsheets, approvals, and site reports live in disconnected places.",
     "solutionTitle": "Pulse AI turns project chaos into a live operating system.",
-    "solutionBody": "Pulse AI centralizes project knowledge, automates documentation, detects risks, summarizes progress, and gives every stakeholder a real-time view of project health."
+    "solutionBody": "Pulse centralizes project knowledge, automates documentation, surfaces risks early, summarizes progress, and gives every stakeholder a real-time view of project health.",
+    "stat": {
+      "delay": "Schedule delay",
+      "delayValue": "18 days",
+      "exposure": "Exposure",
+      "exposureValue": "AED 3.75M",
+      "progress": "Actual / Planned",
+      "progressValue": "46% / 53%",
+      "milestone": "Authority package",
+      "milestoneValue": "08 May 2026"
+    },
+    "modules": {
+      "eyebrow": "What Pulse unifies",
+      "title": "One surface for the entire project lifecycle.",
+      "subtitle": "Pulse connects what owners, consultants, and contractors already do — and turns it into one decision-ready view.",
+      "items": {
+        "intelligence": {
+          "title": "Project intelligence",
+          "body": "AI summaries of progress, risks, and decisions across every workstream."
+        },
+        "pulse": {
+          "title": "Project Pulse timeline",
+          "body": "Planned vs actual milestones with delay drivers and recovery actions."
+        },
+        "approvals": {
+          "title": "Approvals & submissions",
+          "body": "Authority and client approvals with status, owner, and unblock path."
+        },
+        "risks": {
+          "title": "Risk radar",
+          "body": "Early warnings with severity, impact, and a recommended next move."
+        },
+        "documents": {
+          "title": "Document graph",
+          "body": "RFIs, MoMs, drawings, and reports linked to the decisions they affect."
+        },
+        "reports": {
+          "title": "Executive reports",
+          "body": "Investor-grade weekly briefings and client updates, drafted by Pulse."
+        }
+      }
+    },
+    "footer": {
+      "tagline": "An AI operating layer for construction.",
+      "legal": "© 2026 Pulse AI Demo. Presentation only — fictional data."
+    }
   },
   "demoProject": {
     "name": "Al Reem Tower",
     "location": "Al Reem Island, Abu Dhabi, UAE",
     "status": "At Risk",
     "riskLevel": "High",
-    "phase": "Design Development / Authority Coordination",
+    "phase": "Design Development · Authority Coordination",
+    "live": "Live",
     "aiSummary": "Al Reem Tower is currently at risk, with an 18-day delay driven mainly by MEP/podium coordination and unresolved authority submission dependencies. The fastest recovery path is to freeze the vertical core, resolve podium plant-room conflicts, and lock the fire strategy before the authority package date of 08-May-2026."
   },
+  "dashboard": {
+    "eyebrow": "Executive dashboard",
+    "title": "Project executive dashboard",
+    "header": {
+      "eyebrow": "Live demo project",
+      "status": "Health",
+      "phase": "Phase",
+      "contract": "Contract value",
+      "nextMilestone": "Next milestone"
+    },
+    "kpiValues": {
+      "health": "At Risk",
+      "delay": "{days} days",
+      "progress": "{actual}% / {planned}%",
+      "exposure": "AED {amount}M"
+    },
+    "statusValues": {
+      "atRisk": "At Risk",
+      "onTrack": "On Track",
+      "blocked": "Blocked",
+      "delayed": "Delayed"
+    },
+    "severity": {
+      "Critical": "Critical",
+      "High": "High",
+      "Medium": "Medium",
+      "Low": "Low"
+    },
+    "summary": {
+      "eyebrow": "Pulse AI briefing",
+      "title": "What matters this week"
+    },
+    "risks": {
+      "eyebrow": "Risk radar",
+      "title": "Top open risks"
+    },
+    "timeline": {
+      "eyebrow": "Project Pulse",
+      "title": "Planned vs actual milestones",
+      "plannedLabel": "Planned",
+      "actualLabel": "Actual",
+      "variance": "+{days}d",
+      "status": {
+        "done": "Done",
+        "inProgress": "In progress",
+        "delayed": "Delayed",
+        "atRisk": "At risk",
+        "upcoming": "Upcoming"
+      }
+    }
+  },
+  "sidebar": {
+    "activeProject": "Project",
+    "projectMeta": "AED 185M · 28 mo",
+    "userName": "Ghaeth Mousto",
+    "userInitials": "GM",
+    "userRole": "Management",
+    "role": "Owner Portal",
+    "sections": {
+      "workspace": "Workspace",
+      "control": "Control",
+      "projectData": "Project Data",
+      "intelligence": "Intelligence",
+      "business": "Business",
+      "system": "System"
+    }
+  },
   "pulseAssistant": {
-    "name": "Pulse",
+    "name": "Pulse AI",
     "label": "Floating AI assistant",
-    "liveContext": "Live project context",
-    "placeholder": "Ask Pulse about the project…",
+    "liveContext": "Live intelligence",
+    "placeholder": "Ask about this project…",
     "open": "Open Pulse",
     "close": "Close Pulse",
+    "suggested": "Suggested actions",
+    "currentSituation": "Current situation",
+    "voice": "Voice input",
+    "greeting": "Schedule delay 18 days. Authority package due 08-May-2026. Podium MEP coordination unresolved; client decision on amenity floor pending. Recommend freezing vertical core this week.",
     "fallback": "I can answer this in the full connected version. For this demo, I am currently showing project health, delays, approvals, reports, risks, and recommended actions for Al Reem Tower."
   }
 }
