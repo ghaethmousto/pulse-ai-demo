@@ -159,8 +159,22 @@ export function SkeletonSolutionsPage() {
 
   return (
     <PageShell>
-      <section className="border-b border-border bg-card">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center">
+      <section className="relative overflow-hidden border-b border-border bg-card">
+        {/* Cinematic backdrop image */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              'url("/assets/cards%20background/1-1.png")',
+          }}
+        />
+        {/* Readability wash — light in light mode, dark in dark mode */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-white/55 dark:bg-black/65"
+        />
+        <div className="relative mx-auto max-w-7xl px-6 py-20 text-center">
           <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
             {t("eyebrow")}
           </p>
@@ -174,7 +188,7 @@ export function SkeletonSolutionsPage() {
             {chips.map((chip) => (
               <span
                 key={chip}
-                className="rounded-full border border-border bg-card px-3 py-1 text-foreground/80"
+                className="rounded-full border border-border bg-card/80 px-3 py-1 text-foreground/80 backdrop-blur-sm"
               >
                 {chip}
               </span>
