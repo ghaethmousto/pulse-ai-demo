@@ -298,21 +298,22 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
           </div>
         )}
 
-      {/* Launcher — crisp red disc, minimal signal rings. Two thin
-          low-opacity rings only, slow expansion, no halo or filter. */}
+      {/* Launcher — crisp burgundy disc floating above an atmospheric
+          halo: a static radial glow, three soft blurred rings that
+          breathe slowly, and a top glass reflection on the disc.
+          All in burgundy, no pink. Subtler in light mode, fuller in
+          dark mode (rules in globals.css). */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? tAssistant("close") : tAssistant("open")}
         aria-expanded={open}
         className="pulse-fab relative z-[1] grid size-[60px] place-items-center rounded-full transition hover:scale-[1.04] active:scale-[0.96]"
-        style={{
-          boxShadow:
-            "0 1px 2px rgba(141,53,75,0.18), 0 6px 14px -4px rgba(141,53,75,0.22)",
-        }}
       >
+        <span aria-hidden className="pulse-fab-glow" />
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--1" />
         <span aria-hidden className="pulse-fab-ring pulse-fab-ring--2" />
+        <span aria-hidden className="pulse-fab-ring pulse-fab-ring--3" />
         <Image
           src="/assets/pulse/Pulse - Red Circle Icon.svg"
           alt=""
@@ -321,6 +322,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
           priority
           className="relative z-[1] block size-[60px]"
         />
+        <span aria-hidden className="pulse-fab-shine" />
       </button>
     </div>
   );

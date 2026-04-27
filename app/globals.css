@@ -260,37 +260,115 @@ html[lang="ar"] body {
 .pulse-live-dot { animation: pulseLiveDot 2.4s ease-in-out infinite; }
 
 /* ════════════════════════════════════════════
-   FLOATING PULSE AI LAUNCHER — signal-pulse rings
-   Replaces the old ambient glow/bloom. The button itself stays crisp;
-   three concentric red rings expand outward and fade out, like a node
-   sending soft signals. No drop-shadow filter on the disc, no haze
-   bleeding into the inner glyph.
+   FLOATING PULSE AI LAUNCHER — atmospheric burgundy halo
+   The disc itself stays crisp. Three soft, blurred radial halos
+   sit behind it (inner stronger, outer almost fading out), all in
+   burgundy — never pink. A static radial glow grounds the launcher
+   into a soft cloud of energy; a faint top sheen reads as glass.
+   Subtle slow breath, not aggressive pulse.
 ════════════════════════════════════════════ */
+.pulse-fab {
+  /* floating drop-shadow, burgundy-tinted */
+  box-shadow:
+    0 2px 4px rgba(141, 53, 75, 0.14),
+    0 10px 22px -8px rgba(141, 53, 75, 0.30),
+    0 22px 44px -16px rgba(32, 29, 26, 0.20);
+}
+.dark .pulse-fab {
+  box-shadow:
+    0 2px 4px rgba(141, 53, 75, 0.20),
+    0 14px 30px -10px rgba(141, 53, 75, 0.42),
+    0 28px 60px -16px rgba(0, 0, 0, 0.55);
+}
+
+/* Static radial burgundy glow grounding the launcher */
+.pulse-fab-glow {
+  position: absolute;
+  inset: -52%;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(10px);
+  background: radial-gradient(circle at 50% 50%,
+    rgba(141, 53, 75, 0.18) 0%,
+    rgba(141, 53, 75, 0.10) 32%,
+    rgba(141, 53, 75, 0) 65%);
+}
+.dark .pulse-fab-glow {
+  background: radial-gradient(circle at 50% 50%,
+    rgba(141, 53, 75, 0.40) 0%,
+    rgba(141, 53, 75, 0.22) 30%,
+    rgba(141, 53, 75, 0) 65%);
+}
+
+/* Three breathing halos — burgundy, blurred, never sharp lines.
+   Light mode uses a quieter keyframe so the halo barely whispers
+   against ivory; dark mode runs the full breath. */
 .pulse-fab-ring {
   position: absolute;
-  inset: 0;
   border-radius: 9999px;
-  border: 1px solid rgba(141, 53, 75, 0.55);
   pointer-events: none;
-  opacity: 0;
-  animation: pulseFabRing 4s cubic-bezier(0.16, 0.84, 0.44, 1) infinite;
-  transform: scale(1);
+  z-index: 0;
   will-change: transform, opacity;
+  animation: pulseFabBreathLight 6s ease-in-out infinite;
 }
-.pulse-fab-ring--1 { animation-delay: 0s; }
-.pulse-fab-ring--2 { animation-delay: 2s; }
-.dark .pulse-fab-ring { border-color: rgba(207, 89, 118, 0.50); }
+.dark .pulse-fab-ring {
+  animation: pulseFabBreathDark 6s ease-in-out infinite;
+}
+.pulse-fab-ring--1 {
+  inset: -10%;
+  filter: blur(4px);
+  animation-delay: 0s;
+  background: radial-gradient(circle,
+    rgba(141, 53, 75, 0.30) 0%,
+    rgba(141, 53, 75, 0.16) 42%,
+    rgba(141, 53, 75, 0) 65%);
+}
+.pulse-fab-ring--2 {
+  inset: -22%;
+  filter: blur(7px);
+  animation-delay: 1.4s;
+  background: radial-gradient(circle,
+    rgba(141, 53, 75, 0.16) 0%,
+    rgba(141, 53, 75, 0.09) 46%,
+    rgba(141, 53, 75, 0) 65%);
+}
+.pulse-fab-ring--3 {
+  inset: -34%;
+  filter: blur(11px);
+  animation-delay: 2.8s;
+  background: radial-gradient(circle,
+    rgba(141, 53, 75, 0.08) 0%,
+    rgba(141, 53, 75, 0.04) 50%,
+    rgba(141, 53, 75, 0) 65%);
+}
 
-@keyframes pulseFabRing {
-  0%   { transform: scale(1);    opacity: 0.28; }
-  60%  { opacity: 0.10; }
-  100% { transform: scale(1.4);  opacity: 0; }
+/* Slow breath — barely-there scale + opacity, no aggressive pulse */
+@keyframes pulseFabBreathLight {
+  0%, 100% { transform: scale(1);     opacity: 0.40; }
+  50%      { transform: scale(1.045); opacity: 0.55; }
+}
+@keyframes pulseFabBreathDark {
+  0%, 100% { transform: scale(1);     opacity: 0.85; }
+  50%      { transform: scale(1.045); opacity: 1; }
+}
+
+/* Subtle glass reflection on top half of the disc */
+.pulse-fab-shine {
+  position: absolute;
+  inset: 1px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(255, 255, 255, 0) 50%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pulse-mark-breath, .pulse-mark-glow, .pulse-mark-sweep,
   .pulse-live-dot, .pulse-fab-ring { animation: none; }
-  .pulse-fab-ring { display: none; }
 }
 
 /* ════════════════════════════════════════════
