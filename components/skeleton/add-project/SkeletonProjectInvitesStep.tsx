@@ -73,7 +73,7 @@ export function SkeletonProjectInvitesStep() {
   );
 
   const rail = (
-    <div className="rounded-md border border-neutral-300 bg-neutral-50 p-5">
+    <div className="rounded-md border border-neutral-300 bg-neutral-50 p-5 lg:mt-[12px] lg:h-[430px]">
       <p className="text-[10px] uppercase tracking-widest text-neutral-500">
         Why invite now?
       </p>

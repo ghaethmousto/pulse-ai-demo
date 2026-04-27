@@ -39,15 +39,6 @@ export function SkeletonAddProjectLayout({
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-neutral-50 text-neutral-900">
-      <div className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 text-xs text-neutral-500 sm:px-6">
-          <span aria-hidden>⠿</span>
-          <span>
-            {current.number} · {current.shortLabel}
-          </span>
-        </div>
-      </div>
-
       <header className="border-b border-neutral-200 bg-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
           <Link href="/skeleton/product" className="flex items-center gap-2">

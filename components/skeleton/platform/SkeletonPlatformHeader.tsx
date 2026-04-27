@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
@@ -9,8 +10,12 @@ export function SkeletonPlatformHeader() {
     <header className="w-full border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
-          <div
-            className="h-6 w-6 rounded-sm border border-neutral-300 bg-neutral-100"
+          <Image
+            src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-7"
             aria-hidden
           />
           <span className="text-sm font-semibold tracking-wide">

@@ -6,6 +6,7 @@ const metrics = [
   { label: "Schedule", value: "+2d", caption: "variance · amber" },
   { label: "Open Risks", value: "4", caption: "high-severity" },
   { label: "Pending Decisions", value: "3", caption: "awaiting you" },
+  { label: "Forecast", value: "91%", caption: "confidence" },
 ];
 
 const decisions = [

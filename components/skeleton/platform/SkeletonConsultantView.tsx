@@ -5,6 +5,7 @@ const metrics = [
   { label: "Submittals", value: "23", caption: "6 pending review" },
   { label: "Disciplines", value: "7", caption: "coordinating" },
   { label: "Compliance", value: "98%", caption: "current" },
+  { label: "Reviews Due", value: "8", caption: "this week" },
 ];
 
 const rfiQueue = [

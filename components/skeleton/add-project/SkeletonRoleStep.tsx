@@ -112,13 +112,37 @@ export function SkeletonRoleStep() {
             </span>
           </div>
         </div>
+
+        <div className="mt-3 flex flex-col items-stretch gap-3 rounded-md border border-neutral-300 bg-white p-4 sm:flex-row sm:items-center">
+          <div className="flex-1">
+            <p className="text-sm font-semibold">
+              Migrating from another platform?
+            </p>
+            <p className="text-xs text-neutral-500">
+              Pulse imports from Procore, Aconex, and BIM 360 — documents, RFIs, and schedule included.
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {["Procore", "Aconex", "BIM 360", "Asta Powerproject"].map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-[10px] text-neutral-500"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+          <span className="shrink-0 rounded-md border border-neutral-900 bg-neutral-900 px-3 py-2 text-xs text-white">
+            Import project →
+          </span>
+        </div>
       </div>
     </>
   );
 
   const rail = (
     <>
-      <div className="rounded-md border border-neutral-300 bg-white">
+      <div className="rounded-md border border-neutral-300 bg-white lg:mt-[28px]">
         <header className="flex items-center justify-between border-b border-neutral-200 px-4 py-3 text-[10px] uppercase tracking-widest text-neutral-500">
           <span>Tuned for Owner</span>
             <span>preview · day 1</span>

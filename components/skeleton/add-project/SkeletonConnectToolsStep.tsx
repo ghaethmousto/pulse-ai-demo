@@ -169,7 +169,7 @@ export function SkeletonConnectToolsStep() {
 
   const rail = (
     <>
-      <div className="rounded-md border border-neutral-300 bg-white p-4">
+      <div className="rounded-md border border-neutral-300 bg-white p-4 lg:mt-[80px]">
         <p className="text-[10px] uppercase tracking-widest text-neutral-500">
           Permissions, by default
         </p>

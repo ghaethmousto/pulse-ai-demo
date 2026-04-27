@@ -5,6 +5,7 @@ const metrics = [
   { label: "Blockers", value: "2", caption: "need escalation" },
   { label: "On track", value: "53%", caption: "this week" },
   { label: "Materials", value: "94%", caption: "delivered" },
+  { label: "Crew Hours", value: "186", caption: "logged today" },
 ];
 
 const todayPlan = [

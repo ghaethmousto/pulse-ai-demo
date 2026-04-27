@@ -34,25 +34,6 @@ const livingTimelineItems: SkeletonActivityItem[] = [
   },
 ];
 
-const reconciliationItems: SkeletonActivityItem[] = [
-  {
-    tag: "Email → Decision",
-    title: "VO-14 owner identified",
-  },
-  {
-    tag: "WhatsApp → Risk",
-    title: "Façade material flagged",
-  },
-  {
-    tag: "Drawing rev → Schedule",
-    title: "A-104 push +1d to L13",
-  },
-  {
-    tag: "Site photo → Submittal",
-    title: "SB-88 evidence attached",
-  },
-];
-
 const lenses = [
   {
     label: "Owner",
@@ -139,10 +120,6 @@ export function SkeletonSourceOfTruthView() {
             </ul>
           </section>
 
-          <SkeletonActivityPanel
-            title="Reconciliation feed"
-            items={reconciliationItems}
-          />
         </div>
       </div>
 
