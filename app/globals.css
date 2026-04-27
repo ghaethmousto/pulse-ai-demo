@@ -268,37 +268,50 @@ html[lang="ar"] body {
    Subtle slow breath, not aggressive pulse.
 ════════════════════════════════════════════ */
 .pulse-fab {
-  /* floating drop-shadow, burgundy-tinted */
+  /* Multi-layer outer glow + drop shadow. Box-shadow with 0,0 offset
+     and positive spread renders strictly OUTSIDE a rounded element,
+     so the emission is always around the disc, never inside. */
   box-shadow:
-    0 2px 4px rgba(141, 53, 75, 0.14),
-    0 10px 22px -8px rgba(141, 53, 75, 0.30),
-    0 22px 44px -16px rgba(32, 29, 26, 0.20);
+    0 0 8px 1px rgba(141, 53, 75, 0.22),
+    0 0 20px 5px rgba(141, 53, 75, 0.13),
+    0 0 40px 12px rgba(141, 53, 75, 0.06),
+    0 4px 10px rgba(141, 53, 75, 0.20),
+    0 16px 32px -10px rgba(32, 29, 26, 0.18);
 }
 .dark .pulse-fab {
   box-shadow:
-    0 2px 4px rgba(141, 53, 75, 0.20),
-    0 14px 30px -10px rgba(141, 53, 75, 0.42),
-    0 28px 60px -16px rgba(0, 0, 0, 0.55);
+    0 0 10px 2px rgba(141, 53, 75, 0.55),
+    0 0 26px 8px rgba(141, 53, 75, 0.34),
+    0 0 56px 16px rgba(141, 53, 75, 0.18),
+    0 0 90px 24px rgba(141, 53, 75, 0.08),
+    0 4px 12px rgba(141, 53, 75, 0.45),
+    0 22px 50px -12px rgba(0, 0, 0, 0.65);
 }
 
-/* Static radial burgundy glow grounding the launcher */
+/* Static burgundy halo — transparent in the disc area, peak just
+   outside the disc edge, fades out. No color visible inside. */
 .pulse-fab-glow {
   position: absolute;
-  inset: -52%;
+  inset: -55%;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 0;
-  filter: blur(10px);
+  filter: blur(8px);
   background: radial-gradient(circle at 50% 50%,
-    rgba(141, 53, 75, 0.18) 0%,
-    rgba(141, 53, 75, 0.10) 32%,
-    rgba(141, 53, 75, 0) 65%);
+    rgba(141, 53, 75, 0) 0%,
+    rgba(141, 53, 75, 0) 46%,
+    rgba(141, 53, 75, 0.20) 56%,
+    rgba(141, 53, 75, 0.10) 72%,
+    rgba(141, 53, 75, 0) 92%);
 }
 .dark .pulse-fab-glow {
   background: radial-gradient(circle at 50% 50%,
-    rgba(141, 53, 75, 0.40) 0%,
-    rgba(141, 53, 75, 0.22) 30%,
-    rgba(141, 53, 75, 0) 65%);
+    rgba(141, 53, 75, 0) 0%,
+    rgba(141, 53, 75, 0) 46%,
+    rgba(141, 53, 75, 0.55) 56%,
+    rgba(141, 53, 75, 0.30) 72%,
+    rgba(141, 53, 75, 0.10) 88%,
+    rgba(141, 53, 75, 0) 100%);
 }
 
 /* Three breathing halos — burgundy, blurred, never sharp lines.
@@ -315,32 +328,40 @@ html[lang="ar"] body {
 .dark .pulse-fab-ring {
   animation: pulseFabBreathDark 6s ease-in-out infinite;
 }
+/* Each ring is transparent inside the disc area and peaks just past
+   the disc edge — guaranteed no color inside the disc. */
 .pulse-fab-ring--1 {
   inset: -10%;
   filter: blur(4px);
   animation-delay: 0s;
   background: radial-gradient(circle,
-    rgba(141, 53, 75, 0.30) 0%,
-    rgba(141, 53, 75, 0.16) 42%,
-    rgba(141, 53, 75, 0) 65%);
+    rgba(141, 53, 75, 0) 0%,
+    rgba(141, 53, 75, 0) 76%,
+    rgba(141, 53, 75, 0.40) 86%,
+    rgba(141, 53, 75, 0.10) 96%,
+    rgba(141, 53, 75, 0) 100%);
 }
 .pulse-fab-ring--2 {
   inset: -22%;
   filter: blur(7px);
   animation-delay: 1.4s;
   background: radial-gradient(circle,
-    rgba(141, 53, 75, 0.16) 0%,
-    rgba(141, 53, 75, 0.09) 46%,
-    rgba(141, 53, 75, 0) 65%);
+    rgba(141, 53, 75, 0) 0%,
+    rgba(141, 53, 75, 0) 64%,
+    rgba(141, 53, 75, 0.22) 76%,
+    rgba(141, 53, 75, 0.08) 90%,
+    rgba(141, 53, 75, 0) 100%);
 }
 .pulse-fab-ring--3 {
   inset: -34%;
   filter: blur(11px);
   animation-delay: 2.8s;
   background: radial-gradient(circle,
-    rgba(141, 53, 75, 0.08) 0%,
-    rgba(141, 53, 75, 0.04) 50%,
-    rgba(141, 53, 75, 0) 65%);
+    rgba(141, 53, 75, 0) 0%,
+    rgba(141, 53, 75, 0) 54%,
+    rgba(141, 53, 75, 0.13) 70%,
+    rgba(141, 53, 75, 0.05) 86%,
+    rgba(141, 53, 75, 0) 100%);
 }
 
 /* Slow breath — barely-there scale + opacity, no aggressive pulse */
