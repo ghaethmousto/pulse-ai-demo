@@ -29,7 +29,7 @@ export function SkeletonI18nBridge({
   const messages = locale === "ar" ? arMessages : enMessages;
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
       {children}
       <PulseFloatingAI locale={locale} />
     </NextIntlClientProvider>

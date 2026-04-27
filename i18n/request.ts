@@ -8,5 +8,5 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   const messages = (await import(`../messages/${locale}.json`)).default;
 
-  return { locale, messages };
+  return { locale, messages, timeZone: "UTC" };
 });
