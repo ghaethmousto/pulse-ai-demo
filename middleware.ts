@@ -4,5 +4,8 @@ import { routing } from "./i18n/routing";
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  // Exclude /skeleton/* from locale rewriting — those are skeleton preview
+  // routes outside the production [locale]/* tree and must be reachable
+  // directly without a locale prefix.
+  matcher: ["/((?!api|_next|_vercel|skeleton|.*\\..*).*)"],
 };
