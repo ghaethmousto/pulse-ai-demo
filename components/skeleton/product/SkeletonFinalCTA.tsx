@@ -110,10 +110,10 @@ export function SkeletonFinalCTA() {
           viewport={{ once: true }}
           transition={{ delay: 0.75, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
         >
-          <PulseLinkButton href="#" variant="darkPrimary" icon={<PulseIcon />}>
+          <PulseLinkButton href="/skeleton/add-project/role" variant="darkPrimary" icon={<PulseIcon />}>
             Get started
           </PulseLinkButton>
-          <PulseLinkButton href="#" variant="darkSecondary">
+          <PulseLinkButton href="/skeleton/contact" variant="darkSecondary">
             Contact an expert
           </PulseLinkButton>
         </motion.div>

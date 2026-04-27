@@ -3,6 +3,7 @@ export const skeletonNavLinks = [
   { label: "Solutions", href: "/skeleton/solutions" },
   { label: "Resources", href: "/skeleton/resources" },
   { label: "Customers", href: "/skeleton/customers" },
+  { label: "Platform", href: "/skeleton/platform/source-of-truth" },
   { label: "Add Project", href: "/skeleton/add-project/role" },
 ] as const;
 

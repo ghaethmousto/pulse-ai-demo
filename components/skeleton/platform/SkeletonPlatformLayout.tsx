@@ -104,13 +104,13 @@ export function SkeletonPlatformLayout({
   children,
 }: SkeletonPlatformLayoutProps) {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-neutral-50 text-neutral-900">
+    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <SkeletonPlatformHeader />
       <SkeletonPlatformViewSwitcher active={view} />
 
       <div className="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 lg:grid-cols-[280px_1fr]">
-        <aside className="flex flex-col border-r border-neutral-200 bg-[#fbf7f5]">
-          <div className="flex items-center gap-3 border-b border-neutral-200 bg-white px-5 py-6">
+        <aside className="flex flex-col border-r border-border bg-card">
+          <div className="flex items-center gap-3 border-b border-border bg-card px-5 py-6">
             <Image
               src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
               alt=""
@@ -119,32 +119,32 @@ export function SkeletonPlatformLayout({
               className="h-10 w-10"
               aria-hidden
             />
-            <span className="text-xl font-semibold text-neutral-950">Pulse AI</span>
+            <span className="text-xl font-semibold text-foreground">Pulse AI</span>
           </div>
 
           <div className="flex-1 overflow-hidden px-4 py-5">
-            <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+            <div className="rounded-lg border border-border bg-background p-4 shadow-sm">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                     Active Project
                   </p>
-                  <p className="mt-1 text-base font-semibold text-neutral-950">
-                    Marina Tower Ph2
+                  <p className="mt-1 text-base font-semibold text-foreground">
+                    Al Reem Tower
                   </p>
-                  <p className="text-xs text-neutral-500">847M AED · 28 mo</p>
+                  <p className="text-xs text-muted-foreground">185M AED · 28 mo</p>
                 </div>
-                <ChevronDown className="h-4 w-4 text-neutral-400" aria-hidden />
+                <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden />
               </div>
             </div>
 
             <nav className="mt-5 space-y-5" aria-label="Platform navigation">
               {sidebarGroups.map((group, groupIndex) => (
                 <div key={group.title}>
-                  <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-neutral-400">
+                  <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
                     {group.title}
                   </p>
-                  <ul className="mt-2 space-y-1 text-base text-neutral-600">
+                  <ul className="mt-2 space-y-1 text-base text-foreground/70">
                     {group.items.map((item, itemIndex) => {
                       const isActive = groupIndex === 0 && itemIndex === 0;
                       const Icon = item.icon;
@@ -154,21 +154,21 @@ export function SkeletonPlatformLayout({
                           key={item.label}
                           className={
                             isActive
-                              ? "flex items-center gap-3 rounded-lg border-l-4 border-[#9b3151] bg-[#f1e7e9] px-3 py-2.5 text-[#8d2948]"
-                              : "flex items-center gap-3 px-3 py-2.5 text-neutral-600"
+                              ? "flex items-center gap-3 rounded-lg border-l-4 border-wine bg-wine-subtle px-3 py-2.5 text-wine dark:bg-wine/15"
+                              : "flex items-center gap-3 px-3 py-2.5 text-foreground/70"
                           }
                         >
                           <Icon
                             className={
                               isActive
-                                ? "h-5 w-5 text-[#9b3151]"
-                                : "h-5 w-5 text-neutral-500"
+                                ? "h-5 w-5 text-wine"
+                                : "h-5 w-5 text-muted-foreground"
                             }
                             aria-hidden
                           />
                           <span className="min-w-0 flex-1">{item.label}</span>
                           {item.badge ? (
-                            <span className="rounded-full bg-[#a83d5c] px-2 py-0.5 text-xs font-semibold text-white">
+                            <span className="rounded-full bg-wine px-2 py-0.5 text-xs font-semibold text-white">
                               {item.badge}
                             </span>
                           ) : null}
@@ -182,12 +182,12 @@ export function SkeletonPlatformLayout({
           </div>
 
           {userBadge ? (
-            <div className="mt-auto border-t border-neutral-200 bg-white p-4">
-              <div className="rounded-lg border border-[#ead4db] bg-[#f7edef] px-4 py-3 text-center text-sm font-semibold text-[#9b3151]">
+            <div className="mt-auto border-t border-border bg-card p-4">
+              <div className="rounded-lg border border-wine/30 bg-wine-subtle px-4 py-3 text-center text-sm font-semibold text-wine dark:bg-wine/15">
                 {portalLabelByView[view]}
               </div>
               <div className="mt-4 flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#9b3151] text-sm font-semibold text-white">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine text-sm font-semibold text-white">
                   {userBadge.name
                     .split(" ")
                     .map((part) => part[0])
@@ -195,10 +195,10 @@ export function SkeletonPlatformLayout({
                     .slice(0, 2)}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-neutral-950">
+                  <p className="text-sm font-semibold text-foreground">
                     {userBadge.name}
                   </p>
-                  <p className="text-xs text-neutral-500">{userBadge.role}</p>
+                  <p className="text-xs text-muted-foreground">{userBadge.role}</p>
                 </div>
               </div>
             </div>
@@ -208,7 +208,7 @@ export function SkeletonPlatformLayout({
         <main className="p-6 lg:p-8">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs uppercase tracking-widest text-neutral-500">
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">
                 {roleLabel}
               </p>
               <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">
@@ -216,21 +216,21 @@ export function SkeletonPlatformLayout({
               </h1>
             </div>
             <div className="flex items-center gap-2">
-              <span className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-700">
+              <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
                 ◌ Ask Pulse...
               </span>
-              <span className="rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-700">
+              <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
                 • Live
               </span>
             </div>
           </div>
 
           <div
-            className="mt-6 h-6 rounded-md border border-dashed border-neutral-300 bg-white"
+            className="mt-6 h-6 rounded-md border border-dashed border-border bg-card"
             aria-hidden
           />
           {pageScribble ? (
-            <p className="mt-2 text-right text-[10px] italic text-neutral-500">
+            <p className="mt-2 text-right text-[10px] italic text-muted-foreground">
               {pageScribble}
             </p>
           ) : null}

@@ -12,9 +12,9 @@ const viewKeyByHref: Record<string, ViewKey> = {
 
 export function SkeletonPlatformViewSwitcher({ active }: { active: ViewKey }) {
   return (
-    <div className="border-b border-neutral-200 bg-neutral-50">
+    <div className="border-b border-border bg-background">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-6 py-3 text-xs">
-        <span className="text-neutral-500">⠿ Platform view</span>
+        <span className="text-muted-foreground">⠿ Platform view</span>
         <div className="flex flex-wrap gap-2">
           {skeletonPlatformViews.map((view) => {
             const key = viewKeyByHref[view.href];
@@ -26,8 +26,8 @@ export function SkeletonPlatformViewSwitcher({ active }: { active: ViewKey }) {
                 aria-current={isActive ? "page" : undefined}
                 className={
                   isActive
-                    ? "rounded-md border border-neutral-900 bg-neutral-900 px-3 py-1 text-white"
-                    : "rounded-md border border-neutral-300 bg-white px-3 py-1 text-neutral-700 hover:text-neutral-950"
+                    ? "rounded-md border border-foreground bg-foreground px-3 py-1 text-background"
+                    : "rounded-md border border-border bg-card px-3 py-1 text-foreground/70 hover:text-foreground"
                 }
               >
                 {view.label}

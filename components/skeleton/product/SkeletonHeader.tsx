@@ -59,7 +59,7 @@ export function SkeletonHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href="/skeleton/product" className="flex items-center gap-2.5">
           <Image
             src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
             alt=""

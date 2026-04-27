@@ -1,13 +1,30 @@
-import Link from "next/link";
+"use client";
+
+import { startTransition, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { AnimatePresence, motion } from "motion/react";
+import { useTheme } from "next-themes";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
 } from "@/components/skeleton/nav-links";
+import { useLocale } from "@/components/providers/locale-provider";
+import { PulseLinkButton } from "@/components/ui/PulseButton";
 
 export function SkeletonPlatformHeader() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const { locale, toggleLocale } = useLocale();
+
+  useEffect(() => {
+    startTransition(() => setMounted(true));
+  }, []);
+
+  const isDark = theme === "dark";
+
   return (
-    <header className="w-full border-b border-neutral-200 bg-white">
+    <header className="w-full border-b border-border bg-card">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
           <Image
@@ -18,8 +35,8 @@ export function SkeletonPlatformHeader() {
             className="h-7 w-7"
             aria-hidden
           />
-          <span className="text-sm font-semibold tracking-wide">
-            Pulse <span className="text-neutral-500">PROJECT INTELLIGENCE</span>
+          <span className="text-sm font-semibold tracking-wide text-foreground">
+            Pulse <span className="text-muted-foreground">PROJECT INTELLIGENCE</span>
           </span>
         </div>
 
@@ -28,7 +45,7 @@ export function SkeletonPlatformHeader() {
             <Link
               key={link.label}
               href={link.href}
-              className="text-sm text-neutral-700 hover:text-neutral-950"
+              className="text-sm text-foreground/70 transition hover:text-foreground"
             >
               {link.label}
             </Link>
@@ -36,32 +53,66 @@ export function SkeletonPlatformHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {/* Theme toggle */}
           <button
             type="button"
-            className="hidden h-7 w-7 items-center justify-center rounded-full border border-neutral-300 text-xs sm:flex"
+            onClick={() => setTheme(isDark ? "light" : "dark")}
             aria-label="Toggle theme"
+            className="hidden h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-foreground/70 transition hover:border-wine/40 hover:text-wine sm:flex"
           >
-            ◐
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={mounted ? (isDark ? "moon" : "sun") : "idle"}
+                initial={{ rotate: -45, opacity: 0, scale: 0.6 }}
+                animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                exit={{ rotate: 45, opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.22 }}
+                className="flex"
+              >
+                {mounted && isDark ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+                  </svg>
+                )}
+              </motion.span>
+            </AnimatePresence>
           </button>
+
+          {/* Locale toggle */}
           <button
             type="button"
-            className="hidden h-7 items-center rounded-full border border-neutral-300 px-2 text-xs sm:flex"
+            onClick={toggleLocale}
             aria-label="Switch language"
+            className="hidden h-8 w-8 items-center justify-center rounded-full border border-border bg-background text-[10px] font-bold tracking-wider text-foreground/70 transition hover:border-wine/40 hover:text-wine sm:flex"
           >
-            EN
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={locale}
+                initial={{ y: -8, opacity: 0, scale: 0.7 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                exit={{ y: 8, opacity: 0, scale: 0.7 }}
+                transition={{ duration: 0.18 }}
+              >
+                {locale.toUpperCase()}
+              </motion.span>
+            </AnimatePresence>
           </button>
+
           <Link
             href={skeletonAuthLinks.signIn}
-            className="text-sm text-neutral-700 hover:text-neutral-950"
+            className="hidden text-sm text-foreground/70 transition hover:text-foreground sm:inline"
           >
             Sign in
           </Link>
-          <Link
-            href={skeletonAuthLinks.requestDemo}
-            className="rounded-md border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-sm text-white"
-          >
-            Request Demo →
-          </Link>
+
+          <PulseLinkButton href={skeletonAuthLinks.requestDemo} variant="primary">
+            Request Demo
+          </PulseLinkButton>
         </div>
       </div>
     </header>

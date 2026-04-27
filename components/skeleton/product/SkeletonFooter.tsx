@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const navColumns = [
   {
     heading: "Platform",
@@ -30,7 +32,14 @@ export function SkeletonFooter() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="h-4 w-4 rounded-sm border border-neutral-600" />
+              <Image
+                src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
+                alt=""
+                width={18}
+                height={18}
+                className="h-[18px] w-[18px]"
+                aria-hidden
+              />
               <span className="text-sm font-semibold text-white">Pulse AI</span>
             </div>
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-neutral-400">

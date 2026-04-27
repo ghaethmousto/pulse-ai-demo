@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function ProductSkeletonPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-neutral-50 text-neutral-900">
+    <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <SkeletonHeader />
       <main className="flex-1">
         <SkeletonHero />
