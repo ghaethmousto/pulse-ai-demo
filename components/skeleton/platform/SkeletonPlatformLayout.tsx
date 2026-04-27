@@ -1,5 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import {
   Activity,
   AlertTriangle,
@@ -27,69 +30,67 @@ import {
 } from "@/components/skeleton/platform/SkeletonPlatformViewSwitcher";
 
 const sidebarGroups: {
-  title: string;
-  items: { label: string; icon: LucideIcon; badge?: string }[];
+  sectionKey: string;
+  items: { itemKey: string; icon: LucideIcon; badge?: string }[];
 }[] = [
   {
-    title: "Overview",
+    sectionKey: "overview",
     items: [
-      { label: "Dashboard", icon: LayoutGrid },
-      { label: "Projects", icon: FolderKanban },
+      { itemKey: "dashboard", icon: LayoutGrid },
+      { itemKey: "projects", icon: FolderKanban },
     ],
   },
   {
-    title: "Monitor",
+    sectionKey: "monitor",
     items: [
-      { label: "Project Pulse", icon: Activity },
-      { label: "Timeline", icon: Calendar },
-      { label: "Tasks", icon: ClipboardList },
-      { label: "Approvals", icon: Check, badge: "2" },
+      { itemKey: "projectPulse", icon: Activity },
+      { itemKey: "timeline", icon: Calendar },
+      { itemKey: "tasks", icon: ClipboardList },
+      { itemKey: "approvals", icon: Check, badge: "2" },
     ],
   },
   {
-    title: "Project Data",
+    sectionKey: "projectData",
     items: [
-      { label: "Documents", icon: FileText, badge: "22" },
-      { label: "Stakeholders", icon: Users },
-      { label: "Meetings", icon: ClipboardCheck },
-      { label: "Site", icon: MapPin },
+      { itemKey: "documents", icon: FileText, badge: "22" },
+      { itemKey: "stakeholders", icon: Users },
+      { itemKey: "meetings", icon: ClipboardCheck },
+      { itemKey: "site", icon: MapPin },
     ],
   },
   {
-    title: "Intelligence",
+    sectionKey: "intelligence",
     items: [
-      { label: "AI Insights", icon: Brain },
-      { label: "Risks", icon: AlertTriangle, badge: "3" },
-      { label: "Reports", icon: BarChart3 },
+      { itemKey: "aiInsights", icon: Brain },
+      { itemKey: "risks", icon: AlertTriangle, badge: "3" },
+      { itemKey: "reports", icon: BarChart3 },
     ],
   },
   {
-    title: "Business",
+    sectionKey: "business",
     items: [
-      { label: "Financials", icon: DollarSign },
-      { label: "Templates", icon: Shapes },
+      { itemKey: "financials", icon: DollarSign },
+      { itemKey: "templates", icon: Shapes },
     ],
   },
   {
-    title: "System",
+    sectionKey: "system",
     items: [
-      { label: "Team", icon: Users },
-      { label: "Settings", icon: Settings },
+      { itemKey: "team", icon: Users },
+      { itemKey: "settings", icon: Settings },
     ],
   },
 ];
 
-const portalLabelByView: Record<SkeletonPlatformView, string> = {
-  "source-of-truth": "Platform Portal",
-  consultant: "Consultant Portal",
-  contractor: "Contractor Portal",
-  owner: "Owner Portal",
+const portalKeyByView: Record<SkeletonPlatformView, string> = {
+  "source-of-truth": "sourceOfTruth",
+  consultant: "consultant",
+  contractor: "contractor",
+  owner: "owner",
 };
 
 interface SkeletonPlatformLayoutProps {
   view: SkeletonPlatformView;
-  roleLabel: string;
-  pageTitle: string;
   pageScribble?: string;
   userBadge?: { name: string; role: string };
   children: ReactNode;
@@ -97,12 +98,19 @@ interface SkeletonPlatformLayoutProps {
 
 export function SkeletonPlatformLayout({
   view,
-  roleLabel,
-  pageTitle,
   pageScribble,
   userBadge,
   children,
 }: SkeletonPlatformLayoutProps) {
+  const t = useTranslations("skeleton.platform");
+  const tSections = useTranslations("skeleton.platform.sections");
+  const tItems = useTranslations("skeleton.platform.items");
+  const tPortals = useTranslations("skeleton.platform.portals");
+  const tRoles = useTranslations("skeleton.platform.roleLabels");
+  const tTitles = useTranslations("skeleton.platform.pageTitles");
+  const portalKey = portalKeyByView[view];
+  const roleLabel = tRoles(portalKey);
+  const pageTitle = tTitles(portalKey);
   return (
     <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
       <SkeletonPlatformHeader />
@@ -127,7 +135,7 @@ export function SkeletonPlatformLayout({
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                    Active Project
+                    {t("activeProject")}
                   </p>
                   <p className="mt-1 text-base font-semibold text-foreground">
                     Al Reem Tower
@@ -140,9 +148,9 @@ export function SkeletonPlatformLayout({
 
             <nav className="mt-5 space-y-5" aria-label="Platform navigation">
               {sidebarGroups.map((group, groupIndex) => (
-                <div key={group.title}>
+                <div key={group.sectionKey}>
                   <p className="px-2 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                    {group.title}
+                    {tSections(group.sectionKey)}
                   </p>
                   <ul className="mt-2 space-y-1 text-base text-foreground/70">
                     {group.items.map((item, itemIndex) => {
@@ -151,7 +159,7 @@ export function SkeletonPlatformLayout({
 
                       return (
                         <li
-                          key={item.label}
+                          key={item.itemKey}
                           className={
                             isActive
                               ? "flex items-center gap-3 rounded-lg border-l-4 border-wine bg-wine-subtle px-3 py-2.5 text-wine dark:bg-wine/15"
@@ -166,7 +174,7 @@ export function SkeletonPlatformLayout({
                             }
                             aria-hidden
                           />
-                          <span className="min-w-0 flex-1">{item.label}</span>
+                          <span className="min-w-0 flex-1">{tItems(item.itemKey)}</span>
                           {item.badge ? (
                             <span className="rounded-full bg-wine px-2 py-0.5 text-xs font-semibold text-white">
                               {item.badge}
@@ -184,7 +192,7 @@ export function SkeletonPlatformLayout({
           {userBadge ? (
             <div className="mt-auto border-t border-border bg-card p-4">
               <div className="rounded-lg border border-wine/30 bg-wine-subtle px-4 py-3 text-center text-sm font-semibold text-wine dark:bg-wine/15">
-                {portalLabelByView[view]}
+                {tPortals(portalKeyByView[view])}
               </div>
               <div className="mt-4 flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-wine text-sm font-semibold text-white">
@@ -217,10 +225,10 @@ export function SkeletonPlatformLayout({
             </div>
             <div className="flex items-center gap-2">
               <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
-                ◌ Ask Pulse...
+                {t("askPulse")}
               </span>
               <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-foreground/70">
-                • Live
+                {t("live")}
               </span>
             </div>
           </div>

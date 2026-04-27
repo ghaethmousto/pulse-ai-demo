@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import {
   skeletonAuthLinks,
@@ -19,6 +20,7 @@ export function SkeletonHeader() {
   const pathname = usePathname() ?? "";
   const { theme, setTheme } = useTheme();
   const { locale, toggleLocale } = useLocale();
+  const t = useTranslations("skeleton.nav");
 
   useEffect(() => {
     startTransition(() => setMounted(true));
@@ -43,12 +45,15 @@ export function SkeletonHeader() {
     <header
       className="sticky top-0 z-40 w-full"
       style={{
-        background: scrolled
-          ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.55) 60%, rgba(247,232,236,0) 100%)"
-          : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.4) 60%, rgba(247,232,236,0) 100%)",
+        background: isDark
+          ? scrolled
+            ? "linear-gradient(180deg, rgba(20,16,18,0.78) 0%, rgba(28,18,22,0.55) 60%, rgba(28,18,22,0) 100%)"
+            : "linear-gradient(180deg, rgba(20,16,18,0.62) 0%, rgba(28,18,22,0.36) 60%, rgba(28,18,22,0) 100%)"
+          : scrolled
+            ? "linear-gradient(180deg, rgba(255,250,248,0.72) 0%, rgba(247,232,236,0.55) 60%, rgba(247,232,236,0) 100%)"
+            : "linear-gradient(180deg, rgba(255,250,248,0.6) 0%, rgba(247,232,236,0.4) 60%, rgba(247,232,236,0) 100%)",
         backdropFilter: "blur(28px) saturate(180%)",
         WebkitBackdropFilter: "blur(28px) saturate(180%)",
-        // No hard border — soft fade into page via mask
         WebkitMaskImage:
           "linear-gradient(180deg, black 0%, black 70%, rgba(0,0,0,0.6) 88%, transparent 100%)",
         maskImage:
@@ -73,7 +78,7 @@ export function SkeletonHeader() {
               Pulse <span className="text-[#8d354b]">AI</span>
             </span>
             <span className="text-[10px] uppercase tracking-[0.18em] text-neutral-400">
-              Project Intelligence
+              {t("intelligence")}
             </span>
           </div>
         </Link>
@@ -84,7 +89,7 @@ export function SkeletonHeader() {
             const active = isActive(link.href);
             return (
               <Link
-                key={link.label}
+                key={link.key}
                 href={link.href}
                 className={`relative rounded-md px-3 py-1.5 text-sm transition-colors ${
                   active
@@ -92,7 +97,7 @@ export function SkeletonHeader() {
                     : "text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
                 }`}
               >
-                {link.label}
+                {t(link.key)}
                 {active && (
                   <motion.span
                     layoutId="nav-active-pill"
@@ -153,7 +158,7 @@ export function SkeletonHeader() {
             href={skeletonAuthLinks.signIn}
             className="hidden text-sm text-neutral-700 transition-colors hover:text-neutral-950 sm:inline dark:text-neutral-300 dark:hover:text-white"
           >
-            Sign in
+            {t("signIn")}
           </Link>
 
           {/* Premium primary button using new system */}
@@ -162,7 +167,7 @@ export function SkeletonHeader() {
             variant="primary"
             icon={<PulseIcon />}
           >
-            Request Demo
+            {t("requestDemo")}
           </PulseLinkButton>
         </div>
       </div>

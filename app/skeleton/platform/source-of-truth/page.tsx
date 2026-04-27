@@ -12,8 +12,6 @@ export default function PlatformSourceOfTruthSkeletonPage() {
   return (
     <SkeletonPlatformLayout
       view="source-of-truth"
-      roleLabel="All roles · Overview"
-      pageTitle="Source of truth — Al Reem Tower"
       pageScribble="single reconciled view · same data, all stakeholders"
       userBadge={{ name: "Pulse · live", role: "" }}
     >

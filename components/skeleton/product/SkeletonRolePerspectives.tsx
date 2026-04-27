@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { PulseLinkButton, PortalArrow } from "@/components/ui/PulseButton";
 
@@ -260,6 +261,7 @@ const roles = [
 /* ─── Component ───────────────────────────────────────────── */
 
 export function SkeletonRolePerspectives() {
+  const t = useTranslations("skeleton.rolePerspectives");
   return (
     <section className="border-b border-neutral-200 dark:border-neutral-800 bg-[#f9f7f5] dark:bg-[#080606]">
       <div className="mx-auto max-w-7xl px-6 py-24">
@@ -270,16 +272,15 @@ export function SkeletonRolePerspectives() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55 }}
         >
-          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500">
-            For every role on the project
+          <p className="text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+            {t("eyebrow")}
           </p>
           <h2 className="mt-4 text-3xl font-semibold text-neutral-900 dark:text-[#f5f0ed] sm:text-4xl">
-            Three perspectives.{" "}
-            <span className="text-[#8d354b]">One reality.</span>
+            {t("title1")}{" "}
+            <span className="text-[#8d354b]">{t("title2")}</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-            Each stakeholder sees exactly what they need — no more noise, no
-            missing context. All from one shared project truth.
+            {t("subtitle")}
           </p>
         </motion.div>
 

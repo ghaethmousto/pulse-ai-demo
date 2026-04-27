@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { SkeletonFooter } from "@/components/skeleton/product/SkeletonFooter";
 import { SkeletonHeader } from "@/components/skeleton/product/SkeletonHeader";
 import { SkeletonTrustedLogos } from "@/components/skeleton/product/SkeletonTrustedLogos";
@@ -98,34 +101,31 @@ function PageShell({ children }: { children: React.ReactNode }) {
 }
 
 function LogoStrip() {
-  return (
-    <SkeletonTrustedLogos />
-  );
+  return <SkeletonTrustedLogos />;
 }
 
 function CTASection() {
+  const t = useTranslations("skeleton.ctaBecomeStory");
   return (
     <section className="mx-auto max-w-7xl px-6 py-16">
       <div className="rounded-md bg-neutral-950 px-6 py-8 text-white">
         <p className="text-[10px] uppercase tracking-[0.24em] text-neutral-400">
-          Become the next story
+          {t("eyebrow")}
         </p>
         <div className="mt-2 flex flex-col justify-between gap-5 md:flex-row md:items-center">
-          <h2 className="text-2xl font-semibold">
-            Book a 30-min walkthrough on your project.
-          </h2>
+          <h2 className="text-2xl font-semibold">{t("title")}</h2>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/skeleton/contact"
               className="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-950"
             >
-              Request Demo
+              {t("request")}
             </Link>
             <Link
               href="/skeleton/contact"
               className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-white"
             >
-              Talk to founder
+              {t("talk")}
             </Link>
           </div>
         </div>
@@ -143,19 +143,19 @@ function FeatureVisual({ label }: { label: string }) {
 }
 
 export function SkeletonResourcesPage() {
+  const t = useTranslations("skeleton.resources");
   return (
     <PageShell>
       <section className="border-b border-border bg-card">
         <div className="mx-auto max-w-7xl px-6 py-20 text-center">
           <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-            The platform
+            {t("eyebrow")}
           </p>
           <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-            Every layer of the project, reconciled.
+            {t("h1")}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground">
-            Pulse is built as six deeply connected surfaces. Each one becomes
-            more valuable because of the others.
+            {t("subtitle")}
           </p>
         </div>
       </section>
@@ -187,11 +187,9 @@ export function SkeletonResourcesPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-          How roles use Pulse
+          {t("rolesEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          The same surfaces, three different jobs.
-        </h2>
+        <h2 className="mt-3 text-3xl font-semibold">{t("rolesTitle")}</h2>
         <div className="mt-8 overflow-hidden rounded-md border border-border bg-card">
           <table className="w-full text-left text-sm">
             <thead className="border-b border-border text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -224,19 +222,19 @@ export function SkeletonResourcesPage() {
 }
 
 export function SkeletonSolutionsPage() {
+  const t = useTranslations("skeleton.solutions");
   return (
     <PageShell>
       <section className="border-b border-border bg-card">
         <div className="mx-auto max-w-7xl px-6 py-20 text-center">
           <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-            Solutions by role
+            {t("eyebrow")}
           </p>
           <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-semibold leading-tight sm:text-6xl">
-            Pick your job. We&apos;ve already mapped the work.
+            {t("h1")}
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground">
-            The same source, three different jobs. Pick the one that wakes you
-            up at 2am.
+            {t("subtitle")}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs">
             {["01 Owner", "02 Consultant", "03 Contractor"].map((chip) => (
@@ -303,7 +301,7 @@ export function SkeletonSolutionsPage() {
                   href="/skeleton/contact"
                   className="rounded-md border border-border px-4 py-2 text-sm font-medium"
                 >
-                  Book demo
+                  {t("ctaBookDemo")}
                 </Link>
               </div>
             </div>
@@ -332,14 +330,19 @@ export function SkeletonSolutionsPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-          Why it matters
+          {t("whyEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          Three lenses on the same project.
-        </h2>
+        <h2 className="mt-3 text-3xl font-semibold">{t("whyTitle")}</h2>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {["Owner sees defensible status.", "Consultant sees review flow.", "Contractor sees blockers and crews."].map((text) => (
-            <div key={text} className="rounded-md border border-dashed border-border bg-card p-5 text-sm">
+          {[
+            "Owner sees defensible status.",
+            "Consultant sees review flow.",
+            "Contractor sees blockers and crews.",
+          ].map((text) => (
+            <div
+              key={text}
+              className="rounded-md border border-dashed border-border bg-card p-5 text-sm"
+            >
               {text}
             </div>
           ))}
@@ -352,19 +355,19 @@ export function SkeletonSolutionsPage() {
 }
 
 export function SkeletonCustomersPage() {
+  const t = useTranslations("skeleton.customers");
   return (
     <PageShell>
       <section className="border-b border-border bg-card">
         <div className="mx-auto max-w-7xl px-6 py-20">
           <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-            Customers
+            {t("eyebrow")}
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-            The teams shipping at the front of the region.
+            {t("h1")}
           </h1>
           <p className="mt-5 max-w-2xl text-sm text-muted-foreground">
-            Pulse runs on UAE construction projects where delay, auditability,
-            and decisions matter every day.
+            {t("subtitle")}
           </p>
         </div>
       </section>
@@ -388,12 +391,12 @@ export function SkeletonCustomersPage() {
               href="/skeleton/contact"
               className="mt-6 inline-block rounded-md bg-wine px-4 py-2 text-sm font-medium text-white"
             >
-              Read the case study &rarr;
+              {t("readCaseStudy")}
             </Link>
           </div>
           <div className="border-t border-border bg-muted p-8 lg:border-l lg:border-t-0">
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Outcome
+              {t("outcomeLabel")}
             </p>
             <div className="mt-6 grid grid-cols-2 gap-5">
               {[
@@ -420,11 +423,9 @@ export function SkeletonCustomersPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-          More stories
+          {t("moreEyebrow")}
         </p>
-        <h2 className="mt-3 text-3xl font-semibold">
-          Outcomes, not testimonials.
-        </h2>
+        <h2 className="mt-3 text-3xl font-semibold">{t("moreTitle")}</h2>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {customerStories.map((story) => (
             <article
@@ -464,7 +465,7 @@ export function SkeletonCustomersPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-          In their words
+          {t("wordsEyebrow")}
         </p>
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
@@ -488,20 +489,20 @@ export function SkeletonCustomersPage() {
 }
 
 export function SkeletonContactPage() {
+  const t = useTranslations("skeleton.contact");
   return (
     <PageShell>
       <section className="border-b border-border bg-card">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-[1fr_440px]">
           <div>
             <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-              Request Demo
+              {t("eyebrow")}
             </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-              Walk through Pulse on a real project shape.
+              {t("h1")}
             </h1>
             <p className="mt-5 max-w-2xl text-sm text-muted-foreground">
-              We will map your owner, consultant, and contractor workflows into
-              a focused 30-minute walkthrough.
+              {t("subtitle")}
             </p>
             <div className="mt-8 grid max-w-2xl grid-cols-1 gap-3 text-sm md:grid-cols-3">
               {[
@@ -521,7 +522,7 @@ export function SkeletonContactPage() {
 
           <div className="rounded-md border border-border bg-muted p-6">
             <p className="text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-              Demo request
+              {t("demoRequest")}
             </p>
             <div className="mt-5 space-y-3">
               {[
@@ -546,7 +547,7 @@ export function SkeletonContactPage() {
               href="mailto:demo@pulse-ai.com"
               className="mt-5 block rounded-md bg-foreground px-4 py-3 text-center text-sm font-medium text-background"
             >
-              Request demo by email
+              {t("submit")}
             </Link>
           </div>
         </div>
@@ -555,13 +556,16 @@ export function SkeletonContactPage() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[
-            ["For owners", "Board reporting, decisions, risk and budget."],
-            ["For consultants", "RFI flow, submittals, document graph and SLA."],
-            ["For contractors", "Daily plan, blockers, photos and escalation."],
-          ].map(([title, body]) => (
-            <div key={title} className="rounded-md border border-border bg-card p-6">
-              <h2 className="text-lg font-semibold">{title}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+            { titleKey: "forOwners" as const, bodyKey: "forOwnersBody" as const },
+            { titleKey: "forConsultants" as const, bodyKey: "forConsultantsBody" as const },
+            { titleKey: "forContractors" as const, bodyKey: "forContractorsBody" as const },
+          ].map((item) => (
+            <div
+              key={item.titleKey}
+              className="rounded-md border border-border bg-card p-6"
+            >
+              <h2 className="text-lg font-semibold">{t(item.titleKey)}</h2>
+              <p className="mt-2 text-sm text-muted-foreground">{t(item.bodyKey)}</p>
             </div>
           ))}
         </div>

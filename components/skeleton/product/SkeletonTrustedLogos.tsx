@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const logos = [
   { label: "ORA", src: "/assets/logos/ora.svg", imgClass: "max-h-6" },
@@ -14,13 +17,14 @@ const logos = [
 ];
 
 export function SkeletonTrustedLogos() {
+  const t = useTranslations("skeleton.trustedLogos");
   const marqueeLogos = [...logos, ...logos];
 
   return (
-    <section className="overflow-hidden border-b border-neutral-200 bg-white">
+    <section className="overflow-hidden border-b border-border bg-card">
       <div className="mx-auto max-w-7xl px-6 py-12">
-        <p className="text-center text-xs uppercase tracking-widest text-neutral-500">
-          Trusted by developers across the UAE
+        <p className="text-center text-xs uppercase tracking-widest text-muted-foreground">
+          {t("label")}
         </p>
         <div className="mt-7 overflow-hidden">
           <div className="logo-marquee-track flex w-max items-center gap-12">

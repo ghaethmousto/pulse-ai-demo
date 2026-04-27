@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
@@ -16,6 +17,7 @@ export function SkeletonPlatformHeader() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { locale, toggleLocale } = useLocale();
+  const t = useTranslations("skeleton.nav");
 
   useEffect(() => {
     startTransition(() => setMounted(true));
@@ -36,18 +38,18 @@ export function SkeletonPlatformHeader() {
             aria-hidden
           />
           <span className="text-sm font-semibold tracking-wide text-foreground">
-            Pulse <span className="text-muted-foreground">PROJECT INTELLIGENCE</span>
+            Pulse <span className="text-muted-foreground">{t("intelligence")}</span>
           </span>
         </div>
 
         <nav className="hidden items-center gap-6 md:flex">
           {skeletonNavLinks.map((link) => (
             <Link
-              key={link.label}
+              key={link.key}
               href={link.href}
               className="text-sm text-foreground/70 transition hover:text-foreground"
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
         </nav>
@@ -94,11 +96,11 @@ export function SkeletonPlatformHeader() {
             href={skeletonAuthLinks.signIn}
             className="hidden text-sm text-foreground/70 transition hover:text-foreground sm:inline"
           >
-            Sign in
+            {t("signIn")}
           </Link>
 
           <PulseLinkButton href={skeletonAuthLinks.requestDemo} variant="primary">
-            Request Demo
+            {t("requestDemo")}
           </PulseLinkButton>
         </div>
       </div>

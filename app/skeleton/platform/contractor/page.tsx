@@ -12,8 +12,6 @@ export default function PlatformContractorSkeletonPage() {
   return (
     <SkeletonPlatformLayout
       view="contractor"
-      roleLabel="Contractor · Overview"
-      pageTitle="Today on site"
       pageScribble="Contractor = today's plan + blockers"
       userBadge={{ name: "M. Khan", role: "Contractor" }}
     >

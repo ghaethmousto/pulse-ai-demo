@@ -180,5 +180,187 @@
     "voice": "Voice input",
     "greeting": "Schedule delay 18 days. Authority package due 08-May-2026. Podium MEP coordination unresolved; client decision on amenity floor pending. Recommend freezing vertical core this week.",
     "fallback": "I can answer this in the full connected version. For this demo, I am currently showing project health, delays, approvals, reports, risks, and recommended actions for Al Reem Tower."
+  },
+  "skeleton": {
+    "nav": {
+      "product": "Product",
+      "solutions": "Solutions",
+      "resources": "Resources",
+      "customers": "Customers",
+      "platform": "Platform",
+      "addProject": "Add Project",
+      "signIn": "Sign in",
+      "requestDemo": "Request Demo",
+      "intelligence": "PROJECT INTELLIGENCE"
+    },
+    "addProject": {
+      "skipSetup": "Skip setup",
+      "back": "← Back",
+      "next": "Next →",
+      "stepOf": "Step {n} of {total}",
+      "stepLabels": {
+        "role": "Role",
+        "projectInvites": "Project & invites",
+        "connectTools": "Connect tools",
+        "pulseReads": "Pulse reads",
+        "firstBriefing": "First briefing"
+      },
+      "stepTitles": {
+        "role": "Welcome. Let's connect your project.",
+        "projectInvites": "Name your project & invite counterparts.",
+        "connectTools": "Connect your tools and documents.",
+        "pulseReads": "Pulse is reading your project.",
+        "firstBriefing": "You're ready. Here's your first briefing."
+      },
+      "goToDashboard": "Go to dashboard →"
+    },
+    "hero": {
+      "badge": "Built for construction teams",
+      "h1Line1": "One project.",
+      "h1Line2": "Three stakeholders.",
+      "h1Line3": "One trusted truth.",
+      "subtitle": "Pulse AI connects Owners, Consultants, and Contractors around a single source of project truth — documents, decisions, tasks, risks, and AI insights in one operational layer.",
+      "ctaPrimary": "Request Demo",
+      "ctaSecondary": "See Platform",
+      "trustedBy": "Trusted by 50+ UAE construction teams"
+    },
+    "problem": {
+      "eyebrow": "THE PROBLEM",
+      "titleLead": "Every stakeholder works from a",
+      "titleAccent": "different version",
+      "titleTrail": " of the truth.",
+      "body": "Drawings in one drive. Decisions in an inbox. Tasks in a spreadsheet. Risks in a slide deck. Multiplied across 3 companies — chaos is inevitable.",
+      "card1Title": "Fragmented Reality",
+      "card2Title": "Invisible Risk",
+      "card3Title": "Costly Rework"
+    },
+    "rolePerspectives": {
+      "eyebrow": "FOR EVERY ROLE ON THE PROJECT",
+      "title1": "Three perspectives.",
+      "title2": "One reality.",
+      "subtitle": "Each stakeholder sees exactly what they need — no more noise, no missing context. All from one shared project truth."
+    },
+    "trustedLogos": {
+      "label": "TRUSTED BY DEVELOPERS ACROSS THE UAE"
+    },
+    "finalCta": {
+      "badge": "Now Available · UAE & GCC",
+      "h1Line1": "Built for the future.",
+      "h1Line2": "Available today.",
+      "body": "Give your project team the intelligence layer they deserve. One truth. Every role. Real time.",
+      "primary": "Get started",
+      "secondary": "Contact an expert",
+      "tagline": "Designed and built for the future of construction intelligence."
+    },
+    "footer": {
+      "platform": "Platform",
+      "resources": "Resources",
+      "company": "Company",
+      "contact": "Contact",
+      "tagline": "The operational truth layer for construction. Connecting Owners, Consultants, and Contractors around a single reliable reality.",
+      "rights": "© 2026 Pulse AI. All rights reserved.",
+      "credit": "Designed and Built By: Ghaeth M Mousto"
+    },
+    "solutions": {
+      "eyebrow": "Solutions by role",
+      "h1": "Pick your job. We've already mapped the work.",
+      "subtitle": "The same source, three different jobs. Pick the one that wakes you up at 2am.",
+      "ctaBookDemo": "Book demo",
+      "whyEyebrow": "Why it matters",
+      "whyTitle": "Three lenses on the same project."
+    },
+    "resources": {
+      "eyebrow": "The platform",
+      "h1": "Every layer of the project, reconciled.",
+      "subtitle": "Pulse is built as six deeply connected surfaces. Each one becomes more valuable because of the others.",
+      "rolesEyebrow": "How roles use Pulse",
+      "rolesTitle": "The same surfaces, three different jobs."
+    },
+    "customers": {
+      "eyebrow": "Customers",
+      "h1": "The teams shipping at the front of the region.",
+      "subtitle": "Pulse runs on UAE construction projects where delay, auditability, and decisions matter every day.",
+      "moreEyebrow": "More stories",
+      "moreTitle": "Outcomes, not testimonials.",
+      "wordsEyebrow": "In their words",
+      "outcomeLabel": "Outcome",
+      "readCaseStudy": "Read the case study →"
+    },
+    "contact": {
+      "eyebrow": "Request Demo",
+      "h1": "Walk through Pulse on a real project shape.",
+      "subtitle": "We will map your owner, consultant, and contractor workflows into a focused 30-minute walkthrough.",
+      "demoRequest": "Demo request",
+      "submit": "Request demo by email",
+      "forOwners": "For owners",
+      "forConsultants": "For consultants",
+      "forContractors": "For contractors",
+      "forOwnersBody": "Board reporting, decisions, risk and budget.",
+      "forConsultantsBody": "RFI flow, submittals, document graph and SLA.",
+      "forContractorsBody": "Daily plan, blockers, photos and escalation."
+    },
+    "ctaBecomeStory": {
+      "eyebrow": "Become the next story",
+      "title": "Book a 30-min walkthrough on your project.",
+      "request": "Request Demo",
+      "talk": "Talk to founder"
+    },
+    "platform": {
+      "viewLabel": "⠿ Platform view",
+      "askPulse": "◌ Ask Pulse...",
+      "live": "• Live",
+      "activeProject": "Active Project",
+      "sections": {
+        "overview": "Overview",
+        "monitor": "Monitor",
+        "projectData": "Project Data",
+        "intelligence": "Intelligence",
+        "business": "Business",
+        "system": "System"
+      },
+      "items": {
+        "dashboard": "Dashboard",
+        "projects": "Projects",
+        "projectPulse": "Project Pulse",
+        "timeline": "Timeline",
+        "tasks": "Tasks",
+        "approvals": "Approvals",
+        "documents": "Documents",
+        "stakeholders": "Stakeholders",
+        "meetings": "Meetings",
+        "site": "Site",
+        "aiInsights": "AI Insights",
+        "risks": "Risks",
+        "reports": "Reports",
+        "financials": "Financials",
+        "templates": "Templates",
+        "team": "Team",
+        "settings": "Settings"
+      },
+      "portals": {
+        "sourceOfTruth": "Platform Portal",
+        "consultant": "Consultant Portal",
+        "contractor": "Contractor Portal",
+        "owner": "Owner Portal"
+      },
+      "views": {
+        "sourceOfTruth": "Source of truth",
+        "consultant": "Consultant",
+        "contractor": "Contractor",
+        "owner": "Owner"
+      },
+      "pageTitles": {
+        "sourceOfTruth": "Source of truth — Al Reem Tower",
+        "consultant": "Coordination & review",
+        "contractor": "Today on site",
+        "owner": "Portfolio & decisions"
+      },
+      "roleLabels": {
+        "sourceOfTruth": "All roles · Overview",
+        "consultant": "Consultant · Overview",
+        "contractor": "Contractor · Overview",
+        "owner": "Owner · Overview"
+      }
+    }
   }
 }

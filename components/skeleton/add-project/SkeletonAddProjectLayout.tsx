@@ -1,6 +1,9 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { skeletonAuthLinks } from "@/components/skeleton/nav-links";
 import { SkeletonAddProjectStepper } from "./SkeletonAddProjectStepper";
 import {
@@ -8,18 +11,21 @@ import {
   getNextStep,
   getPrevStep,
   getStep,
+  stepKeyToTranslationKey,
   type AddProjectStepKey,
 } from "./steps";
 
 interface SkeletonAddProjectLayoutProps {
   step: AddProjectStepKey;
-  title: string;
+  /** Optional override for the H1 title; otherwise derived from step. */
+  title?: string;
   intro?: ReactNode;
   children: ReactNode;
   /** Override the default Next link target (defaults to next step). */
   nextHref?: string;
-  /** Override the default Next button label. */
-  nextLabel?: string;
+  /** Translation key under skeleton.addProject for the Next button label,
+   *  or pass a literal nextLabel for ad-hoc text. */
+  nextLabelKey?: "next" | "goToDashboard";
   skipHref?: string;
 }
 
@@ -29,14 +35,19 @@ export function SkeletonAddProjectLayout({
   intro,
   children,
   nextHref,
-  nextLabel = "Next →",
+  nextLabelKey = "next",
   skipHref = skeletonAuthLinks.seePlatform,
 }: SkeletonAddProjectLayoutProps) {
+  const t = useTranslations("skeleton.addProject");
+  const tStepLabels = useTranslations("skeleton.addProject.stepLabels");
+  const tStepTitles = useTranslations("skeleton.addProject.stepTitles");
+
   const current = getStep(step);
   const prev = getPrevStep(step);
   const next = getNextStep(step);
   const resolvedNextHref =
     nextHref ?? next?.href ?? skeletonAuthLinks.seePlatform;
+  const resolvedTitle = title ?? tStepTitles(stepKeyToTranslationKey(step));
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background text-foreground">
@@ -60,7 +71,7 @@ export function SkeletonAddProjectLayout({
             href={skipHref}
             className="text-xs text-muted-foreground hover:text-foreground"
           >
-            Skip setup
+            {t("skipSetup")}
           </Link>
         </div>
       </header>
@@ -86,7 +97,7 @@ export function SkeletonAddProjectLayout({
                       : "rounded-md border border-dashed border-border bg-card px-2 py-1 text-muted-foreground"
                   }
                 >
-                  {s.number}. {s.shortLabel}
+                  {s.number}. {tStepLabels(stepKeyToTranslationKey(s.key))}
                 </Link>
               </li>
             );
@@ -98,7 +109,7 @@ export function SkeletonAddProjectLayout({
         <div className="mx-auto w-full max-w-6xl min-w-0 px-4 py-8 sm:px-6 sm:py-10">
           <div className="rounded-md border border-border bg-card p-6 sm:p-8">
             <header className="border-b border-border pb-6">
-              <h1 className="text-3xl font-semibold sm:text-4xl">{title}</h1>
+              <h1 className="text-3xl font-semibold sm:text-4xl">{resolvedTitle}</h1>
               {intro ? (
                 <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
                   {intro}
@@ -114,21 +125,21 @@ export function SkeletonAddProjectLayout({
                   href={prev.href}
                   className="rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground/80 hover:text-foreground"
                 >
-                  ← Back
+                  {t("back")}
                 </Link>
               ) : (
                 <span
                   aria-hidden
                   className="invisible rounded-md border border-border px-4 py-2 text-sm"
                 >
-                  ← Back
+                  {t("back")}
                 </span>
               )}
               <Link
                 href={resolvedNextHref}
                 className="rounded-md bg-wine px-4 py-2 text-sm font-medium text-white hover:bg-wine-light"
               >
-                {nextLabel}
+                {t(nextLabelKey)}
               </Link>
             </footer>
           </div>

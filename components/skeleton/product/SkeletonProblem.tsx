@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import { useTranslations } from "next-intl";
 
 /* ─── Wireframe illustrations for each problem ─────────── */
 
@@ -108,56 +109,57 @@ function CostlyReworkWireframe() {
   );
 }
 
-const problems = [
-  {
-    n: "01",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="7" height="18" rx="1" />
-        <rect x="9" y="8" width="7" height="13" rx="1" />
-        <rect x="16" y="13" width="7" height="8" rx="1" />
-      </svg>
-    ),
-    title: "Fragmented Reality",
-    body: "Each company maintains its own files, statuses, and numbers. Three companies — three conflicting truths.",
-    accent: "rgba(141,53,75,0.1)",
-    border: "rgba(141,53,75,0.25)",
-    Wireframe: FragmentedRealityWireframe,
-  },
-  {
-    n: "02",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-        <line x1="12" y1="9" x2="12" y2="13" />
-        <line x1="12" y1="17" x2="12.01" y2="17" />
-      </svg>
-    ),
-    title: "Invisible Risk",
-    body: "Critical decisions get buried in email threads and meeting notes. By the time risk surfaces, it is already a crisis.",
-    accent: "rgba(141,53,75,0.06)",
-    border: "rgba(141,53,75,0.15)",
-    Wireframe: InvisibleRiskWireframe,
-  },
-  {
-    n: "03",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
-      </svg>
-    ),
-    title: "Costly Rework",
-    body: "Misalignment compounds daily. By the time it surfaces, the budget variance and schedule loss are irreversible.",
-    accent: "rgba(141,53,75,0.04)",
-    border: "rgba(141,53,75,0.1)",
-    Wireframe: CostlyReworkWireframe,
-  },
-];
-
 export function SkeletonProblem() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+  const t = useTranslations("skeleton.problem");
+
+  const problems = [
+    {
+      n: "01",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="3" width="7" height="18" rx="1" />
+          <rect x="9" y="8" width="7" height="13" rx="1" />
+          <rect x="16" y="13" width="7" height="8" rx="1" />
+        </svg>
+      ),
+      title: t("card1Title"),
+      body: "Each company maintains its own files, statuses, and numbers. Three companies — three conflicting truths.",
+      accent: "rgba(141,53,75,0.1)",
+      border: "rgba(141,53,75,0.25)",
+      Wireframe: FragmentedRealityWireframe,
+    },
+    {
+      n: "02",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+          <line x1="12" y1="9" x2="12" y2="13" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      ),
+      title: t("card2Title"),
+      body: "Critical decisions get buried in email threads and meeting notes. By the time risk surfaces, it is already a crisis.",
+      accent: "rgba(141,53,75,0.06)",
+      border: "rgba(141,53,75,0.15)",
+      Wireframe: InvisibleRiskWireframe,
+    },
+    {
+      n: "03",
+      icon: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+      title: t("card3Title"),
+      body: "Misalignment compounds daily. By the time it surfaces, the budget variance and schedule loss are irreversible.",
+      accent: "rgba(141,53,75,0.04)",
+      border: "rgba(141,53,75,0.1)",
+      Wireframe: CostlyReworkWireframe,
+    },
+  ];
 
   return (
     <section className="border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#0e0c0c]">
@@ -169,17 +171,15 @@ export function SkeletonProblem() {
           transition={{ duration: 0.55 }}
         >
           <p className="text-xs uppercase tracking-widest text-[#8d354b] font-semibold">
-            The Problem
+            {t("eyebrow")}
           </p>
           <h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-neutral-900 dark:text-[#f5f0ed] sm:text-4xl">
-            Every stakeholder works from a{" "}
-            <span className="text-[#8d354b]">different version</span> of the
-            truth.
+            {t("titleLead")}{" "}
+            <span className="text-[#8d354b]">{t("titleAccent")}</span>
+            {t("titleTrail")}
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-            Drawings in one drive. Decisions in an inbox. Tasks in a
-            spreadsheet. Risks in a slide deck. Multiplied across 3 companies —
-            chaos is inevitable.
+            {t("body")}
           </p>
         </motion.div>
 

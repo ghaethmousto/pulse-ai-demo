@@ -10,10 +10,7 @@ export const metadata: Metadata = {
 
 export default function AddProjectProjectInvitesSkeletonPage() {
   return (
-    <SkeletonAddProjectLayout
-      step="project-invites"
-      title="Name your project & invite counterparts."
-    >
+    <SkeletonAddProjectLayout step="project-invites">
       <SkeletonProjectInvitesStep />
     </SkeletonAddProjectLayout>
   );

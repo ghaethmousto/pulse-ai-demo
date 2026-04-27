@@ -1,10 +1,10 @@
 export const skeletonNavLinks = [
-  { label: "Product", href: "/skeleton/product" },
-  { label: "Solutions", href: "/skeleton/solutions" },
-  { label: "Resources", href: "/skeleton/resources" },
-  { label: "Customers", href: "/skeleton/customers" },
-  { label: "Platform", href: "/skeleton/platform/source-of-truth" },
-  { label: "Add Project", href: "/skeleton/add-project/role" },
+  { key: "product", href: "/skeleton/product" },
+  { key: "solutions", href: "/skeleton/solutions" },
+  { key: "resources", href: "/skeleton/resources" },
+  { key: "customers", href: "/skeleton/customers" },
+  { key: "platform", href: "/skeleton/platform/source-of-truth" },
+  { key: "addProject", href: "/skeleton/add-project/role" },
 ] as const;
 
 export const skeletonAuthLinks = {
@@ -15,8 +15,8 @@ export const skeletonAuthLinks = {
 } as const;
 
 export const skeletonPlatformViews = [
-  { label: "Source of truth", href: "/skeleton/platform/source-of-truth" },
-  { label: "Consultant", href: "/skeleton/platform/consultant" },
-  { label: "Contractor", href: "/skeleton/platform/contractor" },
-  { label: "Owner", href: "/skeleton/platform/owner" },
+  { key: "sourceOfTruth", href: "/skeleton/platform/source-of-truth" },
+  { key: "consultant", href: "/skeleton/platform/consultant" },
+  { key: "contractor", href: "/skeleton/platform/contractor" },
+  { key: "owner", href: "/skeleton/platform/owner" },
 ] as const;

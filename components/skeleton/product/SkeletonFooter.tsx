@@ -1,30 +1,31 @@
-import Image from "next/image";
+"use client";
 
-const navColumns = [
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+
+const navColumns: { headingKey: "platform" | "resources" | "company"; links: string[] }[] = [
   {
-    heading: "Platform",
+    headingKey: "platform",
     links: ["Overview", "Owner", "Consultant", "Contractor"],
   },
   {
-    heading: "Resources",
+    headingKey: "resources",
     links: ["Docs", "Changelog", "Case studies", "Security"],
   },
   {
-    heading: "Company",
+    headingKey: "company",
     links: ["About", "Careers", "Press", "Legal"],
   },
 ];
 
-const contact = {
-  heading: "Contact",
-  lines: [
-    { label: "demo@pulse-ai.com", href: "mailto:demo@pulse-ai.com" },
-    { label: "+971 50 381 6979", href: "tel:+971503816979" },
-    { label: "Dubai · Abu Dhabi · Riyadh", href: null },
-  ],
-};
+const contactLines: { label: string; href: string | null }[] = [
+  { label: "demo@pulse-ai.com", href: "mailto:demo@pulse-ai.com" },
+  { label: "+971 50 381 6979", href: "tel:+971503816979" },
+  { label: "Dubai · Abu Dhabi · Riyadh", href: null },
+];
 
 export function SkeletonFooter() {
+  const t = useTranslations("skeleton.footer");
   return (
     <footer className="bg-neutral-950 text-neutral-300">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -43,16 +44,15 @@ export function SkeletonFooter() {
               <span className="text-sm font-semibold text-white">Pulse AI</span>
             </div>
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-neutral-400">
-              The operational truth layer for construction. Connecting Owners,
-              Consultants, and Contractors around a single reliable reality.
+              {t("tagline")}
             </p>
           </div>
 
           {/* Nav columns */}
           {navColumns.map((col) => (
-            <div key={col.heading}>
+            <div key={col.headingKey}>
               <p className="text-xs font-semibold uppercase tracking-widest text-white">
-                {col.heading}
+                {t(col.headingKey)}
               </p>
               <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
                 {col.links.map((l) => (
@@ -69,10 +69,10 @@ export function SkeletonFooter() {
           {/* Contact */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-white">
-              {contact.heading}
+              {t("contact")}
             </p>
             <ul className="mt-4 space-y-2.5 text-xs text-neutral-400">
-              {contact.lines.map((c) => (
+              {contactLines.map((c) => (
                 <li key={c.label}>
                   {c.href ? (
                     <a href={c.href} className="transition hover:text-white">
@@ -88,8 +88,8 @@ export function SkeletonFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-neutral-800 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center">
-          <span>Designed and Built By: Ghaeth M Mousto</span>
-          <span>© 2026 Pulse AI. All rights reserved.</span>
+          <span>{t("credit")}</span>
+          <span>{t("rights")}</span>
         </div>
       </div>
     </footer>

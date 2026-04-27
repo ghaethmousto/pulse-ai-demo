@@ -12,8 +12,6 @@ export default function PlatformConsultantSkeletonPage() {
   return (
     <SkeletonPlatformLayout
       view="consultant"
-      roleLabel="Consultant · Overview"
-      pageTitle="Coordination & review"
       pageScribble="Consultant = RFIs + submittals"
       userBadge={{ name: "R. Iyer", role: "Consultant" }}
     >

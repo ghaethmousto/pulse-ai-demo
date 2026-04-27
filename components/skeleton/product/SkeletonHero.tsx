@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { skeletonAuthLinks } from "@/components/skeleton/nav-links";
 import { PulseLinkButton, PulseIcon } from "@/components/ui/PulseButton";
 
-const headline = ["One project.", "Three stakeholders.", "One trusted truth."];
-
 export function SkeletonHero() {
+  const t = useTranslations("skeleton.hero");
+  const headline = [t("h1Line1"), t("h1Line2"), t("h1Line3")];
   return (
     <section className="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-[#faf8f6] dark:bg-[#0e0c0c]">
       {/* Subtle radial background glow */}
@@ -35,7 +36,7 @@ export function SkeletonHero() {
             transition={{ delay: 0.1, duration: 0.4 }}
           >
             <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-[#8d354b]" />
-            Built for construction teams
+            {t("badge")}
           </motion.span>
 
           <h1 className="text-5xl font-semibold leading-tight tracking-tight text-neutral-900 dark:text-[#f5f0ed] sm:text-6xl">
@@ -62,9 +63,7 @@ export function SkeletonHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, duration: 0.5 }}
           >
-            Pulse AI connects Owners, Consultants, and Contractors around a
-            single source of project truth — documents, decisions, tasks, risks,
-            and AI insights in one operational layer.
+            {t("subtitle")}
           </motion.p>
 
           <motion.div
@@ -78,13 +77,13 @@ export function SkeletonHero() {
               variant="primary"
               icon={<PulseIcon />}
             >
-              Request Demo
+              {t("ctaPrimary")}
             </PulseLinkButton>
             <PulseLinkButton
               href={skeletonAuthLinks.seePlatform}
               variant="secondary"
             >
-              See Platform
+              {t("ctaSecondary")}
             </PulseLinkButton>
           </motion.div>
 
@@ -106,8 +105,8 @@ export function SkeletonHero() {
                 </div>
               ))}
             </div>
-            <p className="text-xs text-neutral-500">
-              Trusted by 50+ UAE construction teams
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              {t("trustedBy")}
             </p>
           </motion.div>
         </motion.div>

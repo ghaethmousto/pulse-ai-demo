@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { PulseLinkButton, PulseIcon } from "@/components/ui/PulseButton";
 
-const headlineWords = ["Built", "for", "the", "future."];
-const subWords = ["Available", "today."];
-
 export function SkeletonFinalCTA() {
+  const t = useTranslations("skeleton.finalCta");
+  const headlineWords = t("h1Line1").split(" ");
+  const subWords = t("h1Line2").split(" ");
   return (
     <section
       className="relative overflow-hidden"
@@ -48,7 +49,7 @@ export function SkeletonFinalCTA() {
             transition={{ duration: 1.5, repeat: Infinity }}
           />
           <span className="text-xs font-semibold tracking-widest text-[#8d354b] uppercase">
-            Now Available · UAE & GCC
+            {t("badge")}
           </span>
         </motion.div>
 
@@ -99,8 +100,7 @@ export function SkeletonFinalCTA() {
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
-          Give your project team the intelligence layer they deserve. One truth.
-          Every role. Real time.
+          {t("body")}
         </motion.p>
 
         <motion.div
@@ -111,10 +111,10 @@ export function SkeletonFinalCTA() {
           transition={{ delay: 0.75, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
         >
           <PulseLinkButton href="/skeleton/add-project/role" variant="darkPrimary" icon={<PulseIcon />}>
-            Get started
+            {t("primary")}
           </PulseLinkButton>
           <PulseLinkButton href="/skeleton/contact" variant="darkSecondary">
-            Contact an expert
+            {t("secondary")}
           </PulseLinkButton>
         </motion.div>
 
@@ -126,7 +126,7 @@ export function SkeletonFinalCTA() {
           viewport={{ once: true }}
           transition={{ delay: 1, duration: 0.6 }}
         >
-          Designed and built for the future of construction intelligence.
+          {t("tagline")}
           <br />
           <span style={{ color: "rgba(245,240,237,0.2)" }}>
             Pulse AI · UAE · 2025

@@ -3,7 +3,7 @@ import { Geist_Mono, IBM_Plex_Sans_Arabic, Raleway } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LocaleProvider } from "@/components/providers/locale-provider";
 import { PulseLine } from "@/components/ui/PulseLine";
-import { SkeletonFloatingAIMount } from "@/components/skeleton/SkeletonFloatingAIMount";
+import { SkeletonI18nBridge } from "@/components/skeleton/SkeletonI18nBridge";
 import enMessages from "@/messages/en.json";
 import arMessages from "@/messages/ar.json";
 
@@ -45,12 +45,10 @@ export default function SkeletonLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider>
           <LocaleProvider>
-            <PulseLine />
-            {children}
-            <SkeletonFloatingAIMount
-              enMessages={enMessages}
-              arMessages={arMessages}
-            />
+            <SkeletonI18nBridge enMessages={enMessages} arMessages={arMessages}>
+              <PulseLine />
+              {children}
+            </SkeletonI18nBridge>
           </LocaleProvider>
         </ThemeProvider>
       </body>
