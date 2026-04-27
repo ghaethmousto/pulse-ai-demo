@@ -8,6 +8,9 @@ export const routing = defineRouting({
   locales,
   defaultLocale,
   localePrefix: "always",
+  // Send `/` straight to `/en`. We don't auto-detect from Accept-Language
+  // because the production brief pins the root redirect to English.
+  localeDetection: false,
 });
 
 export function getDirection(locale: string): "ltr" | "rtl" {

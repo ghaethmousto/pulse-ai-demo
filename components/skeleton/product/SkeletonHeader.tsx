@@ -1,26 +1,52 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
+import { useLocale as useIntlLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import {
   skeletonAuthLinks,
   skeletonNavLinks,
 } from "@/components/skeleton/nav-links";
-import { useLocale } from "@/components/providers/locale-provider";
+import { useOptionalLocale } from "@/components/providers/locale-provider";
 import { PulseLinkButton, PulseIcon } from "@/components/ui/PulseButton";
 
-export function SkeletonHeader() {
+export type SkeletonHeaderMode = "skeleton" | "production";
+
+interface SkeletonHeaderProps {
+  /** "skeleton" preserves the existing /skeleton/* link tree and the
+   *  client-state locale toggle. "production" routes the logo to
+   *  /{locale}, swaps the locale toggle for a URL navigation, and
+   *  reads the active locale from next-intl. */
+  mode?: SkeletonHeaderMode;
+}
+
+export function SkeletonHeader({ mode = "skeleton" }: SkeletonHeaderProps = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
   const pathname = usePathname() ?? "";
   const { theme, setTheme } = useTheme();
-  const { locale, toggleLocale } = useLocale();
+  const skeletonCtx = useOptionalLocale();
+  const intlLocale = useIntlLocale();
   const t = useTranslations("skeleton.nav");
+
+  const isProduction = mode === "production";
+  const locale = isProduction ? intlLocale : (skeletonCtx?.locale ?? intlLocale);
+  const homeHref = isProduction ? `/${locale}` : "/skeleton/product";
+  const toggleLocale = useCallback(() => {
+    if (isProduction) {
+      const next = locale === "en" ? "ar" : "en";
+      const stripped = pathname.replace(/^\/(en|ar)(?=\/|$)/, "") || "/";
+      const target = stripped === "/" ? `/${next}` : `/${next}${stripped}`;
+      router.push(target);
+      return;
+    }
+    skeletonCtx?.toggleLocale();
+  }, [isProduction, locale, pathname, router, skeletonCtx]);
 
   useEffect(() => {
     startTransition(() => setMounted(true));
@@ -36,6 +62,9 @@ export function SkeletonHeader() {
   const isDark = theme === "dark";
   const isActive = (href: string) => {
     if (href === "/skeleton/product") {
+      // Production landing (`/en`, `/ar`) and skeleton product both map to
+      // the "Product" nav entry.
+      if (isProduction) return pathname === `/${locale}` || pathname === "/";
       return pathname === "/" || pathname.startsWith("/skeleton/product");
     }
     return pathname.startsWith(href);
@@ -56,7 +85,7 @@ export function SkeletonHeader() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <Link href="/skeleton/product" className="flex items-center gap-2.5">
+        <Link href={homeHref} className="flex items-center gap-2.5">
           <Image
             src="/assets/pulse/Pulse%20-%20Red%20Rec%20Icon.svg"
             alt=""
@@ -79,10 +108,12 @@ export function SkeletonHeader() {
         <nav className="relative hidden items-center gap-1 md:flex">
           {skeletonNavLinks.map((link) => {
             const active = isActive(link.href);
+            const navHref =
+              isProduction && link.href === "/skeleton/product" ? homeHref : link.href;
             return (
               <Link
                 key={link.key}
-                href={link.href}
+                href={navHref}
                 className={`relative rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
                   active
                     ? "text-[#8d354b] dark:text-[#e08aa0]"

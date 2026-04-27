@@ -70,3 +70,10 @@ export function useLocale() {
   if (!ctx) throw new Error("useLocale must be used inside LocaleProvider");
   return ctx;
 }
+
+/** Same as useLocale but returns undefined when no LocaleProvider is mounted.
+ *  Used by components shared between skeleton (has provider) and production
+ *  (does not — locale comes from URL via next-intl). */
+export function useOptionalLocale() {
+  return useContext(LocaleContext);
+}
