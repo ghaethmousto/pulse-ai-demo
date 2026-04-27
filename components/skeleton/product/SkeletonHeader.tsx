@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -20,7 +20,9 @@ export function SkeletonHeader() {
   const { theme, setTheme } = useTheme();
   const { locale, toggleLocale } = useLocale();
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    startTransition(() => setMounted(true));
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
