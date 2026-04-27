@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#eae4df; padding:0; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; }
+.section-label { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8a8078; margin-bottom:14px; }
+.caption { font-size:11px; color:#8a8078; line-height:1.5; margin-top:12px; }
+
+/* Surfaces */
+.surface { padding:26px 24px; }
+.surface.light { background:#f3eeea; }
+.surface.paper { background:#ffffff; border-top:1px solid rgba(92,69,69,0.08); border-bottom:1px solid rgba(92,69,69,0.08); }
+.surface.dark  { background:#1a1614; }
+
+.logo-img { display:block; }
+.logo-row { display:flex; align-items:center; justify-content:center; }
+
+/* Scale row */
+.scale-row { display:flex; align-items:flex-end; gap:28px; flex-wrap:wrap; }
+.scale-item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.scale-lbl { font-size:10px; color:#8a8078; letter-spacing:0.02em; }
+
+/* Rules */
+.rules { padding:22px 24px 26px; background:#eae4df; }
+.rule { display:flex; align-items:baseline; gap:10px; border-bottom:1px solid rgba(92,69,69,0.09); padding:7px 0; }
+.rule:last-child { border-bottom:none; }
+.rule-label { font-size:11px; font-weight:600; color:#8a8078; width:92px; flex-shrink:0; }
+.rule-val   { font-size:11px; color:#3d3533; line-height:1.5; }
+</style></head>
+<body>
+
+<!-- Primary: the actual mark, full -->
+<div class="surface paper">
+  <div class="section-label">Primary Lockup</div>
+  <div class="logo-row">
+    <img class="logo-img" src="assets/pulse-ai-logo.png" alt="Pulse AI" style="width:180px;height:auto">
+  </div>
+  <div class="caption" style="text-align:center">The full lockup is the default signature — use it wherever space allows.</div>
+</div>
+
+<!-- On dark -->
+<div class="surface dark">
+  <div class="section-label" style="color:#5c5250">On Dark Surface</div>
+  <div class="logo-row">
+    <img class="logo-img" src="assets/pulse-ai-logo.png" alt="Pulse AI"
+         style="width:180px;height:auto;filter:invert(1)">
+  </div>
+  <div class="caption" style="text-align:center;color:#5c5250">Inverted for use on #1a1614 and darker.</div>
+</div>
+
+<!-- Scale -->
+<div class="surface light">
+  <div class="section-label">Scale</div>
+  <div class="scale-row" style="justify-content:center">
+    <div class="scale-item">
+      <img class="logo-img" src="assets/pulse-ai-logo.png" alt="Pulse AI" style="width:76px;height:auto">
+      <span class="scale-lbl">Compact · 76px</span>
+    </div>
+    <div class="scale-item">
+      <img class="logo-img" src="assets/pulse-ai-logo.png" alt="Pulse AI" style="width:130px;height:auto">
+      <span class="scale-lbl">Standard · 130px</span>
+    </div>
+    <div class="scale-item">
+      <img class="logo-img" src="assets/pulse-ai-logo.png" alt="Pulse AI" style="width:200px;height:auto">
+      <span class="scale-lbl">Large · 200px</span>
+    </div>
+  </div>
+</div>
+
+<!-- Usage rules -->
+<div class="rules">
+  <div class="section-label">Usage Rules</div>
+  <div class="rule"><span class="rule-label">Default</span><span class="rule-val">Full lockup — monogram + wordmark together</span></div>
+  <div class="rule"><span class="rule-label">On light</span><span class="rule-val">Black marks on #f3eeea or lighter</span></div>
+  <div class="rule"><span class="rule-label">On dark</span><span class="rule-val">Inverted (white) on #1a1614 or darker</span></div>
+  <div class="rule"><span class="rule-label">Min width</span><span class="rule-val">64px · never smaller</span></div>
+  <div class="rule"><span class="rule-label">Clear space</span><span class="rule-val">Equal to the height of the monogram on all sides</span></div>
+  <div class="rule"><span class="rule-label">Never</span><span class="rule-val">Recolor, stretch, separate elements, or add effects</span></div>
+</div>
+
+</body></html>

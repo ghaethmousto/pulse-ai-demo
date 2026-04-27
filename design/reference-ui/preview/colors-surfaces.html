@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#e8e4df; padding:0; -webkit-font-smoothing:antialiased; }
+.name { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8a8078; margin-bottom:12px; }
+.section { padding:18px 20px; background:#ffffff; }
+.divider { height:1px; background:rgba(32,29,26,0.06); }
+
+/* Architectural layer diagram — light, airy, hierarchy-by-contrast not darkness */
+.layer-stack { background:#fdfdfc; }
+.layer {
+  padding: 14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom: 1px solid rgba(32,29,26,0.05);
+}
+.layer:last-child { border-bottom: none; }
+.layer-name { font-size:12px; font-weight:700; color:#201d1a; letter-spacing:-0.008em; }
+.layer-use  { font-size:11px; color:#8a8078; margin-top:3px; letter-spacing:-0.003em; }
+.layer-right { text-align:right; }
+.layer-hex  { font-size:11px; font-weight:600; color:#5a5450; font-variant-numeric:tabular-nums; letter-spacing:0.01em; }
+.layer-val  { font-size:10px; color:#a8a29c; margin-top:3px; }
+
+.row { display:flex; gap:8px; }
+.col { flex:1; }
+.swatch { border-radius:6px; height:44px; }
+.sl { font-size:10px; font-weight:600; color:#3d3533; margin-top:6px; letter-spacing:-0.003em; }
+.sh { font-size:10px; color:#8a8078; margin-top:2px; }
+</style></head>
+<body>
+
+<!-- Architectural stack — ascending lightness, wine removed from base system -->
+<div class="layer-stack">
+  <div class="layer" style="background:#eeeae5">
+    <div>
+      <div class="layer-name">Navigation</div>
+      <div class="layer-use">Sidebar, top bar chrome</div>
+    </div>
+    <div class="layer-right"><div class="layer-hex">#EEEAE5</div><div class="layer-val">Anchors the shell</div></div>
+  </div>
+  <div class="layer" style="background:#f7f5f2">
+    <div>
+      <div class="layer-name">Page Base</div>
+      <div class="layer-use">App shell background</div>
+    </div>
+    <div class="layer-right"><div class="layer-hex">#F7F5F2</div><div class="layer-val">Calm base canvas</div></div>
+  </div>
+  <div class="layer" style="background:#fbfaf8">
+    <div>
+      <div class="layer-name">Content Area</div>
+      <div class="layer-use">Main dashboard canvas</div>
+    </div>
+    <div class="layer-right"><div class="layer-hex">#FBFAF8</div><div class="layer-val">Primary content zone</div></div>
+  </div>
+  <div class="layer" style="background:#ffffff; border-left:1px solid rgba(32,29,26,0.05)">
+    <div>
+      <div class="layer-name">Card Surface</div>
+      <div class="layer-use">Panels, data cards</div>
+    </div>
+    <div class="layer-right"><div class="layer-hex">#FFFFFF</div><div class="layer-val">+1 elevation</div></div>
+  </div>
+  <div class="layer" style="background:#ffffff; box-shadow:inset 3px 0 0 #201d1a">
+    <div>
+      <div class="layer-name">Elevated</div>
+      <div class="layer-use">Modal, popover, active state</div>
+    </div>
+    <div class="layer-right"><div class="layer-hex">#FFFFFF</div><div class="layer-val">Highest — with shadow</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Neutral supporting surfaces — soft, cool-warm, non-beige -->
+<div class="section">
+  <div class="name">Supporting Surfaces</div>
+  <div class="row">
+    <div class="col"><div class="swatch" style="background:#f4f2ee;border:1px solid rgba(32,29,26,0.05)"></div><div class="sl">Subtle</div><div class="sh">#F4F2EE · zebra row</div></div>
+    <div class="col"><div class="swatch" style="background:#efece7;border:1px solid rgba(32,29,26,0.05)"></div><div class="sl">Muted</div><div class="sh">#EFECE7 · input bg</div></div>
+    <div class="col"><div class="swatch" style="background:#e8e4df;border:1px solid rgba(32,29,26,0.06)"></div><div class="sl">Recessed</div><div class="sh">#E8E4DF · well, track</div></div>
+    <div class="col"><div class="swatch" style="background:#dcd8d2;border:1px solid rgba(32,29,26,0.07)"></div><div class="sl">Divider Fill</div><div class="sh">#DCD8D2 · separator</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Wine — strictly accent, never foundational -->
+<div class="section" style="background:#fbfaf8">
+  <div class="name">Wine — Accent Only</div>
+  <div class="row">
+    <div class="col"><div class="swatch" style="background:rgba(141,53,75,0.04);border:1px solid rgba(141,53,75,0.10)"></div><div class="sl">Ghost</div><div class="sh">4% · hover, active nav</div></div>
+    <div class="col"><div class="swatch" style="background:rgba(141,53,75,0.08);border:1px solid rgba(141,53,75,0.18)"></div><div class="sl">Tint</div><div class="sh">8% · AI highlight</div></div>
+    <div class="col"><div class="swatch" style="background:#8d354b"></div><div class="sl" style="color:#8d354b">Solid</div><div class="sh">AI strip · primary CTA</div></div>
+    <div class="col"><div class="swatch" style="background:#fff;border:1.5px solid rgba(141,53,75,0.28)"></div><div class="sl">Border</div><div class="sh">28% · selected state</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- Borders — quiet, neutral ink, no wine in baseline -->
+<div class="section">
+  <div class="name">Border Weights</div>
+  <div class="row">
+    <div class="col"><div class="swatch" style="background:#fff;border:1.5px solid rgba(32,29,26,0.05)"></div><div class="sl">Hairline</div><div class="sh">5% · section sep.</div></div>
+    <div class="col"><div class="swatch" style="background:#fff;border:1.5px solid rgba(32,29,26,0.10)"></div><div class="sl">Default</div><div class="sh">10% · card</div></div>
+    <div class="col"><div class="swatch" style="background:#fff;border:1.5px solid rgba(32,29,26,0.18)"></div><div class="sl">Strong</div><div class="sh">18% · input focus</div></div>
+    <div class="col"><div class="swatch" style="background:#fff;border:1.5px solid rgba(141,53,75,0.28)"></div><div class="sl" style="color:#8d354b">Wine</div><div class="sh">28% · active only</div></div>
+  </div>
+</div>
+
+</body></html>

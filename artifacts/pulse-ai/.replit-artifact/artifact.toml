@@ -12,20 +12,10 @@ version = "1.0.0"
 [[services]]
 name = "web"
 paths = [ "/" ]
-localPort = 24874
+localPort = 3000
 
 [services.development]
-run = "pnpm --filter @workspace/pulse-ai run dev"
-
-[services.production]
-build = [ "pnpm", "--filter", "@workspace/pulse-ai", "run", "build" ]
-publicDir = "artifacts/pulse-ai/dist/public"
-serve = "static"
-
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+run = "cd /home/runner/workspace && npm install && npm run dev -- --hostname 0.0.0.0 --port 3000"
 
 [services.env]
-PORT = "24874"
-BASE_PATH = "/"
+PORT = "3000"

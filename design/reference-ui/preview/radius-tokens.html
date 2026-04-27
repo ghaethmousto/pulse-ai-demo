@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#f3eeea; padding:20px; -webkit-font-smoothing:antialiased; }
+.name { font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#a09690; margin-bottom:12px; }
+.row { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:8px; }
+.item { display:flex; flex-direction:column; align-items:center; gap:7px; }
+.box { background:#8d354b; }
+.token { font-size:9px; font-weight:700; color:#6b6159; letter-spacing:0.04em; text-align:center; }
+.ctx   { font-size:9px; color:#b0a8a2; text-align:center; }
+.note  { font-size:9px; color:#c0b8b2; font-style:italic; margin-top:8px; line-height:1.5; }
+</style></head>
+<body>
+<div class="name">Corner Radius — Sharper, More Precise</div>
+<div class="row">
+  <div class="item">
+    <div class="box" style="width:28px;height:28px;border-radius:2px"></div>
+    <div class="token">2px</div>
+    <div class="ctx">Dividers</div>
+  </div>
+  <div class="item">
+    <div class="box" style="width:32px;height:32px;border-radius:4px"></div>
+    <div class="token">4px</div>
+    <div class="ctx">Badge · tag</div>
+  </div>
+  <div class="item">
+    <div class="box" style="width:38px;height:38px;border-radius:6px"></div>
+    <div class="token">6px</div>
+    <div class="ctx">Input · button</div>
+  </div>
+  <div class="item">
+    <div class="box" style="width:44px;height:44px;border-radius:8px"></div>
+    <div class="token">8px</div>
+    <div class="ctx">Card · panel</div>
+  </div>
+  <div class="item">
+    <div class="box" style="width:50px;height:50px;border-radius:10px"></div>
+    <div class="token">10px</div>
+    <div class="ctx">Modal · sheet</div>
+  </div>
+  <div class="item">
+    <div class="box" style="width:44px;height:44px;border-radius:50%"></div>
+    <div class="token">50%</div>
+    <div class="ctx">Avatar only</div>
+  </div>
+</div>
+<div class="note">
+  Primary surfaces (cards, panels, modals) use 8–10px — precise and controlled.<br>
+  Pill shapes (999px) reserved for status pills and avatar-adjacent chips only.<br>
+  Avoid exceeding 10px on any primary data surface.
+</div>
+</body></html>

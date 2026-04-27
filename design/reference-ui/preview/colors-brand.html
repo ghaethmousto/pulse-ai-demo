@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#f3eeea; padding:20px; -webkit-font-smoothing:antialiased; }
+.name { font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#a09690; margin-bottom:10px; }
+.row { display:flex; gap:7px; margin-bottom:12px; }
+.col { flex:1; }
+.swatch { border-radius:6px; height:52px; }
+.label { font-size:10px; font-weight:600; color:#6b6159; margin-top:4px; }
+.hex   { font-size:9px; color:#a09690; margin-top:1px; }
+.divider { height:1px; background:rgba(92,69,69,0.08); margin:4px 0 12px; }
+</style></head>
+<body>
+
+<div class="name">Brand / Wine Scale</div>
+<div class="row">
+  <div class="col"><div class="swatch" style="background:#1e0810"></div><div class="label">Wine 950</div><div class="hex">#1e0810</div></div>
+  <div class="col"><div class="swatch" style="background:#3d1220"></div><div class="label">Wine 800</div><div class="hex">#3d1220</div></div>
+  <div class="col"><div class="swatch" style="background:#6a2638"></div><div class="label">Wine 700</div><div class="hex">#6a2638</div></div>
+  <div class="col"><div class="swatch" style="background:#8d354b;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.15)"></div><div class="label">Wine 600 ●</div><div class="hex">#8d354b</div></div>
+  <div class="col"><div class="swatch" style="background:#a8506a"></div><div class="label">Wine 400</div><div class="hex">#a8506a</div></div>
+  <div class="col"><div class="swatch" style="background:#c27088"></div><div class="label">Wine 300</div><div class="hex">#c27088</div></div>
+  <div class="col"><div class="swatch" style="background:#eadada;border:1px solid rgba(92,69,69,0.10)"></div><div class="label">Wine 50</div><div class="hex">#eadada</div></div>
+</div>
+
+<div class="divider"></div>
+<div class="name">Status — Calm &amp; Functional</div>
+<div class="row">
+  <div class="col"><div class="swatch" style="background:#3d7a58"></div><div class="label">Success</div><div class="hex">#3d7a58</div></div>
+  <div class="col"><div class="swatch" style="background:#b8712a"></div><div class="label">Warning</div><div class="hex">#b8712a</div></div>
+  <div class="col"><div class="swatch" style="background:#a34255"></div><div class="label">Danger</div><div class="hex">#a34255</div></div>
+  <div class="col"><div class="swatch" style="background:#3e639e"></div><div class="label">Info</div><div class="hex">#3e639e</div></div>
+  <div class="col"><div class="swatch" style="background:#6b6159"></div><div class="label">Neutral</div><div class="hex">#6b6159</div></div>
+</div>
+
+<div class="divider"></div>
+<div class="name">Status Tints — Badge &amp; Tag Surfaces</div>
+<div class="row">
+  <div class="col"><div class="swatch" style="background:rgba(61,122,88,0.09);border:1px solid rgba(61,122,88,0.16)"></div><div class="label">Success</div></div>
+  <div class="col"><div class="swatch" style="background:rgba(184,113,42,0.09);border:1px solid rgba(184,113,42,0.16)"></div><div class="label">Warning</div></div>
+  <div class="col"><div class="swatch" style="background:rgba(163,66,85,0.09);border:1px solid rgba(163,66,85,0.16)"></div><div class="label">Danger</div></div>
+  <div class="col"><div class="swatch" style="background:rgba(62,99,158,0.09);border:1px solid rgba(62,99,158,0.16)"></div><div class="label">Info</div></div>
+  <div class="col"><div class="swatch" style="background:rgba(107,97,89,0.09);border:1px solid rgba(107,97,89,0.14)"></div><div class="label">Neutral</div></div>
+</div>
+
+</body></html>

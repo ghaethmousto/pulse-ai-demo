@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body { font-family:'Raleway',sans-serif; background:#f3eeea; padding:20px; -webkit-font-smoothing:antialiased; }
+.name { font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:#a09690; margin-bottom:10px; }
+.divider { height:1px; background:rgba(92,69,69,0.08); margin:4px 0 12px; }
+.row { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:8px; }
+
+/* Badge base */
+.badge {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:2px 7px; border-radius:4px;
+  font-size:10px; font-weight:600; letter-spacing:0.01em;
+  line-height:1.6;
+}
+.dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+
+/* Status */
+.s-success { background:rgba(61,122,88,0.09); color:#3d7a58; border:1px solid rgba(61,122,88,0.14); }
+.s-warning { background:rgba(184,113,42,0.09); color:#b8712a; border:1px solid rgba(184,113,42,0.14); }
+.s-danger  { background:rgba(163,66,85,0.09);  color:#a34255; border:1px solid rgba(163,66,85,0.14); }
+.s-info    { background:rgba(62,99,158,0.09);  color:#3e639e; border:1px solid rgba(62,99,158,0.14); }
+.s-neutral { background:rgba(107,97,89,0.08);  color:#6b6159; border:1px solid rgba(107,97,89,0.12); }
+
+/* Role — very subtle */
+.r-owner      { background:rgba(141,53,75,0.07); color:#8d354b; border:1px solid rgba(141,53,75,0.14); font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
+.r-consultant { background:rgba(62,99,158,0.07); color:#3e639e; border:1px solid rgba(62,99,158,0.12); font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
+.r-contractor { background:rgba(184,113,42,0.07); color:#b8712a; border:1px solid rgba(184,113,42,0.12); font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
+
+/* Priority — restrained */
+.p-critical { background:#8d354b; color:#fff; font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:2px 7px; border-radius:3px; }
+.p-high   { background:rgba(163,66,85,0.10); color:#a34255; border:1px solid rgba(163,66,85,0.16); font-size:9px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; padding:2px 7px; border-radius:3px; }
+.p-medium { background:rgba(184,113,42,0.09); color:#b8712a; border:1px solid rgba(184,113,42,0.14); font-size:9px; font-weight:600; padding:2px 7px; border-radius:3px; }
+.p-low    { background:rgba(107,97,89,0.08); color:#6b6159; border:1px solid rgba(107,97,89,0.12); font-size:9px; font-weight:600; padding:2px 7px; border-radius:3px; }
+
+/* Phase pills — restrained, no pill shape */
+.ph {
+  display:inline-flex; padding:2px 8px; border-radius:3px;
+  font-size:9px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+}
+.ph-done    { background:rgba(61,122,88,0.09); color:#3d7a58; border:1px solid rgba(61,122,88,0.14); }
+.ph-active  { background:#8d354b; color:#fff; }
+.ph-pending { background:rgba(107,97,89,0.08); color:#6b6159; border:1px solid rgba(107,97,89,0.12); }
+.ph-delayed { background:rgba(163,66,85,0.09); color:#a34255; border:1px solid rgba(163,66,85,0.14); }
+</style></head>
+<body>
+
+<div class="name">Status</div>
+<div class="row">
+  <span class="badge s-success"><span class="dot" style="background:#3d7a58"></span>On Track</span>
+  <span class="badge s-warning"><span class="dot" style="background:#b8712a"></span>At Risk</span>
+  <span class="badge s-danger"><span class="dot" style="background:#a34255"></span>Overdue</span>
+  <span class="badge s-info"><span class="dot" style="background:#3e639e"></span>In Review</span>
+  <span class="badge s-neutral"><span class="dot" style="background:#6b6159"></span>Submitted</span>
+</div>
+
+<div class="divider"></div>
+<div class="name">Stakeholder Role</div>
+<div class="row">
+  <span class="r-owner">Owner</span>
+  <span class="r-consultant">Consultant</span>
+  <span class="r-contractor">Contractor</span>
+</div>
+
+<div class="divider"></div>
+<div class="name">Priority</div>
+<div class="row">
+  <span class="p-critical">Critical</span>
+  <span class="p-high">High</span>
+  <span class="p-medium">Medium</span>
+  <span class="p-low">Low</span>
+</div>
+
+<div class="divider"></div>
+<div class="name">Phase</div>
+<div class="row">
+  <span class="ph ph-done">Done</span>
+  <span class="ph ph-active">Active</span>
+  <span class="ph ph-pending">Pending</span>
+  <span class="ph ph-delayed">Delayed</span>
+</div>
+
+</body></html>

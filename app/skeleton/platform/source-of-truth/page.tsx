@@ -1,0 +1,17 @@
+import type { Metadata } from "next";
+import { SkeletonPlatformLayout } from "@/components/skeleton/platform/SkeletonPlatformLayout";
+import { SkeletonSourceOfTruthView } from "@/components/skeleton/platform/SkeletonSourceOfTruthView";
+
+export const metadata: Metadata = {
+  title: "Pulse AI — Platform · Source of truth (Skeleton)",
+  description:
+    "Skeleton view of the unified project truth dashboard for all roles.",
+};
+
+export default function PlatformSourceOfTruthSkeletonPage() {
+  return (
+    <SkeletonPlatformLayout view="source-of-truth">
+      <SkeletonSourceOfTruthView />
+    </SkeletonPlatformLayout>
+  );
+}

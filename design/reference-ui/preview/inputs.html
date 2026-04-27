@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>Pulse AI — Form Inputs</title>
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Raleway',sans-serif;
+  background: linear-gradient(180deg, #f5f0ed 0%, #ede4de 100%);
+  padding:24px;
+  -webkit-font-smoothing:antialiased;
+  color:#201d1a;
+}
+.name { font-size:10px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase; color:#8a7d76; margin:0 0 14px 2px; }
+.fields { display:flex; flex-direction:column; gap:16px; }
+.field  { display:flex; flex-direction:column; gap:6px; }
+.label  {
+  font-size:11px; font-weight:600; color:#201d1a;
+  letter-spacing:0.02em; margin-left:1px;
+}
+.req    { color:#a34255; margin-left:3px; font-weight:700; }
+
+/* ── Base input ── */
+.input-base {
+  height:42px; border-radius:10px;
+  border:1px solid rgba(92,69,69,0.14);
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf9 100%);
+  padding:0 14px;
+  font-family:'Raleway',sans-serif;
+  font-size:13px; font-weight:500; color:#201d1a;
+  outline:none; width:100%;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 1px 2px rgba(32,29,26,0.04),
+    0 1px 2px rgba(32,29,26,0.03);
+  transition: border-color 220ms, box-shadow 220ms, background 220ms;
+}
+.input-base::placeholder {
+  color:#a59a93; font-weight:400;
+  font-style: italic; letter-spacing: 0.01em;
+}
+.input-base:hover { border-color:rgba(92,69,69,0.24); }
+.input-base:focus {
+  border-color:#8d354b;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 1px 2px rgba(32,29,26,0.04),
+    0 0 0 3px rgba(141,53,75,0.14),
+    0 4px 12px -2px rgba(141,53,75,0.14);
+}
+
+/* ── Search ── */
+.search-wrap { position:relative; }
+.search-wrap .icon {
+  position:absolute; left:13px; top:50%; transform:translateY(-50%);
+  pointer-events:none; display:flex; align-items:center; color:#b8b0aa;
+  transition: color 200ms;
+}
+.input-search { padding-left:38px; }
+.input-search:focus ~ .icon,
+.search-wrap:focus-within .icon { color:#8d354b; }
+
+/* ─────────────────────────────────
+   CUSTOM SELECT — designed, not default
+───────────────────────────────── */
+.select {
+  position: relative;
+  user-select: none;
+}
+.select-trigger {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(92,69,69,0.14);
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf9 100%);
+  padding: 0 14px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(32,29,26,0.04);
+  transition: border-color 200ms, box-shadow 200ms, background 200ms;
+}
+.select-trigger:hover { border-color: rgba(92,69,69,0.24); }
+.select.open .select-trigger {
+  border-color: #8d354b;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 0 0 3px rgba(141,53,75,0.14),
+    0 6px 16px -4px rgba(141,53,75,0.18);
+}
+
+.select-marker {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #8d354b;
+  box-shadow: 0 0 6px rgba(141,53,75,0.32);
+  flex-shrink: 0;
+}
+.select-value {
+  flex: 1;
+  font-size: 13px; font-weight: 600; color: #201d1a;
+  letter-spacing: -0.005em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.select-placeholder { color: #a59a93; font-weight: 400; font-style: italic; }
+.select-chev {
+  color: #8a7d76;
+  transition: transform 260ms cubic-bezier(0.22,1,0.36,1), color 200ms;
+  flex-shrink: 0;
+}
+.select.open .select-chev { transform: rotate(180deg); color: #8d354b; }
+
+/* ── Menu ── */
+.select-menu {
+  position: absolute;
+  top: calc(100% + 6px); left: 0; right: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(253,251,249,0.98) 100%);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  border: 1px solid rgba(92,69,69,0.12);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 2px 6px rgba(32,29,26,0.08),
+    0 20px 40px -10px rgba(32,29,26,0.22),
+    0 10px 20px -6px rgba(141,53,75,0.08);
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.98);
+  transform-origin: top center;
+  pointer-events: none;
+  transition:
+    opacity 200ms cubic-bezier(0.22,1,0.36,1),
+    transform 240ms cubic-bezier(0.22,1,0.36,1);
+}
+.select.open .select-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.select-menu-head {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #a59a93;
+  padding: 8px 12px 6px;
+}
+.select-option {
+  height: 36px;
+  border-radius: 8px;
+  padding: 0 10px 0 12px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 500; color: #201d1a;
+  cursor: pointer;
+  transition: background 180ms, color 180ms;
+  position: relative;
+}
+.opt-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(92,69,69,0.18);
+  flex-shrink: 0;
+  transition: background 200ms, box-shadow 200ms;
+}
+.opt-label { flex: 1; letter-spacing: -0.005em; }
+.opt-meta {
+  font-size: 10.5px; font-weight: 500; color: #a59a93;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.opt-check {
+  opacity: 0; color: #8d354b;
+  transition: opacity 200ms;
+  flex-shrink: 0;
+}
+.select-option:hover {
+  background: linear-gradient(90deg, rgba(141,53,75,0.06), rgba(141,53,75,0.02));
+  color: #201d1a;
+}
+.select-option.selected {
+  background: linear-gradient(90deg, rgba(141,53,75,0.10), rgba(141,53,75,0.04));
+  color: #8d354b;
+}
+.select-option.selected .opt-dot {
+  background: #8d354b;
+  box-shadow: 0 0 8px rgba(141,53,75,0.40);
+}
+.select-option.selected .opt-check { opacity: 1; }
+.select-option.selected .opt-label { font-weight: 600; color: #8d354b; }
+
+/* ── Error ── */
+.input-error { border-color:#a34255 !important; background: linear-gradient(180deg,#fff,#fdf5f6) !important; }
+.input-error:focus {
+  border-color:#a34255 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 0 0 3px rgba(163,66,85,0.14),
+    0 4px 12px -2px rgba(163,66,85,0.16) !important;
+}
+.error-msg {
+  font-size:11px; color:#a34255; font-weight:600;
+  display:flex; align-items:center; gap:6px; line-height:1.4;
+  letter-spacing:0.01em; margin-top: 2px;
+}
+
+/* ── Read-only — premium locked-data card ── */
+.readonly-card {
+  background: #ffffff;
+  border: 1px solid rgba(32,29,26,0.09);
+  border-radius: 10px;
+  padding: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 1px 2px rgba(32,29,26,0.03);
+  overflow: hidden;
+}
+.ro-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px 0;
+}
+.ro-head-label {
+  font-size: 10px; font-weight: 600;
+  color: #8a7d76; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ro-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 20px; padding: 0 8px 0 7px;
+  background: #f4f0ec;
+  border: 1px solid rgba(32,29,26,0.06);
+  border-radius: 999px;
+  font-size: 10px; font-weight: 600; color: #6f615b;
+  letter-spacing: 0.04em;
+}
+.ro-chip svg { color: #a59a93; }
+.ro-value-row {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 8px 14px 12px;
+}
+.ro-currency {
+  font-size: 13px; font-weight: 600;
+  color: #8a7d76; letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.ro-amount {
+  font-family: 'Raleway', sans-serif;
+  font-size: 26px; font-weight: 700;
+  color: #201d1a; letter-spacing: -0.028em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  margin-left: auto;
+}
+.ro-foot {
+  border-top: 1px solid rgba(32,29,26,0.06);
+  background: #faf7f4;
+  padding: 8px 14px;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10.5px; color: #8a7d76;
+  letter-spacing: 0.01em;
+}
+.ro-foot svg { color: #a59a93; flex-shrink: 0; }
+.ro-foot-sep { color: #c9c0b9; margin: 0 2px; }
+.ro-foot-strong { color: #5a504b; font-weight: 500; }
+
+.helper { font-size:11px; color:#8a7d76; font-weight:400; letter-spacing:0.01em; margin-top: 2px; }
+</style></head>
+<body>
+
+<div class="name">Form Inputs</div>
+<div class="fields">
+
+  <div class="field">
+    <div class="label">Project Name</div>
+    <input class="input-base" placeholder="e.g. Al Noor Tower — Abu Dhabi">
+  </div>
+
+  <div class="field">
+    <div class="search-wrap">
+      <input class="input-base input-search" placeholder="Search documents, RFIs, decisions…">
+      <div class="icon">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.2"/><path d="M10 10l2.4 2.4"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="label">Construction Phase</div>
+    <div class="select" id="phaseSelect">
+      <div class="select-trigger" role="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="select-marker"></span>
+        <span class="select-value">Superstructure</span>
+        <svg class="select-chev" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="select-menu" role="listbox">
+        <div class="select-menu-head">Phase</div>
+        <div class="select-option" data-value="Foundation">
+          <span class="opt-dot"></span>
+          <span class="opt-label">Foundation</span>
+          <span class="opt-meta">Complete</span>
+          <svg class="opt-check" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="select-option selected" data-value="Superstructure">
+          <span class="opt-dot"></span>
+          <span class="opt-label">Superstructure</span>
+          <span class="opt-meta">In progress</span>
+          <svg class="opt-check" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="select-option" data-value="Fit-Out">
+          <span class="opt-dot"></span>
+          <span class="opt-label">Fit-Out</span>
+          <span class="opt-meta">Q3 2026</span>
+          <svg class="opt-check" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="select-option" data-value="Completion">
+          <span class="opt-dot"></span>
+          <span class="opt-label">Completion</span>
+          <span class="opt-meta">Q1 2027</span>
+          <svg class="opt-check" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="label">Schedule Variance<span class="req">*</span></div>
+    <input class="input-base input-error" value="−18 days">
+    <div class="error-msg">
+      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="#a34255" stroke-width="1.5" stroke-linecap="round"><circle cx="5.5" cy="5.5" r="4.5"/><path d="M5.5 3.2v2.6M5.5 7.4v.4"/></svg>
+      Variance exceeds the 14-day acceptable threshold
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="label">Contract Value</div>
+    <div class="readonly-card">
+      <div class="ro-head">
+        <span class="ro-head-label">Total Contract</span>
+        <span class="ro-chip">
+          <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4.5" width="6" height="4" rx="0.8"/><path d="M3.5 4.5V3a1.5 1.5 0 013 0v1.5"/></svg>
+          Locked
+        </span>
+      </div>
+      <div class="ro-value-row">
+        <span class="ro-currency">AED</span>
+        <span class="ro-amount">847,000,000</span>
+      </div>
+      <div class="ro-foot">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5" r="3.8"/><path d="M5 3.2v2l1.2 1"/></svg>
+        Set at project creation
+        <span class="ro-foot-sep">·</span>
+        <span class="ro-foot-strong">12 Mar 2024</span>
+        <span class="ro-foot-sep">·</span>
+        Editable via Change Order
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const sel = document.getElementById('phaseSelect');
+  const trig = sel.querySelector('.select-trigger');
+  const valEl = sel.querySelector('.select-value');
+  const opts = sel.querySelectorAll('.select-option');
+
+  trig.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sel.classList.toggle('open');
+    trig.setAttribute('aria-expanded', sel.classList.contains('open'));
+  });
+
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      opts.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      valEl.textContent = opt.dataset.value;
+      sel.classList.remove('open');
+      trig.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!sel.contains(e.target)) {
+      sel.classList.remove('open');
+      trig.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      sel.classList.remove('open');
+      trig.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Raleway'; src: url('../fonts/Raleway-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+* { margin:0; box-sizing:border-box; }
+body {
+  font-family:'Raleway',sans-serif; background:#eae4df;
+  padding:18px; display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── Shared card shell ── */
+.card {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(1.05);
+  border-radius:10px;
+  border:1px solid rgba(92,69,69,0.10);
+  box-shadow:0 1px 2px rgba(32,29,26,0.04), 0 0 0 0.5px rgba(92,69,69,0.05);
+  overflow:hidden;
+  transition: transform 320ms cubic-bezier(0.22,1,0.36,1),
+              box-shadow 320ms cubic-bezier(0.22,1,0.36,1),
+              border-color 320ms cubic-bezier(0.22,1,0.36,1),
+              background 320ms cubic-bezier(0.22,1,0.36,1);
+}
+.card:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  border-color: rgba(92,69,69,0.18);
+  box-shadow: 0 8px 22px rgba(32,29,26,0.08), 0 1px 2px rgba(32,29,26,0.04);
+}
+
+/* Priority / AI-touched card — tinted wine surface */
+.card-priority {
+  background: linear-gradient(180deg, rgba(141,53,75,0.04) 0%, rgba(141,53,75,0.015) 100%);
+  border-color: rgba(141,53,75,0.16);
+}
+.card-priority:hover {
+  border-color: rgba(141,53,75,0.32);
+  box-shadow: 0 8px 22px rgba(141,53,75,0.10), 0 1px 2px rgba(141,53,75,0.06);
+}
+
+/* ── Project card ── */
+.project-card { width:204px; cursor:pointer; }
+.card-img {
+  height:72px;
+  background:linear-gradient(155deg,#c2ac96 0%,#9e8470 100%);
+  position:relative;
+}
+.card-img-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(30,18,14,0.42) 0%,transparent 55%); }
+.card-tags { position:absolute; top:7px; left:8px; display:flex; gap:3px; }
+.tag {
+  padding:2px 6px; border-radius:3px;
+  font-size:8px; font-weight:700; letter-spacing:0.07em; text-transform:uppercase;
+}
+.tag-active { background:rgba(141,53,75,0.80); color:#fff; }
+.tag-pub    { background:rgba(0,0,0,0.26); color:rgba(255,255,255,0.82); }
+.card-body  { padding:11px 12px 12px; }
+.card-title { font-size:12px; font-weight:700; letter-spacing:-0.012em; color:#201d1a; margin-bottom:1px; }
+.card-loc   { font-size:10px; font-weight:400; color:#a09690; margin-bottom:8px; }
+.card-bar   { height:2px; background:rgba(92,69,69,0.09); border-radius:1px; margin-bottom:7px; }
+.card-fill  { height:2px; border-radius:1px; }
+.card-foot  { display:flex; justify-content:space-between; }
+.card-pct   { font-size:10px; font-weight:600; color:#6b6159; }
+.card-var   { font-size:10px; font-weight:700; color:#b8712a; }
+
+/* ── Metric card ── */
+.metric-card { width:120px; padding:12px 13px; }
+.m-label { font-size:8px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#b0a8a2; margin-bottom:4px; }
+.m-val   { font-size:26px; font-weight:800; letter-spacing:-0.042em; line-height:1; font-variant-numeric:tabular-nums; }
+.m-val.wine  { color:#8d354b; }
+.m-val.warn  { color:#b8712a; }
+.m-val.green { color:#3d7a58; }
+.m-val.dark  { color:#201d1a; }
+.m-sub  { font-size:9px; font-weight:400; color:#b0a8a2; margin-top:2px; }
+.m-bar  { height:2px; background:rgba(92,69,69,0.09); border-radius:1px; margin-top:9px; }
+.m-fill { height:2px; border-radius:1px; }
+
+/* ── Document list card ── */
+.doc-card { width:262px; }
+.doc-header {
+  padding:9px 13px 8px;
+  border-bottom:1px solid rgba(92,69,69,0.07);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.doc-title { font-size:11px; font-weight:700; color:#201d1a; letter-spacing:-0.008em; }
+.doc-count { font-size:9px; font-weight:700; color:#a09690; background:rgba(92,69,69,0.07); padding:1px 5px; border-radius:3px; }
+.doc-row {
+  display:flex; align-items:center; gap:9px; padding:8px 13px;
+  border-bottom:1px solid rgba(92,69,69,0.06);
+  transition:background 120ms;
+}
+.doc-row:last-child { border-bottom:none; }
+.doc-row:hover { background:rgba(141,53,75,0.02); }
+.doc-icon { width:24px; height:24px; border-radius:5px; background:#ede6e0; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.doc-icon svg { display:block; }
+.doc-name { font-size:11px; font-weight:600; color:#201d1a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.doc-meta { font-size:9px; font-weight:400; color:#b0a8a2; margin-top:1px; }
+.badge { padding:2px 6px; border-radius:3px; font-size:8px; font-weight:700; flex-shrink:0; }
+.b-ok   { background:rgba(61,122,88,0.09); color:#3d7a58; }
+.b-warn { background:rgba(184,113,42,0.09); color:#b8712a; }
+.b-info { background:rgba(62,99,158,0.09); color:#3e639e; }
+</style></head>
+<body>
+
+<!-- Project card -->
+<div class="card project-card card-priority">
+  <div class="card-img">
+    <div class="card-img-overlay"></div>
+    <div class="card-tags">
+      <span class="tag tag-active">Active</span>
+      <span class="tag tag-pub">Public</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-title">Al Noor Tower</div>
+    <div class="card-loc">Abu Dhabi · AED 847M</div>
+    <div class="card-bar"><div class="card-fill" style="width:67%;background:#8d354b"></div></div>
+    <div class="card-foot">
+      <span class="card-pct">67% complete</span>
+      <span class="card-var">−18 days</span>
+    </div>
+  </div>
+</div>
+
+<!-- Metric stack -->
+<div style="display:flex;flex-direction:column;gap:8px">
+  <div class="card metric-card">
+    <div class="m-label">Progress</div>
+    <div class="m-val wine">67%</div>
+    <div class="m-sub">On track</div>
+    <div class="m-bar"><div class="m-fill" style="width:67%;background:#8d354b"></div></div>
+  </div>
+  <div class="card metric-card">
+    <div class="m-label">Schedule</div>
+    <div class="m-val warn">−18</div>
+    <div class="m-sub">Days behind</div>
+  </div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+  <div class="card metric-card">
+    <div class="m-label">Active Projects</div>
+    <div class="m-val dark">81</div>
+    <div class="m-sub">of 138 total</div>
+    <div class="m-bar"><div class="m-fill" style="width:59%;background:#3e639e"></div></div>
+  </div>
+  <div class="card metric-card">
+    <div class="m-label">Confidence</div>
+    <div class="m-val green">95%</div>
+    <div class="m-sub">Forecast</div>
+  </div>
+</div>
+
+<!-- Document list -->
+<div class="card doc-card">
+  <div class="doc-header">
+    <span class="doc-title">Project Records</span>
+    <span class="doc-count">22</span>
+  </div>
+  <div class="doc-row">
+    <div class="doc-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8d354b" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="1.5" width="8" height="9" rx="1"/><path d="M4 4.5h4M4 6.5h3"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div class="doc-name">Structural Drawings Update #5</div>
+      <div class="doc-meta">Jane Oshiro · 3 days ago</div>
+    </div>
+    <span class="badge b-ok">Approved</span>
+  </div>
+  <div class="doc-row">
+    <div class="doc-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8d354b" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="1.5" width="8" height="9" rx="1"/><path d="M4 4.5h4M4 6.5h3"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div class="doc-name">Weekly Progress Report — Apr 22</div>
+      <div class="doc-meta">Erik M. · 1 week ago</div>
+    </div>
+    <span class="badge b-warn">Pending</span>
+  </div>
+  <div class="doc-row">
+    <div class="doc-icon">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#8d354b" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="1.5" width="8" height="9" rx="1"/><path d="M4 4.5h4M4 6.5h3"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div class="doc-name">Revised Core Wall Design — CO#14</div>
+      <div class="doc-meta">You · 1 week ago</div>
+    </div>
+    <span class="badge b-info">Review</span>
+  </div>
+</div>
+
+</body></html>
