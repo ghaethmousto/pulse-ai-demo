@@ -35,7 +35,7 @@ export function KpiCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 8 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}

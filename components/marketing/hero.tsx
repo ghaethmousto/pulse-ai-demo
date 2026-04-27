@@ -25,7 +25,7 @@ export function Hero() {
 
       <div className="mx-auto max-w-6xl px-5 pt-12 pb-10 lg:px-8 lg:pt-20 lg:pb-14">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="inline-flex items-center gap-2 rounded-full border-[1.25px] border-border bg-card/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground backdrop-blur"
@@ -35,7 +35,7 @@ export function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="mt-5 max-w-[60rem] text-balance text-[40px] font-semibold leading-[1.04] tracking-[-0.03em] text-foreground sm:text-[52px] lg:text-[64px]"
@@ -44,7 +44,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           className="mt-5 max-w-[42rem] text-pretty text-[15px] leading-[1.55] text-muted-foreground sm:text-[16px]"
@@ -53,7 +53,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="mt-7 flex flex-wrap items-center gap-3"
@@ -79,7 +79,7 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10"

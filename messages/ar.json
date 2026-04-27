@@ -7,7 +7,17 @@
     "tasks": "المهام",
     "approvals": "الاعتمادات",
     "reports": "التقارير",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "timeline": "Timeline",
+    "documents": "Documents",
+    "stakeholders": "Stakeholders",
+    "meetings": "Meetings",
+    "site": "Site",
+    "aiInsights": "AI Insights",
+    "risks": "Risks",
+    "financials": "Financials",
+    "templates": "Templates",
+    "team": "Team"
   },
   "common": {
     "theme": "المظهر",
@@ -152,7 +162,11 @@
     "sections": {
       "workspace": "مساحة العمل",
       "monitor": "المتابعة",
-      "system": "النظام"
+      "system": "النظام",
+      "control": "Control",
+      "projectData": "Project Data",
+      "intelligence": "Intelligence",
+      "business": "Business"
     }
   },
   "pulseAssistant": {

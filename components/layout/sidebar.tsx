@@ -2,12 +2,22 @@
 
 import { useTranslations } from "next-intl";
 import {
+  Brain,
+  CalendarClock,
+  CalendarDays,
   ClipboardCheck,
+  Copy,
+  DollarSign,
   FileBarChart,
+  FileText,
   Folders,
   LayoutDashboard,
   ListChecks,
+  MapPin,
   Settings,
+  ShieldAlert,
+  UserRound,
+  Users,
   Waves,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -21,7 +31,7 @@ type NavItem = {
   href: string;
   key: string;
   icon: LucideIcon;
-  section: "workspace" | "monitor" | "system";
+  section: "workspace" | "control" | "projectData" | "intelligence" | "business" | "system";
   badge?: number;
   liveDot?: boolean;
 };
@@ -31,15 +41,32 @@ function buildNav(): NavItem[] {
   return [
     { href: "/dashboard", key: "dashboard", icon: LayoutDashboard, section: "workspace" },
     { href: "/projects", key: "projects", icon: Folders, section: "workspace" },
-    { href: "/pulse", key: "pulse", icon: Waves, section: "monitor", liveDot: true },
-    { href: "/tasks", key: "tasks", icon: ListChecks, section: "monitor", badge: data.project.overdueTasks },
-    { href: "/approvals", key: "approvals", icon: ClipboardCheck, section: "monitor", badge: data.project.blockedApprovals },
-    { href: "/reports", key: "reports", icon: FileBarChart, section: "monitor" },
+    { href: "/pulse", key: "pulse", icon: Waves, section: "control", liveDot: true },
+    { href: "/timeline", key: "timeline", icon: CalendarClock, section: "control" },
+    { href: "/tasks", key: "tasks", icon: ListChecks, section: "control", badge: data.project.overdueTasks },
+    { href: "/approvals", key: "approvals", icon: ClipboardCheck, section: "control", badge: data.project.blockedApprovals },
+    { href: "/documents", key: "documents", icon: FileText, section: "projectData" },
+    { href: "/stakeholders", key: "stakeholders", icon: Users, section: "projectData" },
+    { href: "/meetings", key: "meetings", icon: CalendarDays, section: "projectData" },
+    { href: "/site", key: "site", icon: MapPin, section: "projectData" },
+    { href: "/insights", key: "aiInsights", icon: Brain, section: "intelligence" },
+    { href: "/risks", key: "risks", icon: ShieldAlert, section: "intelligence" },
+    { href: "/reports", key: "reports", icon: FileBarChart, section: "intelligence" },
+    { href: "/financials", key: "financials", icon: DollarSign, section: "business" },
+    { href: "/templates", key: "templates", icon: Copy, section: "business" },
+    { href: "/team", key: "team", icon: UserRound, section: "system" },
     { href: "/settings", key: "settings", icon: Settings, section: "system" },
   ];
 }
 
-const SECTIONS: Array<NavItem["section"]> = ["workspace", "monitor", "system"];
+const SECTIONS: Array<NavItem["section"]> = [
+  "workspace",
+  "control",
+  "projectData",
+  "intelligence",
+  "business",
+  "system",
+];
 
 export function Sidebar() {
   const pathname = usePathname();

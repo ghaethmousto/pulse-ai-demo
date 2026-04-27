@@ -4,7 +4,6 @@ import * as React from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { AnimatePresence, motion } from "motion/react";
 
 import { findAnswer, getDialogues } from "@/lib/data/dialogues";
 import { routeKeyFromPath } from "@/lib/utils/route-key";
@@ -80,16 +79,11 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
       className="fixed z-50 [inset-block-end:1.5rem] [inset-inline-end:1.5rem]"
       dir={isAr ? "rtl" : "ltr"}
     >
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
+      {open && (
+          <div
             key="panel"
             role="dialog"
             aria-label={tAssistant("label")}
-            initial={{ opacity: 0, y: 10, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.985 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="absolute end-0 w-[296px] max-w-[calc(100vw-2rem)] [bottom:calc(100%+12px)] origin-bottom rounded-[20px] p-[8px] backdrop-blur-[22px] backdrop-saturate-[1.15]"
             style={{
               background: "var(--pulse-panel-bg)",
@@ -329,21 +323,18 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
                 </button>
               </form>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* Launcher — official Pulse - Red Circle Icon as the entire visual.
           The asset already provides the wine disc and the white pulse glyph;
           we add only a soft breathing halo behind it for "floating + alive". */}
-      <motion.button
+      <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.96 }}
         aria-label={open ? tAssistant("close") : tAssistant("open")}
         aria-expanded={open}
-        className="relative grid size-[60px] place-items-center rounded-full"
+        className="relative z-[1] grid size-[60px] place-items-center rounded-full transition hover:scale-[1.04] active:scale-[0.96]"
         style={{
           // No background here — the SVG asset is the disc.
           filter:
@@ -378,7 +369,7 @@ export function PulseFloatingAI({ locale }: { locale: string }) {
           priority
           className="relative z-[1] block size-[60px]"
         />
-      </motion.button>
+      </button>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function ProblemSolution() {
 function Card({ children, index }: { children: React.ReactNode; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}

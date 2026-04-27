@@ -42,7 +42,7 @@ export function Modules() {
         {ITEMS.map(({ key, icon: Icon }, i) => (
           <motion.article
             key={key}
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.4, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}

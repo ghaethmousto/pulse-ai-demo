@@ -62,7 +62,10 @@ export default async function LocaleLayout({
       className={`${raleway.variable} ${plexArabic.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-dvh bg-background text-foreground antialiased">
+      <body
+        className="min-h-dvh bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             {children}

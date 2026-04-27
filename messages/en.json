@@ -4,9 +4,19 @@
     "dashboard": "Dashboard",
     "projects": "Projects",
     "pulse": "Project Pulse",
+    "timeline": "Timeline",
     "tasks": "Tasks",
     "approvals": "Approvals",
+    "documents": "Documents",
+    "stakeholders": "Stakeholders",
+    "meetings": "Meetings",
+    "site": "Site",
+    "aiInsights": "AI Insights",
+    "risks": "Risks",
     "reports": "Reports",
+    "financials": "Financials",
+    "templates": "Templates",
+    "team": "Team",
     "settings": "Settings"
   },
   "common": {
@@ -151,7 +161,10 @@
     "role": "Owner Portal",
     "sections": {
       "workspace": "Workspace",
-      "monitor": "Monitor",
+      "control": "Control",
+      "projectData": "Project Data",
+      "intelligence": "Intelligence",
+      "business": "Business",
       "system": "System"
     }
   },
