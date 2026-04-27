@@ -1,0 +1,60 @@
+{
+  "projects": [
+    {
+      "id": "PRJ-AD-ART-001",
+      "slug": "al-reem-tower",
+      "name": {
+        "en": "Al Reem Tower",
+        "ar": "برج الريم"
+      },
+      "location": {
+        "en": "Al Reem Island, Abu Dhabi, UAE",
+        "ar": "جزيرة الريم، أبوظبي، الإمارات"
+      },
+      "type": {
+        "en": "High-rise residential tower",
+        "ar": "برج سكني شاهق"
+      },
+      "configuration": "B3 + G + 4P + 38 Typical Floors + Roof Amenities",
+      "plotAreaSqm": 4120,
+      "grossFloorAreaSqm": 48600,
+      "units": {
+        "studios": 62,
+        "oneBedroom": 128,
+        "twoBedroom": 84,
+        "threeBedroom": 18,
+        "total": 292
+      },
+      "client": "Al Reem Development Holding LLC",
+      "consultant": "Al Bahri Engineering Consultancies & Interior Design LLC",
+      "contractor": "Starco International Construction (Demo)",
+      "projectManager": "Pulse AI Demo PMO",
+      "contractValueAED": 185000000,
+      "designFeesAED": 3250000,
+      "plannedStart": "2026-01-12",
+      "plannedHandover": "2028-05-30",
+      "currentPhase": {
+        "en": "Design Development / Authority Coordination",
+        "ar": "تطوير التصميم / تنسيق الجهات"
+      },
+      "overallStatus": "At Risk",
+      "riskLevel": "High",
+      "progressPercent": 46,
+      "plannedProgressPercent": 53,
+      "delayDays": 18,
+      "costExposureAED": 3750000,
+      "openRisks": 9,
+      "criticalRisks": 3,
+      "openApprovals": 14,
+      "blockedApprovals": 4,
+      "openTasks": 37,
+      "overdueTasks": 8,
+      "latestSiteVisit": "2026-04-22",
+      "nextMilestone": {
+        "en": "Authority submission package freeze",
+        "ar": "تجميد حزمة التقديم للجهات"
+      },
+      "nextMilestoneDate": "2026-05-08"
+    }
+  ]
+}
