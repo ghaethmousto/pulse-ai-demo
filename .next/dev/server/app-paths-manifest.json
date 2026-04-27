@@ -1,4 +1,6 @@
 {
   "/[locale]/(marketing)/page": "app/[locale]/(marketing)/page.js",
-  "/skeleton/product/page": "app/skeleton/product/page.js"
+  "/skeleton/platform/source-of-truth/page": "app/skeleton/platform/source-of-truth/page.js",
+  "/skeleton/product/page": "app/skeleton/product/page.js",
+  "/skeleton/solutions/page": "app/skeleton/solutions/page.js"
 }
