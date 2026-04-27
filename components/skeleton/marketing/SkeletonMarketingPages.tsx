@@ -58,6 +58,20 @@ function FeatureVisual({ label }: { label: string }) {
   );
 }
 
+/* Solutions page card backgrounds — index-mapped to outcome strip
+   cells (Owner / Consultant / Contractor) and to per-role preview
+   tiles (Owner brief / RFI cycle / Tower B). */
+const SOLUTIONS_OUTCOME_BG = [
+  "/assets/cards%20background/1-2.png",
+  "/assets/cards%20background/2.png",
+  "/assets/cards%20background/3.png",
+];
+const SOLUTIONS_PREVIEW_BG = [
+  "/assets/cards%20background/Solutions/2.png",
+  "/assets/cards%20background/Solutions/3.png",
+  "/assets/cards%20background/Solutions/4.png",
+];
+
 export function SkeletonResourcesPage() {
   const t = useTranslations("skeleton.resources");
   const layers = t.raw("layers") as {
@@ -166,7 +180,7 @@ export function SkeletonSolutionsPage() {
           className="pointer-events-none absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("/assets/cards%20background/1-1.png")',
+              'url("/assets/cards%20background/Solutions/1.png")',
           }}
         />
         {/* Readability wash — light in light mode, dark in dark mode */}
@@ -199,19 +213,35 @@ export function SkeletonSolutionsPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-10">
         <div className="grid grid-cols-1 overflow-hidden rounded-md border border-border bg-card md:grid-cols-3">
-          {outcomes.map((o) => (
-            <div key={o.label} className="border-border p-6 md:border-e last:md:border-e-0">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                {o.label}
-              </p>
-              <p className="mt-2 text-4xl font-semibold bidi-isolate">{o.value}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{o.caption}</p>
+          {outcomes.map((o, i) => (
+            <div
+              key={o.label}
+              className="relative overflow-hidden border-border p-6 md:border-e last:md:border-e-0"
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url("${SOLUTIONS_OUTCOME_BG[i] ?? ""}")`,
+                }}
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-white/72 dark:bg-black/68"
+              />
+              <div className="relative">
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {o.label}
+                </p>
+                <p className="mt-2 text-4xl font-semibold bidi-isolate">{o.value}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{o.caption}</p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {sections.map((section) => (
+      {sections.map((section, i) => (
         <section key={section.tag} className="border-t border-border">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-2">
             <div>
@@ -256,7 +286,24 @@ export function SkeletonSolutionsPage() {
                   {t("liveView")}
                 </span>
               </div>
-              <FeatureVisual label={t("previewLabel")} />
+              <div
+                className="relative mt-5 h-36 overflow-hidden rounded-md border border-border"
+              >
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url("${SOLUTIONS_PREVIEW_BG[i] ?? ""}")`,
+                  }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-white/30 dark:bg-black/40"
+                />
+                <div className="relative flex h-full items-center justify-center text-xs text-muted-foreground/80">
+                  {t("previewLabel")}
+                </div>
+              </div>
               <div className="mt-4 flex flex-wrap gap-2">
                 {section.chips.slice(0, 2).map((chip) => (
                   <span
