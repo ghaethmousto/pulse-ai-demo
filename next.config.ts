@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: dirname(fileURLToPath(import.meta.url)),
   },
+  allowedDevOrigins: ["*.replit.dev", "*.repl.co", "*.kirk.replit.dev"],
 };
 
 export default withNextIntl(nextConfig);
