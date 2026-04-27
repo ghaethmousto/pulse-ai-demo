@@ -4,7 +4,7 @@ import { startTransition, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/providers/theme-provider";
 import { useLocale as useIntlLocale, useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import {

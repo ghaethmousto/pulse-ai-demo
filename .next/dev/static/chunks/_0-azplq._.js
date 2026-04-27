@@ -4,56 +4,95 @@
 
 __turbopack_context__.s([
     "ThemeProvider",
-    ()=>ThemeProvider
+    ()=>ThemeProvider,
+    "useTheme",
+    ()=>useTheme
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-themes/dist/index.mjs [app-client] (ecmascript)");
 ;
-var _s = __turbopack_context__.k.signature();
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 "use client";
 ;
-;
-const THEME_STORAGE_KEY = "pulse-theme";
 const THEMES = [
     "light",
     "dark"
 ];
+const THEME_STORAGE_KEY = "pulse-theme";
+const DEFAULT_THEME = "dark";
+const ThemeContext = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"](undefined);
+function applyTheme(theme) {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    root.classList.remove(...THEMES);
+    root.classList.add(theme);
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+}
+function readStoredTheme() {
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+        if (stored === "light" || stored === "dark") return stored;
+    } catch  {
+    // ignore
+    }
+    return DEFAULT_THEME;
+}
 function ThemeProvider({ children }) {
     _s();
+    const [theme, setThemeState] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"](DEFAULT_THEME);
     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"]({
         "ThemeProvider.useEffect": ()=>{
-            const root = document.documentElement;
-            const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-            const theme = stored === "light" || stored === "dark" ? stored : "dark";
-            root.classList.remove(...THEMES, "system");
-            root.classList.add(theme);
-            root.dataset.theme = theme;
-            root.style.colorScheme = theme;
-            window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+            const initial = readStoredTheme();
+            setThemeState(initial);
+            applyTheme(initial);
         }
     }["ThemeProvider.useEffect"], []);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ThemeProvider"], {
-        attribute: [
-            "class",
-            "data-theme"
-        ],
-        defaultTheme: "dark",
-        enableSystem: false,
-        disableTransitionOnChange: true,
-        storageKey: THEME_STORAGE_KEY,
-        themes: [
-            ...THEMES
-        ],
+    const setTheme = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"]({
+        "ThemeProvider.useCallback[setTheme]": (next)=>{
+            setThemeState(next);
+            applyTheme(next);
+            try {
+                window.localStorage.setItem(THEME_STORAGE_KEY, next);
+            } catch  {
+            // ignore
+            }
+        }
+    }["ThemeProvider.useCallback[setTheme]"], []);
+    const value = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"]({
+        "ThemeProvider.useMemo[value]": ()=>({
+                theme,
+                setTheme
+            })
+    }["ThemeProvider.useMemo[value]"], [
+        theme,
+        setTheme
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ThemeContext.Provider, {
+        value: value,
         children: children
     }, void 0, false, {
         fileName: "[project]/components/providers/theme-provider.tsx",
-        lineNumber: 23,
-        columnNumber: 5
+        lineNumber: 59,
+        columnNumber: 10
     }, this);
 }
-_s(ThemeProvider, "OD7bBpZva5O2jO+Puf00hKivP7c=");
+_s(ThemeProvider, "aOJzZZDBqFT8h3SLlzZ6tfX+CYc=");
 _c = ThemeProvider;
+function useTheme() {
+    _s1();
+    const ctx = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useContext"](ThemeContext);
+    if (!ctx) {
+        return {
+            theme: DEFAULT_THEME,
+            setTheme: ()=>{}
+        };
+    }
+    return ctx;
+}
+_s1(useTheme, "/dMy7t63NXD4eYACoT93CePwGrg=");
 var _c;
 __turbopack_context__.k.register(_c, "ThemeProvider");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

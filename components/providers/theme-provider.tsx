@@ -1,34 +1,68 @@
 "use client";
 
 import * as React from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
 
+type Theme = "light" | "dark";
+
+const THEMES: readonly Theme[] = ["light", "dark"];
 const THEME_STORAGE_KEY = "pulse-theme";
-const THEMES = ["light", "dark"] as const;
+const DEFAULT_THEME: Theme = "dark";
+
+type ThemeContextValue = {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+};
+
+const ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
+
+function applyTheme(theme: Theme) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.classList.remove(...THEMES);
+  root.classList.add(theme);
+  root.dataset.theme = theme;
+  root.style.colorScheme = theme;
+}
+
+function readStoredTheme(): Theme {
+  if (typeof window === "undefined") return DEFAULT_THEME;
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+  } catch {
+    // ignore
+  }
+  return DEFAULT_THEME;
+}
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  React.useEffect(() => {
-    const root = document.documentElement;
-    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-    const theme = stored === "light" || stored === "dark" ? stored : "dark";
+  const [theme, setThemeState] = React.useState<Theme>(DEFAULT_THEME);
 
-    root.classList.remove(...THEMES, "system");
-    root.classList.add(theme);
-    root.dataset.theme = theme;
-    root.style.colorScheme = theme;
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  React.useEffect(() => {
+    const initial = readStoredTheme();
+    setThemeState(initial);
+    applyTheme(initial);
   }, []);
 
-  return (
-    <NextThemesProvider
-      attribute={["class", "data-theme"]}
-      defaultTheme="dark"
-      enableSystem={false}
-      disableTransitionOnChange
-      storageKey={THEME_STORAGE_KEY}
-      themes={[...THEMES]}
-    >
-      {children}
-    </NextThemesProvider>
-  );
+  const setTheme = React.useCallback((next: Theme) => {
+    setThemeState(next);
+    applyTheme(next);
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const value = React.useMemo(() => ({ theme, setTheme }), [theme, setTheme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+}
+
+export function useTheme(): ThemeContextValue {
+  const ctx = React.useContext(ThemeContext);
+  if (!ctx) {
+    return { theme: DEFAULT_THEME, setTheme: () => {} };
+  }
+  return ctx;
 }

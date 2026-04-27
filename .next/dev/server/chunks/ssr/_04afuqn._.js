@@ -4,49 +4,76 @@ module.exports = [
 
 __turbopack_context__.s([
     "ThemeProvider",
-    ()=>ThemeProvider
+    ()=>ThemeProvider,
+    "useTheme",
+    ()=>useTheme
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-themes/dist/index.mjs [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
-;
-const THEME_STORAGE_KEY = "pulse-theme";
 const THEMES = [
     "light",
     "dark"
 ];
+const THEME_STORAGE_KEY = "pulse-theme";
+const DEFAULT_THEME = "dark";
+const ThemeContext = /*#__PURE__*/ __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createContext"](undefined);
+function applyTheme(theme) {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    root.classList.remove(...THEMES);
+    root.classList.add(theme);
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+}
+function readStoredTheme() {
+    if ("TURBOPACK compile-time truthy", 1) return DEFAULT_THEME;
+    //TURBOPACK unreachable
+    ;
+}
 function ThemeProvider({ children }) {
+    const [theme, setThemeState] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"](DEFAULT_THEME);
     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"](()=>{
-        const root = document.documentElement;
-        const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-        const theme = stored === "light" || stored === "dark" ? stored : "dark";
-        root.classList.remove(...THEMES, "system");
-        root.classList.add(theme);
-        root.dataset.theme = theme;
-        root.style.colorScheme = theme;
-        window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+        const initial = readStoredTheme();
+        setThemeState(initial);
+        applyTheme(initial);
     }, []);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ThemeProvider"], {
-        attribute: [
-            "class",
-            "data-theme"
-        ],
-        defaultTheme: "dark",
-        enableSystem: false,
-        disableTransitionOnChange: true,
-        storageKey: THEME_STORAGE_KEY,
-        themes: [
-            ...THEMES
-        ],
+    const setTheme = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"]((next)=>{
+        setThemeState(next);
+        applyTheme(next);
+        try {
+            window.localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch  {
+        // ignore
+        }
+    }, []);
+    const value = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"](()=>({
+            theme,
+            setTheme
+        }), [
+        theme,
+        setTheme
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ThemeContext.Provider, {
+        value: value,
         children: children
     }, void 0, false, {
         fileName: "[project]/components/providers/theme-provider.tsx",
-        lineNumber: 23,
-        columnNumber: 5
+        lineNumber: 59,
+        columnNumber: 10
     }, this);
+}
+function useTheme() {
+    const ctx = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useContext"](ThemeContext);
+    if (!ctx) {
+        return {
+            theme: DEFAULT_THEME,
+            setTheme: ()=>{}
+        };
+    }
+    return ctx;
 }
 }),
 "[project]/demo-data/pulse-ai-demo-dialogues.json.[json].cjs [app-ssr] (ecmascript)", ((__turbopack_context__, module, exports) => {

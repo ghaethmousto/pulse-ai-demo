@@ -4,7 +4,7 @@ import { startTransition, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/providers/theme-provider";
 import { useTranslations } from "next-intl";
 import {
   skeletonAuthLinks,
