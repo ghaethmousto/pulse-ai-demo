@@ -1,6 +1,11 @@
+modules = ["nodejs-24"]
+
 run = "npm run dev -- --hostname 0.0.0.0 --port 3000"
 
+[nix]
+channel = "stable-24_05"
+
 [deployment]
-run = ["sh", "-c", "npm run start"]
-build = ["sh", "-c", "npm run build"]
 deploymentTarget = "autoscale"
+build = ["npm", "run", "build"]
+run = ["npm", "run", "start"]
